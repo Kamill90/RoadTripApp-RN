@@ -1,10 +1,11 @@
 import React from 'react';
 import {View, Text, Button, StyleSheet} from 'react-native';
+import {NavigationInjectedProps} from 'react-navigation';
 
 import {LocationManager} from 'services';
 import {AddressData} from 'api';
 
-export class HomeScreen extends React.PureComponent {
+export class HomeScreen extends React.PureComponent<NavigationInjectedProps> {
   componentDidMount() {
     this.updateLocation();
   }
@@ -39,7 +40,7 @@ export class HomeScreen extends React.PureComponent {
   };
 
   goToGame = () => {
-    // this.props.navigation.navigate('Quiz');
+    this.props.navigation.navigate('Quiz');
   };
 
   sendLocalNotification = () => {

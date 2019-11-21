@@ -1,6 +1,7 @@
 import {createStackNavigator} from 'react-navigation-stack';
 
 import {HomeScreen} from '../screens/HomeScreen';
+import {QuizScreen} from '../screens/QuizScreen';
 
 export const MainNavigator = createStackNavigator(
   {
@@ -9,6 +10,9 @@ export const MainNavigator = createStackNavigator(
       navigationOptions: {
         title: 'Road trip game',
       },
+    },
+    Quiz: {
+      screen: QuizScreen,
     },
   },
   {headerMode: 'screen'},
