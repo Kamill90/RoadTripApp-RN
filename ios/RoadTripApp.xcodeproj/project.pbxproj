@@ -148,7 +148,6 @@
 				F351C1B3920C5B920E099B27 /* Pods-RoadTripAppTests.debug.xcconfig */,
 				913B8963DDAD58DF98D0716E /* Pods-RoadTripAppTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -308,6 +307,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
