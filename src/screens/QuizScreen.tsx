@@ -1,16 +1,29 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
-// import { compose, graphql } from 'react-apollo';
+import {graphql} from 'react-apollo';
+import compose from 'lodash.flowright';
 import {NavigationInjectedProps} from 'react-navigation';
 
-// import { locationDataQuery } from 'api';
+import {locationDataQuery} from 'api';
 
-export class QuizScreen extends React.PureComponent {
+interface Props extends NavigationInjectedProps {
+  locationDataResults: any;
+}
+
+class QuizScreen extends React.PureComponent<Props> {
   render() {
+    const {locationDataResults} = this.props;
+    if (locationDataResults.loading) {
+      return null;
+    }
     return (
       <View style={styles.mainContainer}>
-        <Text>countryRegion:</Text>
-        <Text>adminDistrict:</Text>
+        <Text>
+          countryRegion: {locationDataResults.locationData.countryRegion}
+        </Text>
+        <Text>
+          adminDistrict: {locationDataResults.locationData.adminDistrict}
+        </Text>
       </View>
     );
   }
@@ -24,6 +37,6 @@ const styles = StyleSheet.create({
   },
 });
 
-// export default compose(
-//   graphql(locationDataQuery, { name: 'locationDataResults' }),
-// )(QuizScreen);
+export default compose(
+  graphql(locationDataQuery, {name: 'locationDataResults'}),
+)(QuizScreen);

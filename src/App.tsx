@@ -1,5 +1,6 @@
 import React from 'react';
 import Config from 'react-native-config';
+import {ApolloProvider} from 'react-apollo';
 import {
   SafeAreaView,
   StyleSheet,
@@ -13,6 +14,7 @@ import {
 import {createAppContainer} from 'react-navigation';
 
 import {MainNavigator} from './navigators/MainNavigator';
+import {client} from './api';
 
 if (Platform.OS === 'android') {
   PermissionsAndroid.request(
@@ -29,6 +31,10 @@ if (Platform.OS === 'android') {
 
 const AppContainer = createAppContainer(MainNavigator);
 
-const App = () => <AppContainer />;
+const App = () => (
+  <ApolloProvider client={client}>
+    <AppContainer />
+  </ApolloProvider>
+);
 
 export default App;
