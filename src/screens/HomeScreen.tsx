@@ -3,7 +3,6 @@ import {StyleSheet, View, Button, Text, Alert} from 'react-native';
 import {graphql} from 'react-apollo';
 import {NavigationInjectedProps} from 'react-navigation';
 import compose from 'lodash.flowright';
-// import BackgroundFetch from 'react-native-background-fetch';
 
 import {
   setLocationDataMutation,
@@ -26,36 +25,16 @@ interface State {
   locationInterval: () => void;
 }
 
-class HomeScreen extends PureComponent<Props> {
+class HomeScreen extends PureComponent<Props, any> {
   state = {
     locationInterval: setInterval(() => {}),
   };
 
-  // maybe later - scheduled notification needs to be enough
+  componentDidUpdate() {
+    this.updateLocation();
+  }
 
-  // componentDidMount() {
-  //   BackgroundFetch.configure(
-  //     {
-  //       minimumFetchInterval: 15,
-  //       // Android options
-  //       stopOnTerminate: false,
-  //       startOnBoot: true,
-  //     },
-  //     () => {
-  //       console.log('[js] Received background-fetch event');
-  //       notificationService.localNotification();
-  //       notificationService.scheduledNotification();
-  //       this.updateLocation();
-  //       // Required: Signal completion of your task to native code
-  //       // If you fail to do this, the OS can terminate your app
-  //       // or assign battery-blame for consuming too much background-time
-  //       BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
-  //     },
-  //     error => {
-  //       console.log('[js] RNBackgroundFetch failed to start');
-  //     },
-  //   );
-  // }
+  // maybe later - scheduled notification needs to be enough
   updateLocation = async () => {
     try {
       const address = (await LocationManager.getCurrentLocation()) as AddressData;
