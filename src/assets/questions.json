@@ -1,0 +1,52 @@
+[
+  {
+    "id": "1",
+    "type": "question",
+    "reason": {
+      "countryRegion": "Poland"
+    },
+    "question": "Które miasto jest obecną stolicą Polski",
+    "correct_answer": "Warszawa",
+    "incorrect_answers": ["Gdańsk", "Kraków", "Mońki"]
+  },
+  {
+    "id": "2",
+    "type": "question",
+    "reason": {
+      "countryRegion": "England"
+    },
+    "question": "Które miasto jest obecną stolicą Anglii",
+    "correct_answer": "London",
+    "incorrect_answers": ["Gdańsk", "Kraków", "Mońki"]
+  },
+  {
+    "id": "3",
+    "type": "question",
+    "reason": {
+      "country": "PL"
+    },
+    "question": "Które miasto jest obecną stolicą Polski",
+    "correct_answer": "Warszawa",
+    "incorrect_answers": ["Gdańsk", "Kraków", "Mońki"]
+  },
+  {
+    "id": "4",
+    "type": "question",
+    "reason": {
+      "country": "PL"
+    },
+    "question": "Które miasto jest obecną stolicą Polski",
+    "correct_answer": "Warszawa",
+    "incorrect_answers": ["Gdańsk", "Kraków", "Mońki"]
+  },
+  {
+    "id": "5",
+    "type": "question",
+    "reason": {
+      "country": "PL"
+    },
+    "question": "Które miasto jest obecną stolicą Polski",
+    "correct_answer": "Warszawa",
+    "incorrect_answers": ["Gdańsk", "Kraków", "Mońki"]
+  }
+]

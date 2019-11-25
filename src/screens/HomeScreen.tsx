@@ -9,41 +9,55 @@ import {
   LocationData,
   AddressData,
   locationDataQuery,
+  setGameSettingsMutation,
+  gameSettingsQuery,
+  GameSettings,
 } from 'api';
-import {LocationManager} from 'services';
+import {LocationManager, NotificationService} from 'services';
 
-const MIN = 1;
-const INTERVAL_VALUE = MIN * 60 * 1000;
+const SEC = 10;
+const INTERVAL_VALUE = SEC * 1000;
 interface Props extends NavigationInjectedProps {
   setLocationData: ({variables}: {variables: LocationData}) => void;
   locationDataResults: any;
+  setGameSettings: ({variables}: {variables: GameSettings}) => void;
+  gameSettingsResults: any;
 }
 
-// const notificationService = new NotificationService();
+const notificationService = new NotificationService();
 
 interface State {
   locationInterval: () => void;
 }
 
-class HomeScreen extends PureComponent<Props, any> {
+class HomeScreen extends PureComponent<Props> {
   state = {
     locationInterval: setInterval(() => {}),
   };
 
-  componentDidUpdate() {
-    this.updateLocation();
-  }
-
-  // maybe later - scheduled notification needs to be enough
   updateLocation = async () => {
+    notificationService.scheduledNotification();
+    const {locationDataResults} = this.props;
+    let updateVariable;
     try {
       const address = (await LocationManager.getCurrentLocation()) as AddressData;
-      this.props.setLocationData({
-        variables: {
+      if (
+        locationDataResults.locationData.adminDistrict !== address.adminDistrict
+      ) {
+        notificationService.localNotification();
+        updateVariable = {
           countryRegion: address.countryRegion,
           adminDistrict: address.adminDistrict,
+          adminDistrict2: address.adminDistrict2,
           counter: this.props.locationDataResults.locationData.counter + 1,
-        },
+        };
+      } else {
+        updateVariable = {
+          counter: this.props.locationDataResults.locationData.counter + 1,
+        };
+      }
+      this.props.setLocationData({
+        variables: updateVariable,
       });
     } catch (error) {
       throw error;
@@ -52,7 +66,7 @@ class HomeScreen extends PureComponent<Props, any> {
 
   stopGame = () => {
     clearInterval(this.state.locationInterval);
-    this.props.setLocationData({
+    this.props.setGameSettings({
       variables: {
         isGameActive: false,
       },
@@ -61,50 +75,55 @@ class HomeScreen extends PureComponent<Props, any> {
 
   startGame = () => {
     this.updateLocation();
-    this.props.setLocationData({
+    this.props.setGameSettings({
       variables: {
         isGameActive: true,
       },
     });
-    this.setState({
-      locationInterval: setInterval(this.updateLocation, INTERVAL_VALUE),
-    });
+    // this.setState({
+    //   locationInterval: setInterval(this.updateLocation, INTERVAL_VALUE),
+    // });
   };
 
   goToGame = () => {
     this.props.navigation.navigate('Quiz');
   };
 
-  // sendLocalNotification = () => {
-  //   notificationService.scheduledNotification();
-  // };
+  sendLocalNotification = () => {
+    notificationService.scheduledNotification();
+  };
 
   render() {
-    const {locationDataResults} = this.props;
+    const {locationDataResults, gameSettingsResults} = this.props;
+    console.warn('score', gameSettingsResults.gameSettings.score);
     return (
       <View style={styles.mainContainer}>
         <Text>
           Is game active:
-          {locationDataResults.locationData.isGameActive.toString()}
+          {gameSettingsResults.gameSettings.isGameActive.toString()}
         </Text>
-        <Text>counter: {locationDataResults.locationData.counter}</Text>
+        {/* <Text>counter: {locationDataResults.locationData.counter}</Text>
         <Text>
           countryRegion:
           {locationDataResults.locationData.countryRegion}
         </Text>
         <Text>
+          adminDistrict2:
+          {locationDataResults.locationData.adminDistrict2}
+        </Text>
+        <Text>
           adminDistrict:
           {locationDataResults.locationData.adminDistrict}
-        </Text>
-        {locationDataResults.locationData.isGameActive ? (
+        </Text> */}
+        {gameSettingsResults.gameSettings.isGameActive ? (
           <Button title="Stop the game" onPress={this.stopGame} />
         ) : (
           <Button title="Start the game" onPress={this.startGame} />
         )}
-        {/* <Button
+        <Button
           title="Send local notification"
           onPress={this.sendLocalNotification}
-        /> */}
+        />
         <Button title="Go to the game" onPress={this.goToGame} />
       </View>
     );
@@ -122,4 +141,6 @@ const styles = StyleSheet.create({
 export default compose(
   graphql(locationDataQuery, {name: 'locationDataResults'}),
   graphql(setLocationDataMutation, {name: 'setLocationData'}),
+  graphql(gameSettingsQuery, {name: 'gameSettingsResults'}),
+  graphql(setGameSettingsMutation, {name: 'setGameSettings'}),
 )(HomeScreen);

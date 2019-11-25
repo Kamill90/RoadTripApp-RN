@@ -5,8 +5,18 @@ export const locationDataQuery = gql`
     locationData @client {
       countryRegion
       adminDistrict
+      adminDistrict2
       counter
       isGameActive
+    }
+  }
+`;
+
+export const gameSettingsQuery = gql`
+  query gameSettingsData {
+    gameSettings @client {
+      isGameActive
+      score
     }
   }
 `;

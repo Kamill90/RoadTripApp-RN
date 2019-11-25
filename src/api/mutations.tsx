@@ -15,3 +15,9 @@ export const setLocationDataMutation = gql`
     ) @client
   }
 `;
+
+export const setGameSettingsMutation = gql`
+  mutation setLocationData($isGameActive: Boolean, $score: Int) {
+    setGameSettings(isGameActive: $isGameActive, score: $score) @client
+  }
+`;

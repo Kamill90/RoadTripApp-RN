@@ -4,15 +4,16 @@ import {graphql} from 'react-apollo';
 import compose from 'lodash.flowright';
 import {NavigationInjectedProps} from 'react-navigation';
 
-import {locationDataQuery} from 'api';
+import {locationDataQuery, gameSettingsQuery} from 'api';
 
 interface Props extends NavigationInjectedProps {
   locationDataResults: any;
+  gameSettingsResults: any;
 }
 
 class QuizScreen extends React.PureComponent<Props> {
   render() {
-    const {locationDataResults} = this.props;
+    const {locationDataResults, gameSettingsResults} = this.props;
     if (locationDataResults.loading) {
       return null;
     }
@@ -23,6 +24,9 @@ class QuizScreen extends React.PureComponent<Props> {
         </Text>
         <Text>
           adminDistrict: {locationDataResults.locationData.adminDistrict}
+        </Text>
+        <Text>
+          adminDistrict2: {locationDataResults.locationData.adminDistrict2}
         </Text>
       </View>
     );

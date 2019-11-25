@@ -1,4 +1,4 @@
-import {locationDataQuery} from './queries';
+import {locationDataQuery, gameSettingsQuery} from './queries';
 import {LocationData} from './models';
 
 const getValue = (value: any, defaultValue: any) =>
@@ -6,7 +6,7 @@ const getValue = (value: any, defaultValue: any) =>
 
 export const setLocationData = (
   _: any,
-  {countryRegion, adminDistrict, counter, isGameActive}: any,
+  {countryRegion, adminDistrict, adminDistrict2, counter, isGameActive}: any,
   {cache}: any,
 ) => {
   const currentLocationData = cache.readQuery({query: locationDataQuery})
@@ -15,10 +15,30 @@ export const setLocationData = (
   const newLocationData = {
     countryRegion: getValue(countryRegion, currentLocationData.countryRegion),
     adminDistrict: getValue(adminDistrict, currentLocationData.adminDistrict),
+    adminDistrict2: getValue(
+      adminDistrict2,
+      currentLocationData.adminDistrict2,
+    ),
     counter: getValue(counter, currentLocationData.counter),
     isGameActive: getValue(isGameActive, currentLocationData.isGameActive),
     __typename: 'locationData',
   };
   cache.writeData({data: {locationData: newLocationData}});
   return newLocationData;
+};
+
+export const setGameSettings = (
+  _: any,
+  {isGameActive, score}: any,
+  {cache}: any,
+) => {
+  const currentGameSettings = cache.readQuery({query: gameSettingsQuery})
+    .gameSettings;
+  const newGameSettings = {
+    isGameActive: getValue(isGameActive, currentGameSettings.isGameActive),
+    score: getValue(score, currentGameSettings.score),
+    __typename: 'gameSettings',
+  };
+  cache.writeData({data: {gameSettings: newGameSettings}});
+  return newGameSettings;
 };
