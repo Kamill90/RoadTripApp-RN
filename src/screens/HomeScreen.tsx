@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {StyleSheet, View, Button, Text, Alert} from 'react-native';
+import {StyleSheet, View, Button, Text} from 'react-native';
 import {graphql} from 'react-apollo';
 import {NavigationInjectedProps} from 'react-navigation';
 import compose from 'lodash.flowright';
@@ -7,10 +7,13 @@ import compose from 'lodash.flowright';
 import {
   setLocationDataMutation,
   LocationData,
+  LocationDataResults,
   AddressData,
   locationDataQuery,
   setGameSettingsMutation,
   gameSettingsQuery,
+  GameSettingsResults,
+  GameSettingsResponse,
   GameSettings,
 } from 'api';
 import {LocationManager, NotificationService} from 'services';
@@ -18,46 +21,37 @@ import {LocationManager, NotificationService} from 'services';
 const SEC = 10;
 const INTERVAL_VALUE = SEC * 1000;
 interface Props extends NavigationInjectedProps {
-  setLocationData: ({variables}: {variables: LocationData}) => void;
-  locationDataResults: any;
-  setGameSettings: ({variables}: {variables: GameSettings}) => void;
-  gameSettingsResults: any;
+  setLocationData: ({variables}: {variables: LocationData}) => LocationData;
+  locationDataResults: LocationDataResults;
+  setGameSettings: ({
+    variables,
+  }: {
+    variables: GameSettings;
+  }) => GameSettingsResponse;
+  gameSettingsResults: GameSettingsResults;
 }
 
 const notificationService = new NotificationService();
 
 interface State {
-  locationInterval: () => void;
+  locationInterval: any;
 }
 
-class HomeScreen extends PureComponent<Props> {
+class HomeScreen extends PureComponent<Props, State> {
   state = {
     locationInterval: setInterval(() => {}),
   };
 
   updateLocation = async () => {
-    notificationService.scheduledNotification();
-    const {locationDataResults} = this.props;
-    let updateVariable;
     try {
       const address = (await LocationManager.getCurrentLocation()) as AddressData;
-      if (
-        locationDataResults.locationData.adminDistrict !== address.adminDistrict
-      ) {
-        notificationService.localNotification();
-        updateVariable = {
+
+      this.props.setLocationData({
+        variables: {
           countryRegion: address.countryRegion,
           adminDistrict: address.adminDistrict,
           adminDistrict2: address.adminDistrict2,
-          counter: this.props.locationDataResults.locationData.counter + 1,
-        };
-      } else {
-        updateVariable = {
-          counter: this.props.locationDataResults.locationData.counter + 1,
-        };
-      }
-      this.props.setLocationData({
-        variables: updateVariable,
+        },
       });
     } catch (error) {
       throw error;
@@ -80,9 +74,11 @@ class HomeScreen extends PureComponent<Props> {
         isGameActive: true,
       },
     });
-    // this.setState({
-    //   locationInterval: setInterval(this.updateLocation, INTERVAL_VALUE),
-    // });
+    this.props.navigation.navigate('Quiz');
+
+    this.setState({
+      locationInterval: setInterval(this.updateLocation, INTERVAL_VALUE),
+    });
   };
 
   goToGame = () => {
@@ -94,36 +90,15 @@ class HomeScreen extends PureComponent<Props> {
   };
 
   render() {
-    const {locationDataResults, gameSettingsResults} = this.props;
-    console.warn('score', gameSettingsResults.gameSettings.score);
+    console.log(this.props);
+    const {gameSettingsResults} = this.props;
     return (
       <View style={styles.mainContainer}>
-        <Text>
-          Is game active:
-          {gameSettingsResults.gameSettings.isGameActive.toString()}
-        </Text>
-        {/* <Text>counter: {locationDataResults.locationData.counter}</Text>
-        <Text>
-          countryRegion:
-          {locationDataResults.locationData.countryRegion}
-        </Text>
-        <Text>
-          adminDistrict2:
-          {locationDataResults.locationData.adminDistrict2}
-        </Text>
-        <Text>
-          adminDistrict:
-          {locationDataResults.locationData.adminDistrict}
-        </Text> */}
         {gameSettingsResults.gameSettings.isGameActive ? (
           <Button title="Stop the game" onPress={this.stopGame} />
         ) : (
           <Button title="Start the game" onPress={this.startGame} />
         )}
-        <Button
-          title="Send local notification"
-          onPress={this.sendLocalNotification}
-        />
         <Button title="Go to the game" onPress={this.goToGame} />
       </View>
     );
@@ -139,8 +114,12 @@ const styles = StyleSheet.create({
 });
 
 export default compose(
-  graphql(locationDataQuery, {name: 'locationDataResults'}),
+  graphql<any>(locationDataQuery, {
+    name: 'locationDataResults',
+  }),
   graphql(setLocationDataMutation, {name: 'setLocationData'}),
-  graphql(gameSettingsQuery, {name: 'gameSettingsResults'}),
+  graphql(gameSettingsQuery, {
+    name: 'gameSettingsResults',
+  }),
   graphql(setGameSettingsMutation, {name: 'setGameSettings'}),
 )(HomeScreen);

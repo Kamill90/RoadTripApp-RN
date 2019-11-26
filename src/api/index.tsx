@@ -1,4 +1,3 @@
-export * from './state';
 export * from './client';
 export * from './queries';
 export * from './mutations';

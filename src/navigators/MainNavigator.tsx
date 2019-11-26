@@ -13,6 +13,9 @@ export const MainNavigator = createStackNavigator(
     },
     Quiz: {
       screen: QuizScreen,
+      navigationOptions: {
+        title: 'Quiz',
+      },
     },
   },
   {headerMode: 'screen'},

@@ -6,7 +6,6 @@ export const locationDataQuery = gql`
       countryRegion
       adminDistrict
       adminDistrict2
-      counter
       isGameActive
     }
   }

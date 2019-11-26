@@ -33,11 +33,9 @@ export default class LocationManager {
   async getGeocodingResults(latitude: number, longitude: number) {
     const url = `http://dev.virtualearth.net/REST/v1/Locations/${latitude},${longitude}?o=json&key=${Config.BING_MAP_KEY}`;
     console.log('url', url);
-
     try {
       const response = await fetch(url);
       const data = await response.json();
-      console.log('address', data.resourceSets[0].resources[0]);
       return data.resourceSets[0].resources[0].address;
     } catch (error) {
       // do something with crashlytics

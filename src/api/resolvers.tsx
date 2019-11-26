@@ -6,7 +6,7 @@ const getValue = (value: any, defaultValue: any) =>
 
 export const setLocationData = (
   _: any,
-  {countryRegion, adminDistrict, adminDistrict2, counter, isGameActive}: any,
+  {countryRegion, adminDistrict, adminDistrict2, isGameActive}: any,
   {cache}: any,
 ) => {
   const currentLocationData = cache.readQuery({query: locationDataQuery})
@@ -19,7 +19,6 @@ export const setLocationData = (
       adminDistrict2,
       currentLocationData.adminDistrict2,
     ),
-    counter: getValue(counter, currentLocationData.counter),
     isGameActive: getValue(isGameActive, currentLocationData.isGameActive),
     __typename: 'locationData',
   };
@@ -36,7 +35,10 @@ export const setGameSettings = (
     .gameSettings;
   const newGameSettings = {
     isGameActive: getValue(isGameActive, currentGameSettings.isGameActive),
-    score: getValue(score, currentGameSettings.score),
+    score:
+      score == undefined
+        ? currentGameSettings.score
+        : currentGameSettings.score + score,
     __typename: 'gameSettings',
   };
   cache.writeData({data: {gameSettings: newGameSettings}});

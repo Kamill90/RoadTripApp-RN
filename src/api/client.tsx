@@ -4,6 +4,7 @@ import {InMemoryCache} from 'apollo-cache-inmemory';
 import {CachePersistor} from 'apollo-cache-persist';
 
 import {setLocationData, setGameSettings} from './resolvers';
+import {GameSettings, LocationData} from 'api';
 
 const cache = new InMemoryCache();
 
@@ -16,15 +17,13 @@ export const initialData = {
       isGameActive: false,
       score: 0,
       __typename: 'gameSettings',
-    },
+    } as GameSettings,
     locationData: {
       countryRegion: '',
       adminDistrict: '',
       adminDistrict2: '',
-      counter: 0,
-      isGameActive: false,
       __typename: 'locationData',
-    },
+    } as LocationData,
   },
 };
 

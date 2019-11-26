@@ -36,9 +36,7 @@ export default class NotificationService {
   configure() {
     PushNotification.configure({
       // (required) Called when a remote or local notification is opened or received
-      onNotification: () => {
-        console.warn('onNotification');
-      },
+      onNotification: () => {},
       permissions: {
         alert: true,
         badge: false,
