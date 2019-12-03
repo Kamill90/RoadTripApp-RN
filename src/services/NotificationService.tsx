@@ -49,12 +49,17 @@ export default class NotificationService {
     PushNotification.localNotification(this.tmpConfig);
   }
 
-  scheduledNotification() {
+  cancelNotifications() {
+    PushNotification.cancelAllLocalNotifications();
+  }
+
+  scheduledNotification(country: string) {
     PushNotification.localNotificationSchedule({
       ...this.tmpConfig,
-      title: 'title: Scheduled Notification', // (optional)
-      message: 'message: My Scheduled Notification Message', // (required)
-      date: new Date(Date.now() + 30 * 1000),
+      title: `You are in ${country}`, // (optional)
+      message: 'Open the app to continue the game', // (required)
+      date: new Date(Date.now()),
+      repeatType: 'minute',
     });
   }
 }

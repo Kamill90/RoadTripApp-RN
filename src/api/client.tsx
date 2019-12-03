@@ -14,6 +14,7 @@ const SCHEMA_VERSION_KEY = 'apollo-schema-version';
 export const initialData = {
   data: {
     gameSettings: {
+      answeredQuestions: [],
       isGameActive: false,
       score: 0,
       __typename: 'gameSettings',

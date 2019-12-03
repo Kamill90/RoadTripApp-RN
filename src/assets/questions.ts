@@ -5,7 +5,7 @@ export default [
     reason: {
       countryRegion: 'Poland',
     },
-    question: 'Które miasto jest obecną stolicą Polski',
+    question: '1. Które miasto jest obecną stolicą Polski',
     correct_answer: 'Warszawa',
     incorrect_answers: ['Gdańsk', 'Kraków', 'Mońki'],
   },
@@ -15,7 +15,7 @@ export default [
     reason: {
       countryRegion: 'United Kingdom',
     },
-    question: 'Które miasto jest obecną stolicą Anglii',
+    question: '2. Które miasto jest obecną stolicą Anglii',
     correct_answer: 'London',
     incorrect_answers: ['Gdańsk', 'Kraków', 'Mońki'],
   },
@@ -25,7 +25,7 @@ export default [
     reason: {
       adminDistrict: "Woj. Pomorskie",
     },
-    question: 'Czy woj. Pomorskie jest województwem o największej liczbie jezior?',
+    question: '3. Czy woj. Pomorskie jest województwem o największej liczbie jezior?',
     correct_answer: 'Tak',
     incorrect_answers: ['Nie', 'Wątpię'],
   },
@@ -45,8 +45,58 @@ export default [
     reason: {
       adminDistrict: "England",
     },
-    question: 'What is the highest peak in England?',
+    question: '5. What is the highest peak in England?',
     correct_answer: 'Scafell Pike',
     incorrect_answers: ['Mount Suffolk', 'Ben Nevis'],
+  },
+  {
+    id: '6',
+    type: 'question',
+    reason: {
+      adminDistrict: "England",
+    },
+    question: '6. What is the highest peak in England?',
+    correct_answer: 'Scafell Pike',
+    incorrect_answers: ['Mount Suffolk', 'Ben Nevis'],
+  },
+  {
+    id: '7',
+    type: 'question',
+    reason: {
+      adminDistrict: "England",
+    },
+    question: '7. What is the highest peak in England?',
+    correct_answer: 'Scafell Pike',
+    incorrect_answers: ['Mount Suffolk', 'Ben Nevis'],
+  },
+  {
+    id: '8',
+    type: 'question',
+    reason: {
+      adminDistrict2: "London",
+    },
+    question: '8. The worst pies in London?',
+    correct_answer: 'Yes',
+    incorrect_answers: ['No'],
+  },
+  {
+    id: '9',
+    type: 'question',
+    reason: {
+      adminDistrict2: "London",
+    },
+    question: '9. The worst pies in London?',
+    correct_answer: 'Yes',
+    incorrect_answers: ['No'],
+  },
+  {
+    id: '10',
+    type: 'question',
+    reason: {
+      adminDistrict2: "London",
+    },
+    question: '10. The worst pies in London?',
+    correct_answer: 'Yes',
+    incorrect_answers: ['No'],
   },
 ];

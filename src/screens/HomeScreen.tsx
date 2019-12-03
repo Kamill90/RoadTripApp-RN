@@ -1,20 +1,21 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import {StyleSheet, View, Button, Text} from 'react-native';
 import {graphql} from 'react-apollo';
-import {NavigationInjectedProps} from 'react-navigation';
+import {NavigationInjectedProps, NavigationEvents} from 'react-navigation';
 import compose from 'lodash.flowright';
 
 import {
   setLocationDataMutation,
   LocationData,
-  LocationDataResults,
   AddressData,
-  locationDataQuery,
   setGameSettingsMutation,
   gameSettingsQuery,
   GameSettingsResults,
   GameSettingsResponse,
   GameSettings,
+  persistor,
+  client,
+  initialData,
 } from 'api';
 import {LocationManager, NotificationService} from 'services';
 
@@ -22,7 +23,6 @@ const SEC = 10;
 const INTERVAL_VALUE = SEC * 1000;
 interface Props extends NavigationInjectedProps {
   setLocationData: ({variables}: {variables: LocationData}) => LocationData;
-  locationDataResults: LocationDataResults;
   setGameSettings: ({
     variables,
   }: {
@@ -37,15 +37,14 @@ interface State {
   locationInterval: any;
 }
 
-class HomeScreen extends PureComponent<Props, State> {
-  state = {
-    locationInterval: setInterval(() => {}),
-  };
+class HomeScreen extends Component<Props, State> {
+  // state = {
+  //   locationInterval: setInterval(() => {}),
+  // };
 
   updateLocation = async () => {
     try {
       const address = (await LocationManager.getCurrentLocation()) as AddressData;
-
       this.props.setLocationData({
         variables: {
           countryRegion: address.countryRegion,
@@ -53,13 +52,17 @@ class HomeScreen extends PureComponent<Props, State> {
           adminDistrict2: address.adminDistrict2,
         },
       });
+      notificationService.scheduledNotification(address.countryRegion);
     } catch (error) {
       throw error;
     }
   };
 
-  stopGame = () => {
-    clearInterval(this.state.locationInterval);
+  stopGame = async () => {
+    persistor.purge();
+    client.cache.writeData(initialData);
+    // clearInterval(this.state.locationInterval);
+    notificationService.cancelNotifications();
     this.props.setGameSettings({
       variables: {
         isGameActive: false,
@@ -68,6 +71,7 @@ class HomeScreen extends PureComponent<Props, State> {
   };
 
   startGame = () => {
+    // register session so that you can avoid already answered questions
     this.updateLocation();
     this.props.setGameSettings({
       variables: {
@@ -76,30 +80,38 @@ class HomeScreen extends PureComponent<Props, State> {
     });
     this.props.navigation.navigate('Quiz');
 
-    this.setState({
-      locationInterval: setInterval(this.updateLocation, INTERVAL_VALUE),
-    });
+    // this.setState({
+    //   locationInterval: setInterval(this.sendLocalNotification, INTERVAL_VALUE),
+    // });
   };
 
   goToGame = () => {
     this.props.navigation.navigate('Quiz');
   };
 
-  sendLocalNotification = () => {
-    notificationService.scheduledNotification();
-  };
-
   render() {
-    console.log(this.props);
-    const {gameSettingsResults} = this.props;
+    const {
+      gameSettingsResults: {gameSettings},
+    } = this.props;
     return (
-      <View style={styles.mainContainer}>
-        {gameSettingsResults.gameSettings.isGameActive ? (
-          <Button title="Stop the game" onPress={this.stopGame} />
-        ) : (
-          <Button title="Start the game" onPress={this.startGame} />
-        )}
-        <Button title="Go to the game" onPress={this.goToGame} />
+      <View style={{flex: 1, justifyContent: 'flex-end'}}>
+        <NavigationEvents
+          onDidFocus={() => {
+            setTimeout(async () => {
+              await this.props.gameSettingsResults.refetch();
+            });
+          }}
+        />
+        <View style={styles.mainContainer}>
+          {gameSettings.isGameActive ? (
+            <>
+              <Button title="Stop the game" onPress={this.stopGame} />
+              <Button title="Go to the game" onPress={this.goToGame} />
+            </>
+          ) : (
+            <Button title="Start the game" onPress={this.startGame} />
+          )}
+        </View>
       </View>
     );
   }
@@ -107,19 +119,16 @@ class HomeScreen extends PureComponent<Props, State> {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    height: 100,
+    width: '100%',
+    marginBottom: 100,
   },
 });
 
 export default compose(
-  graphql<any>(locationDataQuery, {
-    name: 'locationDataResults',
-  }),
-  graphql(setLocationDataMutation, {name: 'setLocationData'}),
   graphql(gameSettingsQuery, {
     name: 'gameSettingsResults',
   }),
+  graphql<any>(setLocationDataMutation, {name: 'setLocationData'}),
   graphql(setGameSettingsMutation, {name: 'setGameSettings'}),
 )(HomeScreen);

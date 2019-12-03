@@ -1,19 +1,9 @@
 import React from 'react';
-import Config from 'react-native-config';
 import {ApolloProvider} from 'react-apollo';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-  Platform,
-  PermissionsAndroid,
-} from 'react-native';
+import {Platform, PermissionsAndroid} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 
-import {MainNavigator} from './navigators/MainNavigator';
+import {RootStackNavigator} from './navigators/RootStackNavigator';
 import {client} from './api';
 
 if (Platform.OS === 'android') {
@@ -29,7 +19,7 @@ if (Platform.OS === 'android') {
   );
 }
 
-const AppContainer = createAppContainer(MainNavigator);
+const AppContainer = createAppContainer(RootStackNavigator);
 
 const App = () => (
   <ApolloProvider client={client}>

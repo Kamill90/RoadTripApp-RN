@@ -6,7 +6,6 @@ export const locationDataQuery = gql`
       countryRegion
       adminDistrict
       adminDistrict2
-      isGameActive
     }
   }
 `;
@@ -16,6 +15,7 @@ export const gameSettingsQuery = gql`
     gameSettings @client {
       isGameActive
       score
+      answeredQuestions
     }
   }
 `;

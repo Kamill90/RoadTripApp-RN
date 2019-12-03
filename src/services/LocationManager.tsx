@@ -1,4 +1,5 @@
 import Geolocation, {GeoPosition} from 'react-native-geolocation-service';
+import {Alert} from 'react-native';
 import Config from 'react-native-config';
 
 import {AddressData} from 'api';
@@ -18,10 +19,14 @@ export default class LocationManager {
               resolve(address);
             }
           } catch (error) {
+            Alert.alert(error);
+
             reject(error);
           }
         },
         error => {
+          Alert.alert(error);
+
           reject(error);
           // TODO send to crashlytics (error.code, error.message);
         },
@@ -32,7 +37,6 @@ export default class LocationManager {
 
   async getGeocodingResults(latitude: number, longitude: number) {
     const url = `http://dev.virtualearth.net/REST/v1/Locations/${latitude},${longitude}?o=json&key=${Config.BING_MAP_KEY}`;
-    console.log('url', url);
     try {
       const response = await fetch(url);
       const data = await response.json();

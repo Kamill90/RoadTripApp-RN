@@ -36,15 +36,27 @@ interface Props extends NavigationInjectedProps {
   }) => GameSettingsResponse;
 }
 
-class QuizScreen extends React.PureComponent<Props> {
+interface State {
+  questions: [];
+}
+
+class QuizScreen extends React.PureComponent<Props, State> {
   carouselRef = React.createRef<
     Carousel<any> & CarouselStatic<any> & ScrollViewProps
   >();
 
-  get filteredQuestions() {
+  state = {
+    questions: [],
+  } as State;
+
+  static getDerivedStateFromProps(props: Props, state: State) {
+    if (state.questions.length) {
+      return null;
+    }
     const {
       locationDataResults: {locationData},
-    } = this.props;
+      gameSettingsResults: {gameSettings},
+    } = props;
     const adminDistrictBasedQuestions = questions.filter(
       question => question.reason.adminDistrict === locationData.adminDistrict,
     );
@@ -55,14 +67,29 @@ class QuizScreen extends React.PureComponent<Props> {
     const countryBasedQuestions = questions.filter(
       question => question.reason.countryRegion === locationData.countryRegion,
     );
-    return [
+
+    const locationBasedQuestions = [
       ...adminDistrictBasedQuestions,
       ...adminDistrict2BasedQuestions,
       ...countryBasedQuestions,
     ];
+
+    const filteredQuestions = locationBasedQuestions.filter(question => {
+      if (!gameSettings.answeredQuestions.includes(question.id)) {
+        return question;
+      }
+    });
+
+    return {
+      questions: filteredQuestions,
+    };
   }
 
-  onAnswerPressed = async (answer: string, correctAnswer: string) => {
+  onAnswerPressed = async (
+    answer: string,
+    correctAnswer: string,
+    id: string,
+  ) => {
     if (correctAnswer === answer) {
       const {data} = await this.props.setGameSettings({
         variables: {
@@ -83,16 +110,21 @@ class QuizScreen extends React.PureComponent<Props> {
         {cancelable: false},
       );
     }
+    this.props.setGameSettings({
+      variables: {
+        answeredQuestion: id,
+      },
+    });
   };
 
-  renderQuizCard = ({item}: {item: Question}) => {
+  renderQuizCard = ({item}: {item: Question | Result}) => {
     const answers = item.incorrect_answers.concat(item.correct_answer);
     return (
       <QuizCard
         question={item.question}
         answers={answers}
         onPress={(gotAnswer: string) =>
-          this.onAnswerPressed(gotAnswer, item.correct_answer)
+          this.onAnswerPressed(gotAnswer, item.correct_answer, item.id)
         }
       />
     );
@@ -105,6 +137,7 @@ class QuizScreen extends React.PureComponent<Props> {
       },
       gameSettingsResults,
     } = this.props;
+
     return (
       <View style={styles.mainContainer}>
         <View style={styles.headerContainer}>
@@ -117,7 +150,7 @@ class QuizScreen extends React.PureComponent<Props> {
           <Carousel
             ref={this.carouselRef as any}
             removeClippedSubviews={false}
-            data={this.filteredQuestions}
+            data={this.state.questions}
             renderItem={this.renderQuizCard as any}
             sliderWidth={WIDTH}
             itemWidth={WIDTH * 0.9}
