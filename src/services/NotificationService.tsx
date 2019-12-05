@@ -45,8 +45,12 @@ export default class NotificationService {
     });
   }
 
-  localNotification() {
-    PushNotification.localNotification(this.tmpConfig);
+  localNotification(country: string) {
+    PushNotification.localNotification({
+      ...this.tmpConfig,
+      title: `Local notificatioj: ${country}`, // (optional)
+      message: 'Open the app to continue the game', // (required)
+    });
   }
 
   cancelNotifications() {
@@ -58,8 +62,8 @@ export default class NotificationService {
       ...this.tmpConfig,
       title: `You are in ${country}`, // (optional)
       message: 'Open the app to continue the game', // (required)
-      date: new Date(Date.now()),
-      repeatType: 'minute',
+      date: new Date(Date.now() + 1000),
+      repeatType: 'hour',
     });
   }
 }
