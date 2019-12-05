@@ -11,6 +11,7 @@ export type LocationDataResults = LocationData & QueryResult;
 export interface GameSettings {
   answeredQuestions?: (string | null)[];
   isGameActive?: boolean;
+  isLocationChanged?: boolean;
   score?: Number;
 }
 

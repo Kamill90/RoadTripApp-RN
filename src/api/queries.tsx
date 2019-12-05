@@ -14,6 +14,7 @@ export const gameSettingsQuery = gql`
   query gameSettingsData {
     gameSettings @client {
       isGameActive
+      isLocationChanged
       score
       answeredQuestions
     }

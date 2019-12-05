@@ -16,6 +16,7 @@ export const initialData = {
     gameSettings: {
       answeredQuestions: [],
       isGameActive: false,
+      isLocationChanged: false,
       score: 0,
       __typename: 'gameSettings',
     } as GameSettings,

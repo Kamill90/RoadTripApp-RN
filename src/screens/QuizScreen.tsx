@@ -67,7 +67,6 @@ class QuizScreen extends React.PureComponent<Props, State> {
     const countryBasedQuestions = questions.filter(
       question => question.reason.countryRegion === locationData.countryRegion,
     );
-
     const locationBasedQuestions = [
       ...adminDistrictBasedQuestions,
       ...adminDistrict2BasedQuestions,
@@ -83,6 +82,14 @@ class QuizScreen extends React.PureComponent<Props, State> {
     return {
       questions: filteredQuestions,
     };
+  }
+
+  componentDidMount() {
+    this.props.setGameSettings({
+      variables: {
+        isLocationChanged: false,
+      },
+    });
   }
 
   onAnswerPressed = async (

@@ -17,11 +17,13 @@ export const setLocationDataMutation = gql`
 export const setGameSettingsMutation = gql`
   mutation setLocationData(
     $isGameActive: Boolean
+    $isLocationChanged: isLocationChanged
     $score: Int
     $answeredQuestion: String
   ) {
     setGameSettings(
       isGameActive: $isGameActive
+      isLocationChanged: $isLocationChanged
       score: $score
       answeredQuestion: $answeredQuestion
     ) @client
