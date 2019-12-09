@@ -2,8 +2,10 @@ import React from 'react';
 import {ApolloProvider} from 'react-apollo';
 import {Platform, PermissionsAndroid} from 'react-native';
 import {createAppContainer} from 'react-navigation';
+import {I18nextProvider} from 'react-i18next';
 
 import {RootStackNavigator} from './navigators/RootStackNavigator';
+import {i18n} from 'locale';
 import {client} from './api';
 
 if (Platform.OS === 'android') {
@@ -22,9 +24,11 @@ if (Platform.OS === 'android') {
 const AppContainer = createAppContainer(RootStackNavigator);
 
 const App = () => (
-  <ApolloProvider client={client}>
-    <AppContainer />
-  </ApolloProvider>
+  <I18nextProvider i18n={i18n}>
+    <ApolloProvider client={client}>
+      <AppContainer />
+    </ApolloProvider>
+  </I18nextProvider>
 );
 
 export default App;

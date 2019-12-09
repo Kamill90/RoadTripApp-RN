@@ -20,6 +20,7 @@ import {
   Question,
   GameSettingsResponse,
 } from 'api';
+import {i18n} from 'locale';
 import {QuizCard, ResultCart} from 'components';
 import questions from '../assets/questions';
 
@@ -155,9 +156,12 @@ class QuizScreen extends React.PureComponent<Props, State> {
       <View style={styles.mainContainer}>
         <View style={styles.headerContainer}>
           <Text>
-            You are in: {adminDistrict || adminDistrict2 || countryRegion}
+            {i18n.t('quiz:location')}
+            {adminDistrict || adminDistrict2 || countryRegion}
           </Text>
-          <Text>score: {gameSettingsResults.gameSettings.score}</Text>
+          <Text>
+            {i18n.t('quiz:score')} {gameSettingsResults.gameSettings.score}
+          </Text>
         </View>
         <View style={styles.carouselContainer}>
           <Carousel

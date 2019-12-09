@@ -19,6 +19,7 @@ import {
   initialData,
   locationDataQuery,
 } from 'api';
+import {i18n} from 'locale';
 import {LocationManager, NotificationService} from 'services';
 
 const MIN = 15;
@@ -165,14 +166,14 @@ class HomeScreen extends Component<Props, State> {
         <View style={styles.mainContainer}>
           {gameSettings.isGameActive ? (
             <>
-              <Button title="Stop the game" onPress={this.stopGame} />
-              <Button title="Go to the game" onPress={this.goToGame} />
+              <Button title={i18n.t('home:stop')} onPress={this.stopGame} />
+              <Button title={i18n.t('home:goTo')} onPress={this.goToGame} />
               {gameSettings.isLocationChanged && (
-                <Text>new quiz available!</Text>
+                <Text>{i18n.t('announcement:newQuiz')}</Text>
               )}
             </>
           ) : (
-            <Button title="Start the game" onPress={this.startGame} />
+            <Button title={i18n.t('home:start')} onPress={this.startGame} />
           )}
         </View>
       </View>
