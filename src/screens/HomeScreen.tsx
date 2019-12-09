@@ -98,6 +98,9 @@ class HomeScreen extends Component<Props, State> {
         adminDistrict: address.adminDistrict,
         adminDistrict2: address.adminDistrict2,
       };
+      this.props.setLocationData({
+        variables: newLocationData,
+      });
       if (
         JSON.stringify(currentLocationData) !== JSON.stringify(newLocationData)
       ) {
@@ -105,9 +108,6 @@ class HomeScreen extends Component<Props, State> {
           variables: {
             isLocationChanged: true,
           },
-        });
-        this.props.setLocationData({
-          variables: newLocationData,
         });
       }
       // !!notification shoulb be handled by background process or external service
@@ -130,7 +130,8 @@ class HomeScreen extends Component<Props, State> {
     });
   };
 
-  startGame = () => {
+  startGame = async () => {
+    await this.updateLocation();
     this.props.setGameSettings({
       variables: {
         isGameActive: true,
@@ -154,7 +155,7 @@ class HomeScreen extends Component<Props, State> {
     return (
       <View style={{flex: 1, justifyContent: 'flex-end'}}>
         <NavigationEvents
-          //bug on apoll-react
+          //bug on react-apollo
           onDidFocus={() => {
             setTimeout(async () => {
               await this.props.gameSettingsResults.refetch();

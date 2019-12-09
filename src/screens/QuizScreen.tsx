@@ -20,7 +20,7 @@ import {
   Question,
   GameSettingsResponse,
 } from 'api';
-import {QuizCard} from 'components';
+import {QuizCard, ResultCart} from 'components';
 import questions from '../assets/questions';
 
 const WIDTH = Dimensions.get('screen').width;
@@ -57,6 +57,7 @@ class QuizScreen extends React.PureComponent<Props, State> {
       locationDataResults: {locationData},
       gameSettingsResults: {gameSettings},
     } = props;
+
     const adminDistrictBasedQuestions = questions.filter(
       question => question.reason.adminDistrict === locationData.adminDistrict,
     );
@@ -78,9 +79,11 @@ class QuizScreen extends React.PureComponent<Props, State> {
         return question;
       }
     });
+    const result = {type: 'result', question: 'the end'};
+    const filteredQuestionsWithResult = [...filteredQuestions, result];
 
     return {
-      questions: filteredQuestions,
+      questions: filteredQuestionsWithResult,
     };
   }
 
@@ -125,6 +128,9 @@ class QuizScreen extends React.PureComponent<Props, State> {
   };
 
   renderQuizCard = ({item}: {item: Question | Result}) => {
+    if (item.type === 'result') {
+      return <ResultCart question={item.question} />;
+    }
     const answers = item.incorrect_answers.concat(item.correct_answer);
     return (
       <QuizCard
