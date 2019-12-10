@@ -1,10 +1,6 @@
 import PushNotification from 'react-native-push-notification';
 
 export default class NotificationService {
-  constructor() {
-    this.configure();
-  }
-
   tmpConfig = {
     /* Android Only Properties */
     ticker: 'My Notification Ticker', // (optional)
@@ -33,10 +29,14 @@ export default class NotificationService {
     // actions: '["Yes", "No"]', // (Android only) See the doc for notification actions to know more
   };
 
+  constructor() {
+    this.configure();
+  }
+
   configure() {
     PushNotification.configure({
       // (required) Called when a remote or local notification is opened or received
-      onNotification: () => {},
+      // onNotification: () => ,
       permissions: {
         alert: true,
         badge: false,
@@ -48,7 +48,7 @@ export default class NotificationService {
   localNotification(country: string) {
     PushNotification.localNotification({
       ...this.tmpConfig,
-      title: `Local notificatioj: ${country}`, // (optional)
+      title: `Local notificatioj: ${ country }`, // (optional)
       message: 'Open the app to continue the game', // (required)
     });
   }
@@ -60,7 +60,7 @@ export default class NotificationService {
   scheduledNotification(country: string) {
     PushNotification.localNotificationSchedule({
       ...this.tmpConfig,
-      title: `You are in ${country}`, // (optional)
+      title: `You are in ${ country }`, // (optional)
       message: 'Open the app to continue the game', // (required)
       date: new Date(Date.now() + 1000),
       repeatType: 'hour',

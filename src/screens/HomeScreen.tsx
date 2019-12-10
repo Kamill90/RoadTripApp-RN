@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {StyleSheet, View, Button, Text} from 'react-native';
-import {graphql} from 'react-apollo';
-import {NavigationInjectedProps, NavigationEvents} from 'react-navigation';
+import React, { PureComponent } from 'react';
+import { StyleSheet, View, Text } from 'react-native';
+import { graphql } from 'react-apollo';
+import { NavigationInjectedProps, NavigationEvents } from 'react-navigation';
 import compose from 'lodash.flowright';
 import BackgroundFetch from 'react-native-background-fetch';
 
@@ -9,6 +9,8 @@ import {
   setLocationDataMutation,
   LocationData,
   AddressData,
+  LocationDataResults,
+  LocationDataResponse,
   setGameSettingsMutation,
   gameSettingsQuery,
   GameSettingsResults,
@@ -19,37 +21,31 @@ import {
   initialData,
   locationDataQuery,
 } from 'api';
-import {i18n} from 'locale';
-import {LocationManager, NotificationService} from 'services';
+import { Button, Template } from 'components';
+import { i18n } from 'locale';
+import { LocationManager, NotificationService } from 'services';
 
 const MIN = 15;
-
 const INTERVAL_VALUE = MIN * 60 * 1000;
 interface Props extends NavigationInjectedProps {
-  locationDataResults: any;
-  setLocationData: ({variables}: {variables: LocationData}) => LocationData;
+  locationDataResults: LocationDataResults;
+  gameSettingsResults: GameSettingsResults;
   setGameSettings: ({
     variables,
   }: {
     variables: GameSettings;
   }) => GameSettingsResponse;
-  gameSettingsResults: GameSettingsResults;
+  setLocationData: ({ variables }: { variables: LocationData }) => LocationData;
 }
 
 const notificationService = new NotificationService();
 
-interface State {
-  locationInterval: any;
-}
-
-class HomeScreen extends Component<Props, State> {
-  state = {
-    locationInterval: setInterval(() => {}),
-  };
-
+class HomeScreen extends PureComponent<Props> {
+  timer: any;
   componentDidMount() {
     this.updateLocation();
     // Configure it.
+
     // BackgroundFetch.configure(
     //   {
     //     minimumFetchInterval: 15, // <-- minutes (15 is minimum allowed)
@@ -82,9 +78,11 @@ class HomeScreen extends Component<Props, State> {
     // );
   }
 
+
+
   updateLocation = async () => {
     const {
-      locationDataResults: {locationData},
+      locationDataResults: { locationData },
     } = this.props;
 
     const currentLocationData = {
@@ -122,7 +120,7 @@ class HomeScreen extends Component<Props, State> {
   stopGame = async () => {
     persistor.purge();
     client.cache.writeData(initialData);
-    clearInterval(this.state.locationInterval);
+    clearInterval(this.timer);
     notificationService.cancelNotifications();
     this.props.setGameSettings({
       variables: {
@@ -139,11 +137,9 @@ class HomeScreen extends Component<Props, State> {
       },
     });
     this.goToGame();
-
-    this.setState({
-      locationInterval: setInterval(this.updateLocation, INTERVAL_VALUE),
-    });
+    this.timer = setInterval(this.updateLocation, INTERVAL_VALUE);
   };
+
 
   goToGame = () => {
     this.props.navigation.navigate('Quiz');
@@ -151,52 +147,53 @@ class HomeScreen extends Component<Props, State> {
 
   render() {
     const {
-      gameSettingsResults: {gameSettings},
+      gameSettingsResults: { gameSettings },
     } = this.props;
     return (
-      <View style={{flex: 1, justifyContent: 'flex-end'}}>
+      <Template>
         <NavigationEvents
-          //bug on react-apollo
-          onDidFocus={() => {
+          // bug on react-apollo
+          onDidFocus={ () => {
             setTimeout(async () => {
               await this.props.gameSettingsResults.refetch();
             });
-          }}
+          } }
         />
-        <View style={styles.mainContainer}>
-          {gameSettings.isGameActive ? (
+        <View style={ styles.buttonsContainer }>
+          { gameSettings.isGameActive ? (
             <>
-              <Button title={i18n.t('home:stop')} onPress={this.stopGame} />
-              <Button title={i18n.t('home:goTo')} onPress={this.goToGame} />
-              {gameSettings.isLocationChanged && (
-                <Text>{i18n.t('announcement:newQuiz')}</Text>
-              )}
+              <Button onPress={ this.stopGame } title={ i18n.t('home:stop') } />
+              <Button title={ i18n.t('home:goTo') } onPress={ this.goToGame } />
+              { gameSettings.isLocationChanged && (
+                <Text>{ i18n.t('announcement:newQuiz') }</Text>
+              ) }
             </>
           ) : (
-            <Button title={i18n.t('home:start')} onPress={this.startGame} />
-          )}
+              <Button title={ i18n.t('home:start') } onPress={ this.startGame } />
+            ) }
         </View>
-      </View>
+      </Template>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    height: 100,
+  buttonsContainer: {
+    marginTop: 600,
+    height: 120,
     width: '100%',
-    marginBottom: 100,
-    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 30,
   },
 });
 
 export default compose(
-  graphql<any>(locationDataQuery, {
+  graphql<LocationDataResponse, LocationDataResults>(locationDataQuery, {
     name: 'locationDataResults',
   }),
-  graphql(gameSettingsQuery, {
+  graphql<GameSettingsResponse, GameSettingsResults>(gameSettingsQuery, {
     name: 'gameSettingsResults',
   }),
-  graphql<any>(setLocationDataMutation, {name: 'setLocationData'}),
-  graphql(setGameSettingsMutation, {name: 'setGameSettings'}),
+  graphql(setGameSettingsMutation, { name: 'setGameSettings' }),
+  graphql(setLocationDataMutation, { name: 'setLocationData' }),
 )(HomeScreen);

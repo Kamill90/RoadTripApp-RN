@@ -1,6 +1,6 @@
-import {createStackNavigator} from 'react-navigation-stack';
+import { createStackNavigator } from 'react-navigation-stack';
 
-import {MainNavigator} from './MainNavigator';
+import { MainNavigator } from './MainNavigator';
 
 export const RootStackNavigator = createStackNavigator(
   {

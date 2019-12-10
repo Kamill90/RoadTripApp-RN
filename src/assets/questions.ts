@@ -23,7 +23,7 @@ export default [
     id: '3',
     type: 'question',
     reason: {
-      adminDistrict: "Woj. Pomorskie",
+      adminDistrict: 'Woj. Pomorskie',
     },
     question: '3. Czy woj. Pomorskie jest województwem o największej liczbie jezior?',
     correct_answer: 'Tak',
@@ -43,7 +43,7 @@ export default [
     id: '5',
     type: 'question',
     reason: {
-      adminDistrict: "England",
+      adminDistrict: 'England',
     },
     question: '5. What is the highest peak in England?',
     correct_answer: 'Scafell Pike',
@@ -53,7 +53,7 @@ export default [
     id: '6',
     type: 'question',
     reason: {
-      adminDistrict: "England",
+      adminDistrict: 'England',
     },
     question: '6. What is the highest peak in England?',
     correct_answer: 'Scafell Pike',
@@ -63,7 +63,7 @@ export default [
     id: '7',
     type: 'question',
     reason: {
-      adminDistrict: "England",
+      adminDistrict: 'England',
     },
     question: '7. What is the highest peak in England?',
     correct_answer: 'Scafell Pike',
@@ -73,7 +73,7 @@ export default [
     id: '8',
     type: 'question',
     reason: {
-      adminDistrict2: "London",
+      adminDistrict2: 'London',
     },
     question: '8. The worst pies in London?',
     correct_answer: 'Yes',
@@ -83,7 +83,7 @@ export default [
     id: '9',
     type: 'question',
     reason: {
-      adminDistrict2: "London",
+      adminDistrict2: 'London',
     },
     question: '9. The worst pies in London?',
     correct_answer: 'Yes',
@@ -93,7 +93,7 @@ export default [
     id: '10',
     type: 'question',
     reason: {
-      adminDistrict2: "London",
+      adminDistrict2: 'London',
     },
     question: '10. The worst pies in London?',
     correct_answer: 'Yes',

@@ -19,21 +19,27 @@ import {
   GameSettings,
   Question,
   GameSettingsResponse,
+  Result,
+  GameSettingsMutationVariables,
+  LocationDataResults,
+  GameSettingsResults,
+  LocationDataResponse,
+  QUESTION_TYPE,
 } from 'api';
 import {i18n} from 'locale';
-import {QuizCard, ResultCart} from 'components';
+import {QuizCard, ResultCart, Template} from 'components';
 import questions from '../assets/questions';
 
 const WIDTH = Dimensions.get('screen').width;
 const HEIGHT = Dimensions.get('screen').height;
 
 interface Props extends NavigationInjectedProps {
-  locationDataResults: any;
-  gameSettingsResults: any;
+  locationDataResults: LocationDataResults;
+  gameSettingsResults: GameSettingsResults;
   setGameSettings: ({
     variables,
   }: {
-    variables: GameSettings;
+    variables: GameSettingsMutationVariables;
   }) => GameSettingsResponse;
 }
 
@@ -42,14 +48,6 @@ interface State {
 }
 
 class QuizScreen extends React.PureComponent<Props, State> {
-  carouselRef = React.createRef<
-    Carousel<any> & CarouselStatic<any> & ScrollViewProps
-  >();
-
-  state = {
-    questions: [],
-  } as State;
-
   static getDerivedStateFromProps(props: Props, state: State) {
     if (state.questions.length) {
       return null;
@@ -76,17 +74,26 @@ class QuizScreen extends React.PureComponent<Props, State> {
     ];
 
     const filteredQuestions = locationBasedQuestions.filter(question => {
-      if (!gameSettings.answeredQuestions.includes(question.id)) {
+      if (!gameSettings.answeredQuestions!.includes(question.id)) {
         return question;
       }
     });
-    const result = {type: 'result', question: 'the end'};
+    const result = {id: '0',type: 'result', question: 'the end'};
     const filteredQuestionsWithResult = [...filteredQuestions, result];
 
     return {
       questions: filteredQuestionsWithResult,
     };
   }
+
+  carouselRef = React.createRef<
+  Carousel<any> & CarouselStatic<any> & ScrollViewProps
+>();
+
+state = {
+  questions: [],
+} as State;
+
 
   componentDidMount() {
     this.props.setGameSettings({
@@ -129,16 +136,16 @@ class QuizScreen extends React.PureComponent<Props, State> {
   };
 
   renderQuizCard = ({item}: {item: Question | Result}) => {
-    if (item.type === 'result') {
+    if (item.type === QUESTION_TYPE.RESULT) {
       return <ResultCart question={item.question} />;
     }
-    const answers = item.incorrect_answers.concat(item.correct_answer);
+    const answers = item.incorrect_answers!.concat(item.correct_answer!);
     return (
       <QuizCard
         question={item.question}
         answers={answers}
         onPress={(gotAnswer: string) =>
-          this.onAnswerPressed(gotAnswer, item.correct_answer, item.id)
+          this.onAnswerPressed(gotAnswer, item.correct_answer!, item.id)
         }
       />
     );
@@ -153,8 +160,8 @@ class QuizScreen extends React.PureComponent<Props, State> {
     } = this.props;
 
     return (
-      <View style={styles.mainContainer}>
-        <View style={styles.headerContainer}>
+      <Template>
+        <View style={styles.summary}>
           <Text>
             {i18n.t('quiz:location')}
             {adminDistrict || adminDistrict2 || countryRegion}
@@ -168,28 +175,25 @@ class QuizScreen extends React.PureComponent<Props, State> {
             ref={this.carouselRef as any}
             removeClippedSubviews={false}
             data={this.state.questions}
-            renderItem={this.renderQuizCard as any}
+            renderItem={this.renderQuizCard}
             sliderWidth={WIDTH}
-            itemWidth={WIDTH * 0.9}
+            itemWidth={WIDTH * 0.8}
             scrollEnabled={false}
           />
         </View>
-      </View>
+      </Template>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    flexDirection: 'column',
-  },
-  headerContainer: {
-    margin: 10,
-  },
   carouselContainer: {
     paddingVertical: 100,
     height: HEIGHT * 0.6,
     flexDirection: 'column',
+  },
+  summary: {
+    marginHorizontal: 15,
   },
   footerContainer: {
     paddingVertical: 30,
@@ -201,11 +205,11 @@ const styles = StyleSheet.create({
 });
 
 export default compose(
-  graphql<any>(locationDataQuery, {
+  graphql(setGameSettingsMutation, {name: 'setGameSettings'}),
+  graphql<LocationDataResponse, LocationDataResults>(locationDataQuery, {
     name: 'locationDataResults',
   }),
-  graphql(setGameSettingsMutation, {name: 'setGameSettings'}),
-  graphql(gameSettingsQuery, {
+  graphql<GameSettingsResponse, GameSettingsResults>(gameSettingsQuery, {
     name: 'gameSettingsResults',
   }),
 )(QuizScreen);

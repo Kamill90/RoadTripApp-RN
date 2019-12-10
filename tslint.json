@@ -16,6 +16,7 @@
     "no-implicit-dependencies": false,
     "no-object-literal-type-assertion": false,
     "no-unused-expression": [true, "allow-fast-null-checks"],
-    "no-var-requires": false
+    "no-var-requires": false,
+    "no-empty": [true, "allow-empty-functions"]
   }
 }

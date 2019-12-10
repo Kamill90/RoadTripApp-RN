@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, Button} from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 
 interface Props {
   question: string;
@@ -7,10 +7,10 @@ interface Props {
 
 export class ResultCart extends React.PureComponent<Props> {
   render() {
-    const {question} = this.props;
+    const { question } = this.props;
     return (
-      <View style={styles.container}>
-        <Text>{question}</Text>
+      <View style={ styles.container }>
+        <Text>{ question }</Text>
       </View>
     );
   }

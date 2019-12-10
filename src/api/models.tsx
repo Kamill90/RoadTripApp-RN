@@ -1,4 +1,4 @@
-import {QueryResult} from 'react-apollo';
+import { QueryResult } from 'react-apollo';
 
 export interface LocationData {
   countryRegion?: string;
@@ -6,13 +6,23 @@ export interface LocationData {
   adminDistrict2?: string;
 }
 
-export type LocationDataResults = LocationData & QueryResult;
+export interface LocationDataResponse {
+  locationData: LocationData;
+}
+export type LocationDataResults = LocationDataResponse & QueryResult;
 
 export interface GameSettings {
-  answeredQuestions?: (string | null)[];
+  answeredQuestions?: [string | null];
   isGameActive?: boolean;
   isLocationChanged?: boolean;
-  score?: Number;
+  score?: number;
+}
+
+export interface GameSettingsMutationVariables {
+  answeredQuestion?: string;
+  isGameActive?: boolean;
+  isLocationChanged?: boolean;
+  score?: number;
 }
 
 export interface GameSettingsData {
@@ -45,11 +55,19 @@ enum Reason {
 
 export interface Question {
   id: string;
-  type: string;
+  type: 'question' | 'result';
   reason: Reason;
   question: string;
   correct_answer: string;
   incorrect_answers: string[];
+}
+
+export interface Result {
+  id: string;
+  type: 'question' | 'result';
+  question: string;
+  correct_answer?: string;
+  incorrect_answers?: string[];
 }
 
 export interface Answers {

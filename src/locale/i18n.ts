@@ -1,5 +1,5 @@
 import i18n from 'i18next';
-import {initReactI18next} from 'react-i18next';
+import { initReactI18next } from 'react-i18next';
 import * as RNLocalize from 'react-native-localize';
 
 const pl = require('./pl.js');
@@ -14,7 +14,7 @@ const languageDetector = {
 };
 
 i18n
-  .use(languageDetector)
+  .use(languageDetector as any)
   .use(initReactI18next)
   .init({
     fallbackLng: 'en',

@@ -1,13 +1,13 @@
-import {locationDataQuery, gameSettingsQuery} from './queries';
-import {LocationData, GameSettings} from './models';
+import { gameSettingsQuery } from './queries';
+import { LocationData, GameSettings, GameSettingsMutationVariables } from './models';
 
 const getValue = (value: any, defaultValue: any) =>
   value !== undefined ? value : defaultValue;
 
 export const setLocationData = (
   _: any,
-  {countryRegion, adminDistrict, adminDistrict2}: LocationData,
-  {cache}: any,
+  { countryRegion, adminDistrict, adminDistrict2 }: LocationData,
+  { cache }: any,
 ) => {
   const newLocationData = {
     countryRegion: getValue(countryRegion, ''),
@@ -15,16 +15,16 @@ export const setLocationData = (
     adminDistrict2: getValue(adminDistrict2, ''),
     __typename: 'locationData',
   };
-  cache.writeData({data: {locationData: newLocationData}});
+  cache.writeData({ data: { locationData: newLocationData } });
   return newLocationData;
 };
 
 export const setGameSettings = (
   _: any,
-  {isGameActive, score, answeredQuestion, isLocationChanged}: GameSettings,
-  {cache}: any,
+  { isGameActive, score, answeredQuestion, isLocationChanged }: GameSettingsMutationVariables,
+  { cache }: any,
 ) => {
-  const currentGameSettings = cache.readQuery({query: gameSettingsQuery})
+  const currentGameSettings = cache.readQuery({ query: gameSettingsQuery })
     .gameSettings;
   const newGameSettings = {
     isGameActive: getValue(isGameActive, currentGameSettings.isGameActive),
@@ -33,15 +33,15 @@ export const setGameSettings = (
       currentGameSettings.isLocationChanged,
     ),
     answeredQuestions:
-      answeredQuestion == undefined
+      answeredQuestion === undefined
         ? currentGameSettings.answeredQuestions
         : currentGameSettings.answeredQuestions.concat(answeredQuestion),
     score:
-      score == undefined
+      score === undefined
         ? currentGameSettings.score
         : currentGameSettings.score + score,
     __typename: 'gameSettings',
   };
-  cache.writeData({data: {gameSettings: newGameSettings}});
+  cache.writeData({ data: { gameSettings: newGameSettings } });
   return newGameSettings;
 };

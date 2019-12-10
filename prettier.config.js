@@ -3,5 +3,5 @@ module.exports = {
   tabWidth: 2,
   trailingComma: 'all',
   semi: true,
-  bracketSpacing: true,
+  whitespace: [true, 'check-module'],
 };
