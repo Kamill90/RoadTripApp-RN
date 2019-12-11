@@ -38,13 +38,10 @@ export interface GameSettingsResponse {
 export type GameSettingsResults = GameSettingsData & QueryResult;
 
 export interface AddressData {
-  addressLine: string;
   adminDistrict: string;
   adminDistrict2: string;
   countryRegion: string;
   formattedAddress: string;
-  locality: string;
-  postalCode: string;
 }
 
 enum Reason {
@@ -72,4 +69,10 @@ export interface Result {
 
 export interface Answers {
   incorrect_answers: string[];
+}
+
+export interface AddressComponent {
+  long_name: string;
+  short_name: string;
+  types: string[];
 }
