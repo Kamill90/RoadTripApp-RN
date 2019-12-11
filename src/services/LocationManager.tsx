@@ -57,6 +57,10 @@ export default class LocationManager {
         });
 
       const address = {
+        countryRegion:
+          (filterFunction('country').length &&
+            filterFunction('country')[0].long_name) ||
+          '',
         adminDistrict:
           (filterFunction('administrative_area_level_1').length &&
             filterFunction('administrative_area_level_1')[0].long_name) ||
@@ -64,10 +68,6 @@ export default class LocationManager {
         adminDistrict2:
           (filterFunction('administrative_area_level_2').length &&
             filterFunction('administrative_area_level_2')[0].long_name) ||
-          '',
-        countryRegion:
-          (filterFunction('country').length &&
-            filterFunction('country')[0].long_name) ||
           '',
         formattedAddress: formatted_address,
       };

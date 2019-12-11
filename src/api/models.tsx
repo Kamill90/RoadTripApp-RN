@@ -4,6 +4,7 @@ export interface LocationData {
   countryRegion?: string;
   adminDistrict?: string;
   adminDistrict2?: string;
+  formattedAddress?: string;
 }
 
 export interface LocationDataResponse {
@@ -65,6 +66,7 @@ export interface Result {
   question: string;
   correct_answer?: string;
   incorrect_answers?: string[];
+  description?: string;
 }
 
 export interface Answers {

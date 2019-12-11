@@ -1,5 +1,4 @@
 export { QuizCard } from './QuizCard';
-export { ResultCart } from './ResultCart';
+export { ResultCard } from './ResultCard';
 export { Button } from './Button';
-export { StyledText } from './StyledText';
 export { Template } from './Template';

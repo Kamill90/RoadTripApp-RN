@@ -6,6 +6,7 @@ export const locationDataQuery = gql`
       countryRegion
       adminDistrict
       adminDistrict2
+      formattedAddress
     }
   }
 `;

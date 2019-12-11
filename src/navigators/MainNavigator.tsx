@@ -6,7 +6,7 @@ import { palette } from 'styles';
 
 const darkHeaderOption = {
   headerStyle: {
-    backgroundColor: palette.mainBlack,
+    backgroundColor: palette.secondaryBackground,
   },
   headerTintColor: palette.white,
   headerTitleStyle: {

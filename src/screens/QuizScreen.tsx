@@ -16,7 +16,6 @@ import {
   locationDataQuery,
   gameSettingsQuery,
   setGameSettingsMutation,
-  GameSettings,
   Question,
   GameSettingsResponse,
   Result,
@@ -27,11 +26,11 @@ import {
   QUESTION_TYPE,
 } from 'api';
 import {i18n} from 'locale';
-import {QuizCard, ResultCart, Template} from 'components';
+import {QuizCard, ResultCard, Template} from 'components';
+import {typography, palette} from 'styles';
 import questions from '../assets/questions';
 
 const WIDTH = Dimensions.get('screen').width;
-const HEIGHT = Dimensions.get('screen').height;
 
 interface Props extends NavigationInjectedProps {
   locationDataResults: LocationDataResults;
@@ -78,7 +77,7 @@ class QuizScreen extends React.PureComponent<Props, State> {
         return question;
       }
     });
-    const result = {id: '0',type: 'result', question: 'the end'};
+    const result = {id: '0',type: 'result', question: i18n.t('quiz:resultTitle'), description: i18n.t('quiz:resultDescription')};
     const filteredQuestionsWithResult = [...filteredQuestions, result];
 
     return {
@@ -137,7 +136,7 @@ state = {
 
   renderQuizCard = ({item}: {item: Question | Result}) => {
     if (item.type === QUESTION_TYPE.RESULT) {
-      return <ResultCart question={item.question} />;
+      return <ResultCard question={item.question} description={item.description} /> ;
     }
     const answers = item.incorrect_answers!.concat(item.correct_answer!);
     return (
@@ -154,19 +153,23 @@ state = {
   render() {
     const {
       locationDataResults: {
-        locationData: {adminDistrict2, adminDistrict, countryRegion},
+        locationData: {adminDistrict2, adminDistrict, countryRegion, formattedAddress},
       },
       gameSettingsResults,
     } = this.props;
-
     return (
       <Template>
         <View style={styles.summary}>
-          <Text>
+          <Text style={typography.basicInfo}>
             {i18n.t('quiz:location')}
             {adminDistrict || adminDistrict2 || countryRegion}
           </Text>
-          <Text>
+          <Text style={typography.secondaryInfo}>
+            {`Address: ${formattedAddress}`}
+          </Text>
+        </View>
+        <View style={styles.scoreContainer}>
+          <Text style={typography.score}>
             {i18n.t('quiz:score')} {gameSettingsResults.gameSettings.score}
           </Text>
         </View>
@@ -188,8 +191,7 @@ state = {
 
 const styles = StyleSheet.create({
   carouselContainer: {
-    paddingVertical: 100,
-    height: HEIGHT * 0.6,
+    paddingBottom: 100,
     flexDirection: 'column',
   },
   summary: {
@@ -202,6 +204,17 @@ const styles = StyleSheet.create({
   footer: {
     fontSize: 20,
   },
+  scoreContainer: {
+    width: '80%',
+    height: 50,
+    backgroundColor: palette.secondaryBackground,
+    borderRadius: 15,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 15,
+    marginTop: 100,
+  }
 });
 
 export default compose(

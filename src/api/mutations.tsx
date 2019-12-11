@@ -5,11 +5,14 @@ export const setLocationDataMutation = gql`
     $countryRegion: String
     $adminDistrict: String
     $adminDistrict2: String
+    $formattedAddress: String
+    
   ) {
     setLocationData(
       countryRegion: $countryRegion
       adminDistrict: $adminDistrict
       adminDistrict2: $adminDistrict2
+      formattedAddress: $formattedAddress
     ) @client
   }
 `;

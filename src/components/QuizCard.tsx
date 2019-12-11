@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
+import { Button } from 'components';
 import { palette } from 'styles';
 
 interface Props {
@@ -12,14 +13,17 @@ interface Props {
 export class QuizCard extends React.PureComponent<Props> {
   renderAnswerButtons = (): React.ReactNode => {
     const { answers, onPress } = this.props;
+    answers.sort(() => Math.random() - 0.5);
     return answers.map((answer, index) => (
-      <Button
-        key={ index }
-        title={ answer }
-        onPress={ () => {
-          onPress(answer);
-        } }
-      />
+      <View key={ index } style={ styles.buttonContainer }>
+        <Button
+          title={ answer }
+          onPress={ () => {
+            onPress(answer);
+          } }
+          type="answer"
+        />
+      </View>
     ));
   };
   render() {
@@ -37,11 +41,13 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     padding: 30,
-    borderColor: palette.mainBlack,
+    backgroundColor: palette.secondaryBackground,
     borderWidth: 1,
     borderRadius: 15,
   },
-  button: {
+  buttonContainer: {
+    width: '100%',
+    height: 40,
     marginVertical: 10,
   },
   question: {
@@ -49,5 +55,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
+    color: palette.white
   },
 });

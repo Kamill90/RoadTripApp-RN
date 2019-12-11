@@ -24,6 +24,7 @@ import {
 import { Button, Template } from 'components';
 import { i18n } from 'locale';
 import { LocationManager, NotificationService } from 'services';
+import { typography } from 'styles';
 
 const MIN = 15;
 const INTERVAL_VALUE = MIN * 60 * 1000;
@@ -89,6 +90,7 @@ class HomeScreen extends PureComponent<Props> {
       countryRegion: locationData.countryRegion,
       adminDistrict: locationData.adminDistrict,
       adminDistrict2: locationData.adminDistrict2,
+      formattedAddress: locationData.formattedAddress
     };
     try {
       const address = (await LocationManager.getCurrentLocation()) as AddressData;
@@ -96,6 +98,7 @@ class HomeScreen extends PureComponent<Props> {
         countryRegion: address.countryRegion,
         adminDistrict: address.adminDistrict,
         adminDistrict2: address.adminDistrict2,
+        formattedAddress: address.formattedAddress
       };
       this.props.setLocationData({
         variables: newLocationData,
@@ -159,18 +162,22 @@ class HomeScreen extends PureComponent<Props> {
             });
           } }
         />
-        <View style={ styles.buttonsContainer }>
-          { gameSettings.isGameActive ? (
-            <>
-              <Button onPress={ this.stopGame } title={ i18n.t('home:stop') } />
-              <Button title={ i18n.t('home:goTo') } onPress={ this.goToGame } />
-              { gameSettings.isLocationChanged && (
-                <Text>{ i18n.t('announcement:newQuiz') }</Text>
+        <View style={ styles.mainContainer }>
+
+          <View style={ styles.buttonsContainer }>
+            { gameSettings.isGameActive ? (
+              <>
+                <Button onPress={ this.stopGame } title={ i18n.t('home:stop') } type="regular" />
+                <Button title={ i18n.t('home:goTo') } onPress={ this.goToGame } type="regular" />
+              </>
+            ) : (
+                <Button title={ i18n.t('home:start') } onPress={ this.startGame } type="regular" />
               ) }
-            </>
-          ) : (
-              <Button title={ i18n.t('home:start') } onPress={ this.startGame } />
-            ) }
+
+          </View>
+          { gameSettings.isLocationChanged && (
+            <Text style={ typography.popupInfo }>{ i18n.t('announcement:newQuiz') }</Text>
+          ) }
         </View>
       </Template>
     );
@@ -178,8 +185,8 @@ class HomeScreen extends PureComponent<Props> {
 }
 
 const styles = StyleSheet.create({
+  mainContainer: { height: '100%', justifyContent: 'flex-end', paddingBottom: 40 },
   buttonsContainer: {
-    marginTop: 600,
     height: 120,
     width: '100%',
     justifyContent: 'space-between',

@@ -6,13 +6,14 @@ const getValue = (value: any, defaultValue: any) =>
 
 export const setLocationData = (
   _: any,
-  { countryRegion, adminDistrict, adminDistrict2 }: LocationData,
+  { countryRegion, adminDistrict, adminDistrict2, formattedAddress }: LocationData,
   { cache }: any,
 ) => {
   const newLocationData = {
     countryRegion: getValue(countryRegion, ''),
     adminDistrict: getValue(adminDistrict, ''),
     adminDistrict2: getValue(adminDistrict2, ''),
+    formattedAddress: getValue(formattedAddress, ''),
     __typename: 'locationData',
   };
   cache.writeData({ data: { locationData: newLocationData } });
