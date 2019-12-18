@@ -19,7 +19,7 @@ export const typography = StyleSheet.create({
     letterSpacing: 0.5,
     color: palette.white,
     textTransform: 'uppercase',
-    fontWeight: '800'
+    fontWeight: '800',
   },
   popupInfo: {
     textAlign: 'center',
@@ -43,5 +43,5 @@ export const typography = StyleSheet.create({
   homeScreenVideoTitle2: {
     fontSize: 24,
     letterSpacing: 0.44,
-  }
+  },
 });

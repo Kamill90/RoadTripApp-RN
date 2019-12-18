@@ -7,11 +7,8 @@ interface Props extends TextProps {
   children?: JSX.Element | JSX.Element[];
 }
 
-export const Template: React.FunctionComponent<Props> = ({
-  children,
-  ...props
-}) => {
-  return <View style={ styles.contentContainer }>{ children }</View>;
+export const Template: React.FunctionComponent<Props> = ({ children }) => {
+  return <View style={styles.contentContainer}>{children}</View>;
 };
 
 const styles = StyleSheet.create({

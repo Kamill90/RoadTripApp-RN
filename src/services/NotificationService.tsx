@@ -48,7 +48,7 @@ export default class NotificationService {
   localNotification(country: string) {
     PushNotification.localNotification({
       ...this.tmpConfig,
-      title: `Local notificatioj: ${ country }`, // (optional)
+      title: `Local notification: ${country}`, // (optional)
       message: 'Open the app to continue the game', // (required)
     });
   }
@@ -60,7 +60,7 @@ export default class NotificationService {
   scheduledNotification(country: string) {
     PushNotification.localNotificationSchedule({
       ...this.tmpConfig,
-      title: `You are in ${ country }`, // (optional)
+      title: `You are in ${country}`, // (optional)
       message: 'Open the app to continue the game', // (required)
       date: new Date(Date.now() + 1000),
       repeatType: 'hour',

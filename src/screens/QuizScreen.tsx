@@ -7,10 +7,10 @@ import {
   Alert,
   ScrollViewProps,
 } from 'react-native';
-import {graphql} from 'react-apollo';
+import { graphql } from 'react-apollo';
 import compose from 'lodash.flowright';
-import {NavigationInjectedProps} from 'react-navigation';
-import Carousel, {CarouselStatic} from 'react-native-snap-carousel';
+import { NavigationInjectedProps } from 'react-navigation';
+import Carousel, { CarouselStatic } from 'react-native-snap-carousel';
 
 import {
   locationDataQuery,
@@ -25,9 +25,9 @@ import {
   LocationDataResponse,
   QUESTION_TYPE,
 } from 'api';
-import {i18n} from 'locale';
-import {QuizCard, ResultCard, Template} from 'components';
-import {typography, palette} from 'styles';
+import { i18n } from 'locale';
+import { QuizCard, ResultCard, Template } from 'components';
+import { typography, palette } from 'styles';
 import questions from '../assets/questions';
 
 const WIDTH = Dimensions.get('screen').width;
@@ -52,8 +52,8 @@ class QuizScreen extends React.PureComponent<Props, State> {
       return null;
     }
     const {
-      locationDataResults: {locationData},
-      gameSettingsResults: {gameSettings},
+      locationDataResults: { locationData },
+      gameSettingsResults: { gameSettings },
     } = props;
 
     const adminDistrictBasedQuestions = questions.filter(
@@ -77,7 +77,12 @@ class QuizScreen extends React.PureComponent<Props, State> {
         return question;
       }
     });
-    const result = {id: '0',type: 'result', question: i18n.t('quiz:resultTitle'), description: i18n.t('quiz:resultDescription')};
+    const result = {
+      id: '0',
+      type: 'result',
+      question: i18n.t('quiz:resultTitle'),
+      description: i18n.t('quiz:resultDescription'),
+    };
     const filteredQuestionsWithResult = [...filteredQuestions, result];
 
     return {
@@ -86,13 +91,12 @@ class QuizScreen extends React.PureComponent<Props, State> {
   }
 
   carouselRef = React.createRef<
-  Carousel<any> & CarouselStatic<any> & ScrollViewProps
->();
+    Carousel<any> & CarouselStatic<any> & ScrollViewProps
+  >();
 
-state = {
-  questions: [],
-} as State;
-
+  state = {
+    questions: [],
+  } as State;
 
   componentDidMount() {
     this.props.setGameSettings({
@@ -108,7 +112,7 @@ state = {
     id: string,
   ) => {
     if (correctAnswer === answer) {
-      const {data} = await this.props.setGameSettings({
+      const { data } = await this.props.setGameSettings({
         variables: {
           score: 1,
         },
@@ -116,15 +120,15 @@ state = {
       Alert.alert(
         'You are right',
         `hureeey, your total score is ${data.setGameSettings.score}`,
-        [{text: 'OK', onPress: () => this.carouselRef.current!.snapToNext()}],
-        {cancelable: false},
+        [{ text: 'OK', onPress: () => this.carouselRef.current!.snapToNext() }],
+        { cancelable: false },
       );
     } else {
       Alert.alert(
         'You are wrong',
         `Meh, correct answer is ${correctAnswer}`,
-        [{text: 'OK', onPress: () => this.carouselRef.current!.snapToNext()}],
-        {cancelable: false},
+        [{ text: 'OK', onPress: () => this.carouselRef.current!.snapToNext() }],
+        { cancelable: false },
       );
     }
     this.props.setGameSettings({
@@ -134,9 +138,12 @@ state = {
     });
   };
 
-  renderQuizCard = ({item}: {item: Question | Result}) => {
+  renderQuizCard = ({ item }: { item: Question | Result }) => {
     if (item.type === QUESTION_TYPE.RESULT) {
-      return <ResultCard question={item.question} description={item.description} /> ;
+      return (
+        // @ts-ignore
+        <ResultCard question={item.question} description={item.description} />
+      );
     }
     const answers = item.incorrect_answers!.concat(item.correct_answer!);
     return (
@@ -153,7 +160,12 @@ state = {
   render() {
     const {
       locationDataResults: {
-        locationData: {adminDistrict2, adminDistrict, countryRegion, formattedAddress},
+        locationData: {
+          adminDistrict2,
+          adminDistrict,
+          countryRegion,
+          formattedAddress,
+        },
       },
       gameSettingsResults,
     } = this.props;
@@ -214,11 +226,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 15,
     marginTop: 100,
-  }
+  },
 });
 
 export default compose(
-  graphql(setGameSettingsMutation, {name: 'setGameSettings'}),
+  graphql(setGameSettingsMutation, { name: 'setGameSettings' }),
   graphql<LocationDataResponse, LocationDataResults>(locationDataQuery, {
     name: 'locationDataResults',
   }),

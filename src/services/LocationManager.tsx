@@ -1,4 +1,7 @@
-import Geolocation, { GeoPosition } from 'react-native-geolocation-service';
+import Geolocation, {
+  GeoPosition,
+  GeoError,
+} from 'react-native-geolocation-service';
 import { Alert } from 'react-native';
 import Config from 'react-native-config';
 
@@ -16,31 +19,29 @@ export default class LocationManager {
                 latitude,
                 longitude,
               );
-              resolve(address);
-            } else {
-              reject(
-                'Could not resolve position. Please check your GPS settings',
-              );
+              if (address) {
+                resolve(address);
+              }
             }
           } catch (error) {
-            Alert.alert(error);
-
-            reject(`Something went wrong ${ error }`);
+            // throw error;
+            reject(
+              'Could not connect to the internet. Please check your network connection',
+            );
           }
         },
-        (error: any) => {
-          Alert.alert(error);
-
-          reject(error);
+        (error: GeoError) => {
+          Alert.alert('Something went wrong', error.message);
           // TODO send to crashlytics (error.code, error.message);
         },
-        { timeout: 15000, maximumAge: 10000 },
+        { timeout: 15000, maximumAge: 10000, enableHighAccuracy: false },
       );
     });
   }
 
   async getGeocodingResults(latitude: number, longitude: number) {
-    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${ latitude },${ longitude }&key=${ Config.GOOGLE_MAP_KEY }&language=en`;
+    // eslint-disable-next-line prettier/prettier
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${Config.GOOGLE_MAP_KEY}&language=en`;
     try {
       const response = await fetch(url);
       const data = await response.json();

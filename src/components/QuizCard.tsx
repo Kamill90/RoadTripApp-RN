@@ -15,12 +15,12 @@ export class QuizCard extends React.PureComponent<Props> {
     const { answers, onPress } = this.props;
     answers.sort(() => Math.random() - 0.5);
     return answers.map((answer, index) => (
-      <View key={ index } style={ styles.buttonContainer }>
+      <View key={index} style={styles.buttonContainer}>
         <Button
-          title={ answer }
-          onPress={ () => {
+          title={answer}
+          onPress={() => {
             onPress(answer);
-          } }
+          }}
           type="answer"
         />
       </View>
@@ -29,9 +29,9 @@ export class QuizCard extends React.PureComponent<Props> {
   render() {
     const { question } = this.props;
     return (
-      <View style={ styles.container }>
-        <Text style={ styles.question }>{ question }</Text>
-        { this.renderAnswerButtons() }
+      <View style={styles.container}>
+        <Text style={styles.question}>{question}</Text>
+        {this.renderAnswerButtons()}
       </View>
     );
   }
@@ -55,6 +55,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: palette.white
+    color: palette.white,
   },
 });

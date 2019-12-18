@@ -12,9 +12,9 @@ export class ResultCard extends React.PureComponent<Props> {
   render() {
     const { question, description } = this.props;
     return (
-      <View style={ styles.container }>
-        <Text style={ typography.basicInfo }>{ question }</Text>
-        <Text style={ typography.description }> { description } </Text>
+      <View style={styles.container}>
+        <Text style={typography.basicInfo}>{question}</Text>
+        <Text style={typography.description}> {description} </Text>
       </View>
     );
   }

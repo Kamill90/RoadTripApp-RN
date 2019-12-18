@@ -24,8 +24,8 @@ if (Platform.OS === 'android') {
 const AppContainer = createAppContainer(RootStackNavigator);
 
 const App = () => (
-  <I18nextProvider i18n={ i18n }>
-    <ApolloProvider client={ client }>
+  <I18nextProvider i18n={i18n}>
+    <ApolloProvider client={client}>
       <StatusBar barStyle="light-content" />
       <AppContainer />
     </ApolloProvider>

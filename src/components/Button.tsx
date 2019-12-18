@@ -9,14 +9,14 @@ interface Props {
   onPress: () => void;
 }
 
-export const Button: React.FunctionComponent<Props> = ({
-  children,
-  ...props
-}) => (
-    <TouchableOpacity style={ [styles.container, styles[props.type]] } onPress={ props.onPress }>
-      <Text>{ props.title }</Text>
-    </TouchableOpacity>
-  );
+export const Button: React.FunctionComponent<Props> = ({ ...props }) => (
+  <TouchableOpacity
+    style={[styles.container, styles[props.type]]}
+    onPress={props.onPress}
+  >
+    <Text>{props.title}</Text>
+  </TouchableOpacity>
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -33,5 +33,5 @@ const styles = StyleSheet.create({
   answer: {
     borderRadius: 8,
     backgroundColor: palette.button1,
-  }
+  },
 });
