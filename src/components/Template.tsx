@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  View,
   StyleSheet,
   ScrollView,
   TextProps,
@@ -10,6 +11,7 @@ import { palette } from 'styles';
 interface Props extends TextProps {
   children?: JSX.Element | JSX.Element[];
   refreshContol?: () => void;
+  refreshing?: boolean;
 }
 
 export const Template: React.FunctionComponent<Props> = ({
@@ -21,7 +23,14 @@ export const Template: React.FunctionComponent<Props> = ({
       bounces={!!props.refreshContol}
       style={styles.contentContainer}
       refreshControl={
-        <RefreshControl refreshing={false} onRefresh={props.refreshContol} />
+        props.refreshContol ? (
+          <RefreshControl
+            refreshing={!!props.refreshing}
+            onRefresh={props.refreshContol}
+          />
+        ) : (
+          <View />
+        )
       }
     >
       {children}

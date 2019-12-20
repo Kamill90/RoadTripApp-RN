@@ -76,6 +76,9 @@ class HomeScreen extends PureComponent<Props, State> {
   }
 
   updateLocation = async (): Promise<{ status: FetchLocation }> => {
+    this.setState({
+      loading: true,
+    });
     const {
       locationDataResults: { locationData },
     } = this.props;
@@ -135,9 +138,6 @@ class HomeScreen extends PureComponent<Props, State> {
   };
 
   startGame = async () => {
-    this.setState({
-      loading: true,
-    });
     const { status } = await this.updateLocation();
     if (status !== 'success') {
       return;
@@ -160,7 +160,7 @@ class HomeScreen extends PureComponent<Props, State> {
     } = this.props;
     const { loading } = this.state;
     return (
-      <Template refreshContol={this.updateLocation}>
+      <Template refreshContol={this.updateLocation} refreshing={loading}>
         <NavigationEvents
           // bug on react-apollo
           onDidFocus={() => {
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     height: '100%',
     justifyContent: 'flex-end',
-    paddingBottom: 140,
+    paddingTop: 440,
   },
   buttonsContainer: {
     height: 120,
