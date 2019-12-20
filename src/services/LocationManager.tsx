@@ -5,7 +5,7 @@ import Geolocation, {
 import { Alert } from 'react-native';
 import Config from 'react-native-config';
 
-import { AddressData, AddressComponent } from 'api';
+import { AddressComponent } from 'api';
 
 export default class LocationManager {
   getCurrentLocation() {
@@ -15,7 +15,7 @@ export default class LocationManager {
           const { latitude, longitude } = position.coords;
           try {
             if (latitude && longitude) {
-              const address: AddressData = await this.getGeocodingResults(
+              const address = await this.getGeocodingResults(
                 latitude,
                 longitude,
               );
@@ -31,7 +31,7 @@ export default class LocationManager {
           }
         },
         (error: GeoError) => {
-          Alert.alert('Something went wrong', error.message);
+          reject(error.message);
           // TODO send to crashlytics (error.code, error.message);
         },
         { timeout: 15000, maximumAge: 10000, enableHighAccuracy: false },
@@ -46,7 +46,7 @@ export default class LocationManager {
       const response = await fetch(url);
       const data = await response.json();
       if (data.status !== 'OK') {
-        Alert.alert('Something went wrong');
+        return Alert.alert('Somethinggg went wrong');
       }
       const { address_components, formatted_address } = data.results[0];
 

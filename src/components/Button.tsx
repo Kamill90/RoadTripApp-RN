@@ -1,5 +1,10 @@
 import React from 'react';
-import { Text, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 
 import { palette } from 'styles';
 
@@ -7,14 +12,21 @@ interface Props {
   type: 'regular' | 'answer';
   title: string;
   onPress: () => void;
+  loading?: boolean;
 }
 
 export const Button: React.FunctionComponent<Props> = ({ ...props }) => (
   <TouchableOpacity
     style={[styles.container, styles[props.type]]}
     onPress={props.onPress}
+    disabled={props.loading}
+    activeOpacity={0.5}
   >
-    <Text>{props.title}</Text>
+    {props.loading ? (
+      <ActivityIndicator size="small" color={palette.mainBlack} />
+    ) : (
+      <Text>{props.title}</Text>
+    )}
   </TouchableOpacity>
 );
 

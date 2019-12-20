@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet, View, Text, AppState, Alert } from 'react-native';
+import { StyleSheet, View, Text, Alert } from 'react-native';
 import { graphql } from 'react-apollo';
 import { NavigationInjectedProps, NavigationEvents } from 'react-navigation';
 import compose from 'lodash.flowright';
-import BackgroundFetch from 'react-native-background-fetch';
+// import BackgroundFetch from 'react-native-background-fetch';
 
 import {
   setLocationDataMutation,
@@ -27,8 +27,8 @@ import { i18n } from 'locale';
 import { LocationManager, NotificationService } from 'services';
 import { typography } from 'styles';
 
-const MIN = 15;
-const INTERVAL_VALUE = MIN * 60 * 1000;
+// const MIN = 15;
+// const INTERVAL_VALUE = MIN * 60 * 1000;
 interface Props extends NavigationInjectedProps {
   locationDataResults: LocationDataResults;
   gameSettingsResults: GameSettingsResults;
@@ -40,10 +40,14 @@ interface Props extends NavigationInjectedProps {
   setLocationData: ({ variables }: { variables: LocationData }) => LocationData;
 }
 
-class HomeScreen extends PureComponent<Props> {
-  // state = {
-  //   appState: AppState.currentState,
-  // };
+interface State {
+  loading: boolean;
+}
+
+class HomeScreen extends PureComponent<Props, State> {
+  state = {
+    loading: false,
+  };
 
   // timer: any;
   // componentDidMount() {
@@ -128,6 +132,9 @@ class HomeScreen extends PureComponent<Props> {
           },
         });
       }
+      this.setState({
+        loading: false,
+      });
       return {
         status: 'success',
       };
@@ -138,6 +145,9 @@ class HomeScreen extends PureComponent<Props> {
       //   notificationService.localNotification(`local: ${newLocationData.formattedAddress}`); //works on android
       // }
     } catch (error) {
+      this.setState({
+        loading: false,
+      });
       Alert.alert('Error', error);
       return {
         status: 'failure',
@@ -158,6 +168,9 @@ class HomeScreen extends PureComponent<Props> {
   };
 
   startGame = async () => {
+    this.setState({
+      loading: true,
+    });
     const { status } = await this.updateLocation();
     if (status !== 'success') {
       return;
@@ -168,7 +181,7 @@ class HomeScreen extends PureComponent<Props> {
       },
     });
     this.goToGame();
-    this.timer = setInterval(this.updateLocation, INTERVAL_VALUE);
+    // this.timer = setInterval(this.updateLocation, INTERVAL_VALUE);
   };
 
   goToGame = () => {
@@ -179,6 +192,7 @@ class HomeScreen extends PureComponent<Props> {
     const {
       gameSettingsResults: { gameSettings },
     } = this.props;
+    const { loading } = this.state;
     return (
       <Template>
         <NavigationEvents
@@ -209,6 +223,7 @@ class HomeScreen extends PureComponent<Props> {
                 title={i18n.t('home:start')}
                 onPress={this.startGame}
                 type="regular"
+                loading={loading}
               />
             )}
           </View>
