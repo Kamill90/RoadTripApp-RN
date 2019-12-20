@@ -1,4 +1,4 @@
-package com.roadtripapp;
+package com.RN.roadTripApp;
 
 import com.facebook.react.ReactActivity;
 
