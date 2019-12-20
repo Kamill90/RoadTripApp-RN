@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  View,
   StyleSheet,
   ScrollView,
   TextProps,
@@ -23,14 +22,11 @@ export const Template: React.FunctionComponent<Props> = ({
       bounces={!!props.refreshContol}
       style={styles.contentContainer}
       refreshControl={
-        props.refreshContol ? (
-          <RefreshControl
-            refreshing={!!props.refreshing}
-            onRefresh={props.refreshContol}
-          />
-        ) : (
-          <View />
-        )
+        <RefreshControl
+          refreshing={!!props.refreshing}
+          onRefresh={props.refreshContol}
+          tintColor={palette.white}
+        />
       }
     >
       {children}
