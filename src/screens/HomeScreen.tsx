@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Alert } from 'react-native';
 import { graphql } from 'react-apollo';
 import { NavigationInjectedProps, NavigationEvents } from 'react-navigation';
 import compose from 'lodash.flowright';
-// import BackgroundFetch from 'react-native-background-fetch';
+import BackgroundFetch from 'react-native-background-fetch';
 
 import {
   setLocationDataMutation,
@@ -47,57 +47,33 @@ class HomeScreen extends PureComponent<Props, State> {
     loading: false,
   };
 
-  // timer: any;
-  // componentDidMount() {
-  //   // AppState.addEventListener('change', this.handleAppStateChange);
-  //   this.updateLocation();
-  //   // Configure it.
-
-  //   BackgroundFetch.configure(
-  //     {
-  //       minimumFetchInterval: 15, // <-- minutes (15 is minimum allowed)
-  //       // Android options
-  //       stopOnTerminate: false,
-  //       startOnBoot: true,
-  //       requiredNetworkType: BackgroundFetch.NETWORK_TYPE_NONE, // Default
-  //       requiresCharging: false, // Default
-  //       requiresDeviceIdle: false, // Default
-  //       requiresBatteryNotLow: false, // Default
-  //       requiresStorageNotLow: false, // Default
-  //     },
-  //     () => {
-  //       console.log(
-  //         'isGameActive',
-  //         this.props.gameSettingsResults.gameSettings.isGameActive,
-  //       );
-  //       // if (this.props.gameSettingsResults.gameSettings.isGameActive) {
-  //         this.updateLocation();
-  //         console.log('[js] Received background-fetch event');
-  //         // Required: Signal completion of your task to native code
-  //         // If you fail to do this, the OS can terminate your app
-  //         // or assign battery-blame for consuming too much background-time
-  //         BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
-  //       // }
-  //     },
-  //     error => {
-  //       console.log('[js] RNBackgroundFetch failed to start');
-  //     },
-  //   );
-  // }
-
-  // componentWillUnmount() {
-  //   AppState.removeEventListener('change', this.handleAppStateChange);
-  // }
-
-  // handleAppStateChange = (nextAppState) => {
-  //   if (
-  //     this.state.appState.match(/inactive|background/) &&
-  //     nextAppState === 'active'
-  //   ) {
-  //   } else {
-  //   }
-  //   this.setState({ appState: nextAppState });
-  // };
+  componentDidMount() {
+    BackgroundFetch.configure(
+      {
+        minimumFetchInterval: 15, // <-- minutes (15 is minimum allowed)
+        // Android options
+        stopOnTerminate: false,
+        startOnBoot: true,
+        requiredNetworkType: BackgroundFetch.NETWORK_TYPE_NONE, // Default
+        requiresCharging: false, // Default
+        requiresDeviceIdle: false, // Default
+        requiresBatteryNotLow: false, // Default
+        requiresStorageNotLow: false, // Default
+      },
+      () => {
+        NotificationService.localNotification('');
+        if (this.props.gameSettingsResults.gameSettings.isGameActive) {
+          // Required: Signal completion of your task to native code
+          // If you fail to do this, the OS can terminate your app
+          // or assign battery-blame for consuming too much background-time
+          BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
+        }
+      },
+      error => {
+        console.log('[js] RNBackgroundFetch failed to start', error);
+      },
+    );
+  }
 
   updateLocation = async (): Promise<{ status: FetchLocation }> => {
     const {
@@ -136,12 +112,6 @@ class HomeScreen extends PureComponent<Props, State> {
       return {
         status: 'success',
       };
-      // if (this.state.appState !== 'active') {
-      //   console.warn('newLocationData', newLocationData)
-      //   // !!notification shoulb be handled by background process or external service
-      //   notificationService.scheduledNotification(`scheduled: ${address.formattedAddress}`);
-      //   notificationService.localNotification(`local: ${newLocationData.formattedAddress}`); //works on android
-      // }
     } catch (error) {
       this.setState({
         loading: false,

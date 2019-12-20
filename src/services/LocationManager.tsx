@@ -46,7 +46,7 @@ export default class LocationManager {
       const response = await fetch(url);
       const data = await response.json();
       if (data.status !== 'OK') {
-        return Alert.alert('Somethinggg went wrong');
+        return Alert.alert('Something went wrong');
       }
       const { address_components, formatted_address } = data.results[0];
 
