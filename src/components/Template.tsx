@@ -1,14 +1,32 @@
 import React from 'react';
-import { StyleSheet, View, TextProps } from 'react-native';
-// import { fonts } from '../styles';
+import {
+  StyleSheet,
+  ScrollView,
+  TextProps,
+  RefreshControl,
+} from 'react-native';
 import { palette } from 'styles';
 
 interface Props extends TextProps {
   children?: JSX.Element | JSX.Element[];
+  refreshContol?: () => void;
 }
 
-export const Template: React.FunctionComponent<Props> = ({ children }) => {
-  return <View style={styles.contentContainer}>{children}</View>;
+export const Template: React.FunctionComponent<Props> = ({
+  children,
+  ...props
+}) => {
+  return (
+    <ScrollView
+      bounces={!!props.refreshContol}
+      style={styles.contentContainer}
+      refreshControl={
+        <RefreshControl refreshing={false} onRefresh={props.refreshContol} />
+      }
+    >
+      {children}
+    </ScrollView>
+  );
 };
 
 const styles = StyleSheet.create({

@@ -27,8 +27,6 @@ import { i18n } from 'locale';
 import { LocationManager, NotificationService } from 'services';
 import { typography } from 'styles';
 
-// const MIN = 15;
-// const INTERVAL_VALUE = MIN * 60 * 1000;
 interface Props extends NavigationInjectedProps {
   locationDataResults: LocationDataResults;
   gameSettingsResults: GameSettingsResults;
@@ -158,7 +156,6 @@ class HomeScreen extends PureComponent<Props, State> {
   stopGame = async () => {
     persistor.purge();
     client.cache.writeData(initialData);
-    // clearInterval(this.timer);
     NotificationService.cancelNotifications();
     this.props.setGameSettings({
       variables: {
@@ -181,7 +178,6 @@ class HomeScreen extends PureComponent<Props, State> {
       },
     });
     this.goToGame();
-    // this.timer = setInterval(this.updateLocation, INTERVAL_VALUE);
   };
 
   goToGame = () => {
@@ -194,7 +190,7 @@ class HomeScreen extends PureComponent<Props, State> {
     } = this.props;
     const { loading } = this.state;
     return (
-      <Template>
+      <Template refreshContol={this.updateLocation}>
         <NavigationEvents
           // bug on react-apollo
           onDidFocus={() => {
