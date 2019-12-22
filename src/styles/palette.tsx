@@ -8,5 +8,5 @@ export const palette = {
   mainGrey: '#aaaaaa',
   white: '#ffffff',
   button1: '#01aae6',
-  button2: '#c12536',
+  wrongAnswerColor: '#c12536',
 };

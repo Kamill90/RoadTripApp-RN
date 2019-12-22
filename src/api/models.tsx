@@ -58,6 +58,7 @@ export interface Question {
   question: string;
   correct_answer: string;
   incorrect_answers: string[];
+  tip: 'string';
 }
 
 export interface Result {
@@ -67,6 +68,7 @@ export interface Result {
   correct_answer?: string;
   incorrect_answers?: string[];
   description?: string;
+  tip?: string;
 }
 
 export interface Answers {

@@ -4,7 +4,6 @@ import {
   StyleSheet,
   Text,
   Dimensions,
-  Alert,
   ScrollViewProps,
 } from 'react-native';
 import { graphql } from 'react-apollo';
@@ -106,30 +105,32 @@ class QuizScreen extends React.PureComponent<Props, State> {
     });
   }
 
+  showTip = (isCorrect: boolean, correctAnswer: string, tip?: string) => {
+    this.props.navigation.navigate('TipCard', {
+      isCorrect,
+      correctAnswer,
+      description: tip,
+      onPress: () => {
+        this.carouselRef.current!.snapToNext();
+      },
+    });
+  };
+
   onAnswerPressed = async (
     answer: string,
     correctAnswer: string,
     id: string,
+    tip: string,
   ) => {
     if (correctAnswer === answer) {
-      const { data } = await this.props.setGameSettings({
+      await this.props.setGameSettings({
         variables: {
           score: 1,
         },
       });
-      Alert.alert(
-        'You are right',
-        `hureeey, your total score is ${data.setGameSettings.score}`,
-        [{ text: 'OK', onPress: () => this.carouselRef.current!.snapToNext() }],
-        { cancelable: false },
-      );
+      this.showTip(true, correctAnswer, tip);
     } else {
-      Alert.alert(
-        'You are wrong',
-        `Meh, correct answer is ${correctAnswer}`,
-        [{ text: 'OK', onPress: () => this.carouselRef.current!.snapToNext() }],
-        { cancelable: false },
-      );
+      this.showTip(false, correctAnswer, tip);
     }
     this.props.setGameSettings({
       variables: {
@@ -151,7 +152,12 @@ class QuizScreen extends React.PureComponent<Props, State> {
         question={item.question}
         answers={answers}
         onPress={(gotAnswer: string) =>
-          this.onAnswerPressed(gotAnswer, item.correct_answer!, item.id)
+          this.onAnswerPressed(
+            gotAnswer,
+            item.correct_answer!,
+            item.id,
+            item.tip || '',
+          )
         }
       />
     );

@@ -76,9 +76,6 @@ class HomeScreen extends PureComponent<Props, State> {
   }
 
   updateLocation = async (): Promise<{ status: FetchLocation }> => {
-    this.setState({
-      loading: true,
-    });
     const {
       locationDataResults: { locationData },
     } = this.props;
@@ -138,6 +135,9 @@ class HomeScreen extends PureComponent<Props, State> {
   };
 
   startGame = async () => {
+    this.setState({
+      loading: true,
+    });
     const { status } = await this.updateLocation();
     if (status !== 'success') {
       return;
@@ -180,8 +180,9 @@ class HomeScreen extends PureComponent<Props, State> {
                 />
                 <Button
                   title={i18n.t('home:goTo')}
-                  onPress={this.goToGame}
+                  onPress={this.startGame}
                   type="regular"
+                  loading={loading}
                 />
               </>
             ) : (

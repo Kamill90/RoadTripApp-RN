@@ -8,6 +8,10 @@ exports.translations = {
     newQuiz: 'New quizes available!',
   },
   quiz: {
+    right: 'You are right!',
+    wrong: "That's not truth",
+    correctIs: 'Correct answer is: ',
+    continue: 'Continue',
     location: 'You are in: ',
     score: 'Score: ',
     resultTitle: 'Thats all for now',
