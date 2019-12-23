@@ -3,6 +3,7 @@ exports.translations = {
     start: 'Start the game',
     stop: 'Stop the game',
     goTo: 'Go to the game',
+    yourScore: 'Your score',
   },
   announcement: {
     newQuiz: 'New quizes available!',

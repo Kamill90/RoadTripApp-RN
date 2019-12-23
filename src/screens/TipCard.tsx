@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { PureComponent } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
@@ -53,10 +54,18 @@ export class TipCard extends PureComponent<NavigationInjectedProps, State> {
             },
           ]}
         >
-          <View style={styles.titleContainer}>
+          <View
+            style={[
+              styles.titleContainer,
+              description.length > 2 && {
+                borderBottomColor: palette.mainBlack,
+                borderBottomWidth: 2,
+              },
+            ]}
+          >
             {!isCorrect ? (
               <>
-                <Text style={typography.popupInfo}>{i18n.t('quiz:wrong')}</Text>
+                <Text style={typography.score}>{i18n.t('quiz:wrong')}</Text>
                 <Text style={typography.popupInfo}>
                   {i18n.t('quiz:correctIs') + correctAnswer}
                 </Text>
@@ -66,7 +75,9 @@ export class TipCard extends PureComponent<NavigationInjectedProps, State> {
             )}
           </View>
           {description.length > 2 && (
-            <Text style={typography.description}>{description}</Text>
+            <View style={styles.tipContainer}>
+              <Text style={typography.description}>{description}</Text>
+            </View>
           )}
           <View style={styles.buttonContainer}>
             <Button
@@ -101,11 +112,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: 60,
-    borderBottomColor: palette.mainBlack,
-    borderBottomWidth: 2,
+  },
+  tipContainer: {
+    marginVertical: 50,
   },
   buttonContainer: {
-    height: 100,
+    height: 50,
     justifyContent: 'flex-end',
   },
 });

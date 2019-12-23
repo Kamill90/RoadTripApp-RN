@@ -15,14 +15,14 @@ import {
   gameSettingsQuery,
   GameSettingsResults,
   GameSettingsResponse,
-  GameSettings,
   persistor,
   client,
   initialData,
   locationDataQuery,
   FetchLocation,
+  GameSettingsMutationVariables,
 } from 'api';
-import { Button, Template } from 'components';
+import { Button, Template, ScoreBox } from 'components';
 import { i18n } from 'locale';
 import { LocationManager, NotificationService } from 'services';
 import { typography } from 'styles';
@@ -33,7 +33,7 @@ interface Props extends NavigationInjectedProps {
   setGameSettings: ({
     variables,
   }: {
-    variables: GameSettings;
+    variables: GameSettingsMutationVariables;
   }) => GameSettingsResponse;
   setLocationData: ({ variables }: { variables: LocationData }) => LocationData;
 }
@@ -170,6 +170,14 @@ class HomeScreen extends PureComponent<Props, State> {
           }}
         />
         <View style={styles.mainContainer}>
+          <View style={styles.scoreContainer}>
+            {gameSettings.isGameActive && (
+              <ScoreBox
+                score={gameSettings.score!}
+                noOfQuestions={gameSettings.answeredQuestions.length - 1}
+              />
+            )}
+          </View>
           <View style={styles.buttonsContainer}>
             {gameSettings.isGameActive ? (
               <>
@@ -209,7 +217,11 @@ const styles = StyleSheet.create({
   mainContainer: {
     height: '100%',
     justifyContent: 'flex-end',
-    paddingTop: 440,
+    alignItems: 'center',
+  },
+  scoreContainer: {
+    marginVertical: 100,
+    height: 300,
   },
   buttonsContainer: {
     height: 120,
