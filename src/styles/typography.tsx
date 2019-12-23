@@ -44,4 +44,11 @@ export const typography = StyleSheet.create({
     fontSize: 24,
     letterSpacing: 0.44,
   },
+  bigScore: {
+    fontSize: 60,
+    letterSpacing: 0.5,
+    color: palette.white,
+    textTransform: 'uppercase',
+    fontWeight: '600',
+  },
 });

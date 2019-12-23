@@ -13,7 +13,7 @@ export interface LocationDataResponse {
 export type LocationDataResults = LocationDataResponse & QueryResult;
 
 export interface GameSettings {
-  answeredQuestions?: [string | null];
+  answeredQuestions: [string | null];
   isGameActive?: boolean;
   isLocationChanged?: boolean;
   score?: number;

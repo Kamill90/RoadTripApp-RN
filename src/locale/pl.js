@@ -3,13 +3,14 @@ exports.translations = {
     start: 'Zacznij grę',
     stop: 'Zakończ grę',
     goTo: 'Przejdź do gry',
+    yourScore: 'Twój wynik',
   },
   announcement: {
     newQuiz: 'Dostępne nowe quizy!',
   },
   quiz: {
     right: 'Masz rację!',
-    wrong: 'Nieprawda!',
+    wrong: 'Błąd!',
     correctIs: 'Poprawna odpowiedź to: ',
     continue: 'Kontunuuj',
     location: 'Jesteś w: ',
