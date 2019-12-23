@@ -126,6 +126,7 @@ class HomeScreen extends PureComponent<Props, State> {
   stopGame = async () => {
     persistor.purge();
     client.cache.writeData(initialData);
+    BackgroundFetch.stop();
     NotificationService.cancelNotifications();
     this.props.setGameSettings({
       variables: {
