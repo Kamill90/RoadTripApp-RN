@@ -27,8 +27,11 @@ import {
 import { i18n } from 'locale';
 import { QuizCard, ResultCard, Template } from 'components';
 import { typography, palette } from 'styles';
-import questions from '../assets/questions';
 
+import pl_questions from '../assets/pl_questions';
+import en_questions from '../assets/en_questions';
+
+const baseQuestions = i18n.language === 'pl' ? pl_questions : en_questions;
 const WIDTH = Dimensions.get('screen').width;
 
 interface Props extends NavigationInjectedProps {
@@ -43,6 +46,7 @@ interface Props extends NavigationInjectedProps {
 
 interface State {
   questions: [];
+  answeredInSession: number;
 }
 
 class QuizScreen extends React.PureComponent<Props, State> {
@@ -55,14 +59,14 @@ class QuizScreen extends React.PureComponent<Props, State> {
       gameSettingsResults: { gameSettings },
     } = props;
 
-    const adminDistrictBasedQuestions = questions.filter(
+    const adminDistrictBasedQuestions = baseQuestions.filter(
       question => question.reason.adminDistrict === locationData.adminDistrict,
     );
-    const adminDistrict2BasedQuestions = questions.filter(
+    const adminDistrict2BasedQuestions = baseQuestions.filter(
       question =>
         question.reason.adminDistrict2 === locationData.adminDistrict2,
     );
-    const countryBasedQuestions = questions.filter(
+    const countryBasedQuestions = baseQuestions.filter(
       question => question.reason.countryRegion === locationData.countryRegion,
     );
     const locationBasedQuestions = [
@@ -95,6 +99,7 @@ class QuizScreen extends React.PureComponent<Props, State> {
 
   state = {
     questions: [],
+    answeredInSession: 0,
   } as State;
 
   componentDidMount() {
@@ -110,8 +115,11 @@ class QuizScreen extends React.PureComponent<Props, State> {
       isCorrect,
       correctAnswer,
       description: tip,
-      onPress: () => {
-        this.carouselRef.current!.snapToNext();
+      onPress: async () => {
+        await this.carouselRef.current!.snapToNext();
+        this.setState({
+          answeredInSession: this.state.answeredInSession + 1,
+        });
       },
     });
   };
@@ -175,6 +183,11 @@ class QuizScreen extends React.PureComponent<Props, State> {
       },
       gameSettingsResults,
     } = this.props;
+    const { questions, answeredInSession } = this.state;
+    const progress =
+      questions.length - 1 === 0 || answeredInSession === 0
+        ? 0
+        : `${(answeredInSession / (questions.length - 1)) * 100}%`;
     return (
       <Template>
         <View style={styles.summary}>
@@ -187,7 +200,16 @@ class QuizScreen extends React.PureComponent<Props, State> {
           </Text>
         </View>
         <View style={styles.scoreContainer}>
-          <Text style={typography.score}>
+          <View
+            style={[
+              styles.progressBar,
+              {
+                width: progress,
+              },
+            ]}
+          />
+          {/* eslint-disable-next-line react-native/no-inline-styles */}
+          <Text style={[typography.score, { alignSelf: 'center' }]}>
             {i18n.t('quiz:score')} {gameSettingsResults.gameSettings.score}
           </Text>
         </View>
@@ -229,9 +251,14 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     alignSelf: 'center',
     justifyContent: 'center',
-    alignItems: 'center',
     marginBottom: 15,
     marginTop: 100,
+  },
+  progressBar: {
+    backgroundColor: palette.primary,
+    position: 'absolute',
+    height: '100%',
+    borderRadius: 15,
   },
 });
 

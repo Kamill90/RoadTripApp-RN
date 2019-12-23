@@ -49,7 +49,6 @@ export default class LocationManager {
         return Alert.alert('Something went wrong');
       }
       const { address_components, formatted_address } = data.results[0];
-
       const filterFunction = (type: string) =>
         address_components.filter((result: AddressComponent) => {
           if (result.types[0] === type) {
@@ -60,15 +59,19 @@ export default class LocationManager {
       const address = {
         countryRegion:
           (filterFunction('country').length &&
-            filterFunction('country')[0].long_name) ||
+            filterFunction('country')[0].long_name.toLowerCase()) ||
           '',
         adminDistrict:
           (filterFunction('administrative_area_level_1').length &&
-            filterFunction('administrative_area_level_1')[0].long_name) ||
+            filterFunction(
+              'administrative_area_level_1',
+            )[0].long_name.toLowerCase()) ||
           '',
         adminDistrict2:
           (filterFunction('administrative_area_level_2').length &&
-            filterFunction('administrative_area_level_2')[0].long_name) ||
+            filterFunction(
+              'administrative_area_level_2',
+            )[0].long_name.toLowerCase()) ||
           '',
         formattedAddress: formatted_address,
       };

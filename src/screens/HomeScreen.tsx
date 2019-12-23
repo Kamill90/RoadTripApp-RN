@@ -161,7 +161,7 @@ class HomeScreen extends PureComponent<Props, State> {
     } = this.props;
     const { loading } = this.state;
     return (
-      <Template refreshContol={this.updateLocation} refreshing={loading}>
+      <Template>
         <NavigationEvents
           // bug on react-apollo
           onDidFocus={() => {
@@ -217,7 +217,7 @@ class HomeScreen extends PureComponent<Props, State> {
 const styles = StyleSheet.create({
   mainContainer: {
     height: '100%',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
   },
   scoreContainer: {

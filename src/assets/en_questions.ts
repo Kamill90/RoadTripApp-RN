@@ -3,7 +3,7 @@ export default [
     id: '1',
     type: 'question',
     reason: {
-      countryRegion: 'Poland',
+      countryRegion: 'poland',
     },
     question: '1. Które miasto jest obecną stolicą Polski',
     correct_answer: 'Warszawa',
@@ -27,7 +27,7 @@ export default [
     id: '3',
     type: 'question',
     reason: {
-      adminDistrict: 'Woj. Pomorskie',
+      adminDistrict: 'pomorskie',
     },
     question:
       '3. Czy woj. Pomorskie jest województwem o największej liczbie jezior?',
@@ -127,6 +127,18 @@ export default [
     question: '11. The greatest country in the world?',
     correct_answer: 'USA',
     incorrect_answers: ['Kazahstan'],
+    tip:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
+  },
+  {
+    id: '12',
+    type: 'question',
+    reason: {
+      adminDistrict: 'warmińsko-mazurskie',
+    },
+    question: '12. Stolica Warmi i Mazur',
+    correct_answer: 'Olsztyn',
+    incorrect_answers: ['Elbląg', 'nic', 'Ostróda'],
     tip:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
   },
