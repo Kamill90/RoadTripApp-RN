@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, TextProps } from 'react-native';
+import { StyleSheet, ScrollView, TextProps } from 'react-native';
 import { palette } from 'styles';
 
 interface Props extends TextProps {
@@ -7,7 +7,11 @@ interface Props extends TextProps {
 }
 
 export const Template: React.FunctionComponent<Props> = ({ children }) => {
-  return <View style={styles.contentContainer}>{children}</View>;
+  return (
+    <ScrollView bounces={false} style={styles.contentContainer}>
+      {children}
+    </ScrollView>
+  );
 };
 
 const styles = StyleSheet.create({

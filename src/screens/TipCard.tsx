@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { PureComponent } from 'react';
-import { Animated, StyleSheet, View, Text } from 'react-native';
+import { Animated, StyleSheet, View, Text, ScrollView } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
 
 import { Button } from 'components';
@@ -95,9 +95,13 @@ export class TipCard extends PureComponent<NavigationInjectedProps, State> {
             )}
           </View>
           {description.length > 2 && (
-            <View style={styles.tipContainer}>
+            <ScrollView
+              bounces={false}
+              showsVerticalScrollIndicator={false}
+              style={styles.tipContainer}
+            >
               <Text style={typography.description}>{description}</Text>
-            </View>
+            </ScrollView>
           )}
           <View style={styles.buttonContainer}>
             <Button
@@ -124,6 +128,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     justifyContent: 'space-between',
     width: '80%',
+    maxHeight: '80%',
     borderRadius: 20,
     padding: 15,
   },
@@ -133,10 +138,11 @@ const styles = StyleSheet.create({
     height: 60,
   },
   tipContainer: {
-    marginVertical: 50,
+    paddingVertical: 20,
   },
   buttonContainer: {
     height: 50,
+    marginVertical: 14,
     justifyContent: 'flex-end',
   },
 });

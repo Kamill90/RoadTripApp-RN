@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet, View, Text, Alert } from 'react-native';
+import { StyleSheet, View, Text, Alert, Dimensions } from 'react-native';
 import { graphql } from 'react-apollo';
 import { NavigationInjectedProps, NavigationEvents } from 'react-navigation';
 import compose from 'lodash.flowright';
@@ -26,6 +26,8 @@ import { Button, Template, ScoreBox } from 'components';
 import { i18n } from 'locale';
 import { LocationManager, NotificationService } from 'services';
 import { typography } from 'styles';
+
+const SCREEN_HEIGHT = Dimensions.get('screen').height;
 
 interface Props extends NavigationInjectedProps {
   locationDataResults: LocationDataResults;
@@ -216,7 +218,7 @@ class HomeScreen extends PureComponent<Props, State> {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    height: '100%',
+    height: SCREEN_HEIGHT * 0.7,
     justifyContent: 'space-evenly',
     alignItems: 'center',
   },

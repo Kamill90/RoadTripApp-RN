@@ -199,21 +199,21 @@ class QuizScreen extends React.PureComponent<Props, State> {
             {`Address: ${formattedAddress}`}
           </Text>
         </View>
-        <View style={styles.scoreContainer}>
-          <View
-            style={[
-              styles.progressBar,
-              {
-                width: progress,
-              },
-            ]}
-          />
-          {/* eslint-disable-next-line react-native/no-inline-styles */}
-          <Text style={[typography.score, { alignSelf: 'center' }]}>
-            {i18n.t('quiz:score')} {gameSettingsResults.gameSettings.score}
-          </Text>
-        </View>
         <View style={styles.carouselContainer}>
+          <View style={styles.scoreContainer}>
+            <View
+              style={[
+                styles.progressBar,
+                {
+                  width: progress,
+                },
+              ]}
+            />
+            {/* eslint-disable-next-line react-native/no-inline-styles */}
+            <Text style={[typography.score, { alignSelf: 'center' }]}>
+              {i18n.t('quiz:score')} {gameSettingsResults.gameSettings.score}
+            </Text>
+          </View>
           <Carousel
             ref={this.carouselRef as any}
             removeClippedSubviews={false}
@@ -230,19 +230,8 @@ class QuizScreen extends React.PureComponent<Props, State> {
 }
 
 const styles = StyleSheet.create({
-  carouselContainer: {
-    paddingBottom: 100,
-    flexDirection: 'column',
-  },
   summary: {
     marginHorizontal: 15,
-  },
-  footerContainer: {
-    paddingVertical: 30,
-    alignItems: 'center',
-  },
-  footer: {
-    fontSize: 20,
   },
   scoreContainer: {
     width: '80%',
@@ -252,8 +241,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     marginBottom: 15,
-    marginTop: 100,
+    marginTop: 10,
   },
+  carouselContainer: { marginBottom: 20 },
   progressBar: {
     backgroundColor: palette.primary,
     position: 'absolute',
