@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
     height: 250,
     padding: 30,
     backgroundColor: palette.secondaryBackground,
-    borderWidth: 1,
     borderRadius: 15,
   },
 });

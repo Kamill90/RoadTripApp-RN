@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
 
 import { Button } from 'components';
 import { palette } from 'styles';
@@ -31,7 +31,13 @@ export class QuizCard extends React.PureComponent<Props> {
     return (
       <View style={styles.container}>
         <Text style={styles.question}>{question}</Text>
-        {this.renderAnswerButtons()}
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          bounces={false}
+          style={styles.scroll}
+        >
+          {this.renderAnswerButtons()}
+        </ScrollView>
       </View>
     );
   }
@@ -39,16 +45,18 @@ export class QuizCard extends React.PureComponent<Props> {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    padding: 30,
+    padding: 23,
     backgroundColor: palette.secondaryBackground,
-    borderWidth: 1,
     borderRadius: 15,
+    maxHeight: '80%',
+  },
+  scroll: {
+    borderRadius: 8,
   },
   buttonContainer: {
     width: '100%',
     height: 40,
-    marginVertical: 10,
+    marginBottom: 15,
   },
   question: {
     marginBottom: 40,
