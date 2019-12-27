@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet, View, Text, Alert } from 'react-native';
+import { StyleSheet, View, Text, Alert, AppState } from 'react-native';
 import { graphql } from 'react-apollo';
 import { NavigationInjectedProps, NavigationEvents } from 'react-navigation';
 import compose from 'lodash.flowright';
@@ -50,7 +50,7 @@ class HomeScreen extends PureComponent<Props, State> {
   componentDidMount() {
     BackgroundFetch.configure(
       {
-        minimumFetchInterval: 15, // <-- minutes (15 is minimum allowed)
+        minimumFetchInterval: 30, // <-- minutes (15 is minimum allowed)
         // Android options
         stopOnTerminate: false,
         startOnBoot: true,
@@ -60,20 +60,40 @@ class HomeScreen extends PureComponent<Props, State> {
         requiresBatteryNotLow: false, // Default
         requiresStorageNotLow: false, // Default
       },
-      () => {
-        NotificationService.localNotification('');
-        if (this.props.gameSettingsResults.gameSettings.isGameActive) {
-          // Required: Signal completion of your task to native code
-          // If you fail to do this, the OS can terminate your app
-          // or assign battery-blame for consuming too much background-time
-          BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
-        }
-      },
+      this.backgroundProcess,
       error => {
         console.log('[js] RNBackgroundFetch failed to start', error);
       },
     );
   }
+
+  backgroundProcess = async () => {
+    const {
+      gameSettingsResults: { gameSettings },
+      locationDataResults: {
+        locationData: { adminDistrict, countryRegion },
+      },
+    } = this.props;
+    if (!gameSettings.isGameActive) {
+      return;
+    }
+    await this.updateLocation();
+    if (AppState.currentState.match(/inactive|background/)) {
+      if (gameSettings.isLocationChanged) {
+        NotificationService.localNotification(
+          `Welcome to ${adminDistrict || countryRegion}`,
+        );
+      } else {
+        NotificationService.localNotification(
+          'Hello there. Try quizes about current location',
+        );
+      }
+    }
+    // Required: Signal completion of your task to native code
+    // If you fail to do this, the OS can terminate your app
+    // or assign battery-blame for consuming too much background-time
+    BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
+  };
 
   updateLocation = async (): Promise<{ status: FetchLocation }> => {
     const {
@@ -200,12 +220,12 @@ class HomeScreen extends PureComponent<Props, State> {
                 loading={loading}
               />
             )}
+            {gameSettings.isLocationChanged && gameSettings.isGameActive && (
+              <Text style={typography.popupInfo}>
+                {i18n.t('announcement:newQuiz')}
+              </Text>
+            )}
           </View>
-          {gameSettings.isLocationChanged && gameSettings.isGameActive && (
-            <Text style={typography.popupInfo}>
-              {i18n.t('announcement:newQuiz')}
-            </Text>
-          )}
         </View>
       </Template>
     );

@@ -45,10 +45,10 @@ export default class NotificationService {
     });
   }
 
-  localNotification(country: string) {
+  localNotification(title: string) {
     PushNotification.localNotification({
       ...this.tmpConfig,
-      title: `Local notification: ${country}`, // (optional)
+      title,
       message: 'Open the app to continue the game', // (required)
     });
   }
@@ -57,6 +57,7 @@ export default class NotificationService {
     PushNotification.cancelAllLocalNotifications();
   }
 
+  // deprecated
   scheduledNotification(country: string) {
     PushNotification.localNotificationSchedule({
       ...this.tmpConfig,
