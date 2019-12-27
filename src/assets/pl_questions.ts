@@ -219,18 +219,6 @@ export default [
       'W woj. Pomorskiem znajduje się: Park Narodowy Bory Tucholskie i Słowiński Park Narodowy. Jest również 11 parków krajobrazowych',
   },
   {
-    id: '19',
-    type: 'question',
-    reason: {
-      adminDistrict: 'pomorskie',
-    },
-    question: 'Ile parków narodowych leży na terenie woj. Pomorskiego?',
-    correct_answer: '2',
-    incorrect_answers: ['0', '4', 'wszystkie'],
-    tip:
-      'W woj. Pomorskiem znajduje się: Park Narodowy Bory Tucholskie i Słowiński Park Narodowy. Jest również 11 parków krajobrazowych',
-  },
-  {
     id: '20',
     type: 'question',
     reason: {

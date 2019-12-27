@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet, View, Text, Alert, Dimensions } from 'react-native';
+import { StyleSheet, View, Text, Alert } from 'react-native';
 import { graphql } from 'react-apollo';
 import { NavigationInjectedProps, NavigationEvents } from 'react-navigation';
 import compose from 'lodash.flowright';
@@ -26,8 +26,6 @@ import { Button, Template, ScoreBox } from 'components';
 import { i18n } from 'locale';
 import { LocationManager, NotificationService } from 'services';
 import { typography } from 'styles';
-
-const SCREEN_HEIGHT = Dimensions.get('screen').height;
 
 interface Props extends NavigationInjectedProps {
   locationDataResults: LocationDataResults;
@@ -173,14 +171,12 @@ class HomeScreen extends PureComponent<Props, State> {
           }}
         />
         <View style={styles.mainContainer}>
-          <View style={styles.scoreContainer}>
-            {gameSettings.isGameActive && (
-              <ScoreBox
-                score={gameSettings.score!}
-                noOfQuestions={gameSettings.answeredQuestions.length - 1}
-              />
-            )}
-          </View>
+          {gameSettings.isGameActive && (
+            <ScoreBox
+              score={gameSettings.score!}
+              noOfQuestions={gameSettings.answeredQuestions.length - 1}
+            />
+          )}
           <View style={styles.buttonsContainer}>
             {gameSettings.isGameActive ? (
               <>
@@ -218,13 +214,9 @@ class HomeScreen extends PureComponent<Props, State> {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    height: SCREEN_HEIGHT * 0.7,
+    height: '100%',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-  },
-  scoreContainer: {
-    marginVertical: 100,
-    height: 300,
   },
   buttonsContainer: {
     height: 120,

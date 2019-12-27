@@ -199,31 +199,29 @@ class QuizScreen extends React.PureComponent<Props, State> {
             {`Address: ${formattedAddress}`}
           </Text>
         </View>
-        <View style={styles.carouselContainer}>
-          <View style={styles.scoreContainer}>
-            <View
-              style={[
-                styles.progressBar,
-                {
-                  width: progress,
-                },
-              ]}
-            />
-            {/* eslint-disable-next-line react-native/no-inline-styles */}
-            <Text style={[typography.score, { alignSelf: 'center' }]}>
-              {i18n.t('quiz:score')} {gameSettingsResults.gameSettings.score}
-            </Text>
-          </View>
-          <Carousel
-            ref={this.carouselRef as any}
-            removeClippedSubviews={false}
-            data={this.state.questions}
-            renderItem={this.renderQuizCard}
-            sliderWidth={WIDTH}
-            itemWidth={WIDTH * 0.8}
-            scrollEnabled={false}
+        <View style={styles.scoreContainer}>
+          <View
+            style={[
+              styles.progressBar,
+              {
+                width: progress,
+              },
+            ]}
           />
+          {/* eslint-disable-next-line react-native/no-inline-styles */}
+          <Text style={[typography.score, { alignSelf: 'center' }]}>
+            {i18n.t('quiz:score')} {gameSettingsResults.gameSettings.score}
+          </Text>
         </View>
+        <Carousel
+          ref={this.carouselRef as any}
+          removeClippedSubviews={false}
+          data={this.state.questions}
+          renderItem={this.renderQuizCard}
+          sliderWidth={WIDTH}
+          itemWidth={WIDTH * 0.8}
+          scrollEnabled={false}
+        />
       </Template>
     );
   }
@@ -243,7 +241,6 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     marginTop: 10,
   },
-  carouselContainer: { marginBottom: 20 },
   progressBar: {
     backgroundColor: palette.primary,
     position: 'absolute',
