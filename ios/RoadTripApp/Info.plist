@@ -37,6 +37,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Content depends on your location</string>
 	<key>NSLocationAlwaysUsageDescription</key>
