@@ -21,3 +21,21 @@ export const gameSettingsQuery = gql`
     }
   }
 `;
+
+export const gameDataQuery = gql`
+  query gameData {
+    gameData @client {
+      quizzes {
+        approved
+        correct_answer
+        incorrect_answers
+        language
+        question
+        reason
+        reasonValue
+        tip
+        type
+      }
+    }
+  }
+`;

@@ -4,6 +4,7 @@ import { graphql } from 'react-apollo';
 import { NavigationInjectedProps, NavigationEvents } from 'react-navigation';
 import compose from 'lodash.flowright';
 import BackgroundFetch from 'react-native-background-fetch';
+import firestore from '@react-native-firebase/firestore';
 
 import {
   setLocationDataMutation,
@@ -21,6 +22,8 @@ import {
   locationDataQuery,
   FetchLocation,
   GameSettingsMutationVariables,
+  setGameDataMutation,
+  QuestionData,
 } from 'api';
 import { Button, Template, ScoreBox } from 'components';
 import { i18n } from 'locale';
@@ -36,6 +39,7 @@ interface Props extends NavigationInjectedProps {
     variables: GameSettingsMutationVariables;
   }) => GameSettingsResponse;
   setLocationData: ({ variables }: { variables: LocationData }) => LocationData;
+  setGameData: ({ variables }: { variables: QuestionData }) => QuestionData;
 }
 
 interface State {
@@ -159,6 +163,22 @@ class HomeScreen extends PureComponent<Props, State> {
     this.setState({
       loading: true,
     });
+    //exeptions to handle
+    const documentsSnapshot = await firestore()
+      .collection('quizzes')
+      .get();
+
+    //cache it
+    const quizes = documentsSnapshot.docs;
+    quizes.forEach(quiz => {
+      const quizData = quiz.data();
+      console.log('quizData', quizData);
+      this.props.setGameData({
+        variables: {
+          quiz: quizData,
+        },
+      });
+    });
     const { status } = await this.updateLocation();
     if (status !== 'success') {
       return;
@@ -255,4 +275,5 @@ export default compose(
   }),
   graphql(setGameSettingsMutation, { name: 'setGameSettings' }),
   graphql(setLocationDataMutation, { name: 'setLocationData' }),
+  graphql(setGameDataMutation, { name: 'setGameData' }),
 )(HomeScreen);

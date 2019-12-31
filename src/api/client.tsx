@@ -3,12 +3,12 @@ import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { CachePersistor } from 'apollo-cache-persist';
 
-import { setLocationData, setGameSettings } from './resolvers';
-import { GameSettings, LocationData } from 'api';
+import { setLocationData, setGameSettings, setGameData } from './resolvers';
+import { GameSettings, LocationData, GameData } from 'api';
 
 const cache = new InMemoryCache();
 
-const SCHEMA_VERSION = '2';
+const SCHEMA_VERSION = '3';
 const SCHEMA_VERSION_KEY = 'apollo-schema-version';
 
 export const initialData = {
@@ -27,6 +27,10 @@ export const initialData = {
       formattedAddress: '',
       __typename: 'locationData',
     } as LocationData,
+    gameData: {
+      quizzes: [],
+      __typename: 'quizzes',
+    } as GameData,
   },
 };
 
@@ -36,6 +40,7 @@ export const client = new ApolloClient({
     Mutation: {
       setLocationData,
       setGameSettings,
+      setGameData,
     },
   },
 });

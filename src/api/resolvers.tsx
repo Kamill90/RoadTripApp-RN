@@ -1,12 +1,17 @@
-import { gameSettingsQuery } from './queries';
-import { LocationData, GameSettings, GameSettingsMutationVariables } from './models';
+import { gameSettingsQuery, gameDataQuery } from './queries';
+import { LocationData, GameSettingsMutationVariables } from './models';
 
 const getValue = (value: any, defaultValue: any) =>
   value !== undefined ? value : defaultValue;
 
 export const setLocationData = (
   _: any,
-  { countryRegion, adminDistrict, adminDistrict2, formattedAddress }: LocationData,
+  {
+    countryRegion,
+    adminDistrict,
+    adminDistrict2,
+    formattedAddress,
+  }: LocationData,
   { cache }: any,
 ) => {
   const newLocationData = {
@@ -22,7 +27,12 @@ export const setLocationData = (
 
 export const setGameSettings = (
   _: any,
-  { isGameActive, score, answeredQuestion, isLocationChanged }: GameSettingsMutationVariables,
+  {
+    isGameActive,
+    score,
+    answeredQuestion,
+    isLocationChanged,
+  }: GameSettingsMutationVariables,
   { cache }: any,
 ) => {
   const currentGameSettings = cache.readQuery({ query: gameSettingsQuery })
@@ -45,4 +55,15 @@ export const setGameSettings = (
   };
   cache.writeData({ data: { gameSettings: newGameSettings } });
   return newGameSettings;
+};
+
+export const setGameData = (_: any, { quiz }: any, { cache }: any) => {
+  const currentGameData = cache.readQuery({ query: gameDataQuery }).gameData;
+  const newGameData = {
+    quizzes: currentGameData.quizzes.concat({ ...quiz, __typename: 'quiz' }),
+    __typename: 'gameData',
+  };
+  console.log('newQuizzess', newGameData);
+  cache.writeData({ data: { gameData: newGameData } });
+  return quiz;
 };

@@ -13,6 +13,7 @@
     "@react-native-community/async-storage": "^1.6.3",
     "@react-native-community/geolocation": "^2.0.2",
     "@react-native-firebase/app": "^6.2.0",
+    "@react-native-firebase/firestore": "^6.2.0",
     "apollo-cache-inmemory": "^1.6.3",
     "apollo-cache-persist": "^0.1.1",
     "apollo-client": "^2.6.4",

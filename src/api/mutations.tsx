@@ -6,7 +6,6 @@ export const setLocationDataMutation = gql`
     $adminDistrict: String
     $adminDistrict2: String
     $formattedAddress: String
-    
   ) {
     setLocationData(
       countryRegion: $countryRegion
@@ -18,7 +17,7 @@ export const setLocationDataMutation = gql`
 `;
 
 export const setGameSettingsMutation = gql`
-  mutation setLocationData(
+  mutation setGameSettings(
     $isGameActive: Boolean
     $isLocationChanged: isLocationChanged
     $score: Int
@@ -30,5 +29,11 @@ export const setGameSettingsMutation = gql`
       score: $score
       answeredQuestion: $answeredQuestion
     ) @client
+  }
+`;
+
+export const setGameDataMutation = gql`
+  mutation setGameData($quiz: QuestionData) {
+    setGameData(quiz: $quiz) @client
   }
 `;

@@ -7,6 +7,10 @@ export interface LocationData {
   formattedAddress?: string;
 }
 
+export interface GameData {
+  quizzes: [QuestionData?];
+}
+
 export interface LocationDataResponse {
   locationData: LocationData;
 }
@@ -58,7 +62,19 @@ export interface Question {
   question: string;
   correct_answer: string;
   incorrect_answers: string[];
-  tip: 'string';
+  tip: string;
+}
+
+export interface QuestionData {
+  approved: boolean;
+  reason: string;
+  reasonValue: string;
+  correct_answer: string;
+  incorrect_answers: string[];
+  language: string;
+  question: string;
+  tip: string;
+  type: 'question' | 'result';
 }
 
 export interface Result {
