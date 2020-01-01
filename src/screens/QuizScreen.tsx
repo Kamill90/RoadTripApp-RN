@@ -121,6 +121,20 @@ class QuizScreen extends React.PureComponent<Props, State> {
     });
   }
 
+  componentDidUpdate() {
+    const { navigation } = this.props;
+    const { questions, answeredInSession, sessionScore } = this.state;
+    const progress =
+      questions.length - 1 === 0 || answeredInSession === 0
+        ? 0
+        : `${(answeredInSession / (questions.length - 1)) * 100}%`;
+    if (progress === '100%') {
+      navigation.navigate('BadgeCard', {
+        score: sessionScore / (questions.length - 1),
+      });
+    }
+  }
+
   showTip = (isCorrect: boolean, correctAnswer: string, tip?: string) => {
     this.props.navigation.navigate('TipCard', {
       isCorrect,
@@ -185,17 +199,12 @@ class QuizScreen extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { gameSettingsResults, navigation } = this.props;
-    const { questions, answeredInSession, sessionScore } = this.state;
+    const { gameSettingsResults } = this.props;
+    const { questions, answeredInSession } = this.state;
     const progress =
       questions.length - 1 === 0 || answeredInSession === 0
         ? 0
         : `${(answeredInSession / (questions.length - 1)) * 100}%`;
-    if (progress === '100%') {
-      navigation.navigate('BadgeCard', {
-        score: sessionScore / (questions.length - 1),
-      });
-    }
     return (
       <Template>
         <View style={styles.scoreContainer}>

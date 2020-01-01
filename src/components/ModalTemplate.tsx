@@ -12,8 +12,8 @@ export class ModalTemplate extends PureComponent<Props, State> {
   state = {
     backgroundAnimation: new Animated.Value(0),
   };
-  async componentDidMount() {
-    await Animated.timing(this.state.backgroundAnimation, {
+  componentDidMount() {
+    Animated.timing(this.state.backgroundAnimation, {
       toValue: 1,
       duration: 2000,
     }).start();
