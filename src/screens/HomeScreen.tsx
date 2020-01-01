@@ -54,7 +54,7 @@ class HomeScreen extends PureComponent<Props, State> {
   componentDidMount() {
     BackgroundFetch.configure(
       {
-        minimumFetchInterval: 30, // <-- minutes (15 is minimum allowed)
+        minimumFetchInterval: 15, // <-- minutes (15 is minimum allowed)
         // Android options
         stopOnTerminate: false,
         startOnBoot: true,
@@ -79,7 +79,7 @@ class HomeScreen extends PureComponent<Props, State> {
       },
     } = this.props;
     if (!gameSettings.isGameActive) {
-      return;
+      return BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
     }
     await this.updateLocation();
     if (AppState.currentState.match(/inactive|background/)) {
@@ -87,15 +87,14 @@ class HomeScreen extends PureComponent<Props, State> {
         NotificationService.localNotification(
           `Welcome to ${adminDistrict || countryRegion}`,
         );
+        BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
       } else {
         NotificationService.localNotification(
           'Hello there. Try quizes about current location',
         );
+        BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
       }
     }
-    // Required: Signal completion of your task to native code
-    // If you fail to do this, the OS can terminate your app
-    // or assign battery-blame for consuming too much background-time
     BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
   };
 
@@ -171,12 +170,11 @@ class HomeScreen extends PureComponent<Props, State> {
     //cache it
     const quizes = documentsSnapshot.docs;
     quizes.forEach(quiz => {
-      const quizData = quiz.data();
-      console.log('quizData', quizData);
+      const quizData = { id: quiz.id, ...quiz.data() };
       this.props.setGameData({
         variables: {
           quiz: quizData,
-        },
+        } as any,
       });
     });
     const { status } = await this.updateLocation();
@@ -188,10 +186,22 @@ class HomeScreen extends PureComponent<Props, State> {
         isGameActive: true,
       },
     });
-    this.goToGame();
+    this.props.navigation.navigate('Quiz');
   };
 
-  goToGame = () => {
+  continueGame = async () => {
+    this.setState({
+      loading: true,
+    });
+    const { status } = await this.updateLocation();
+    if (status !== 'success') {
+      return;
+    }
+    this.props.setGameSettings({
+      variables: {
+        isGameActive: true,
+      },
+    });
     this.props.navigation.navigate('Quiz');
   };
 
@@ -227,7 +237,7 @@ class HomeScreen extends PureComponent<Props, State> {
                 />
                 <Button
                   title={i18n.t('home:goTo')}
-                  onPress={this.startGame}
+                  onPress={this.continueGame}
                   type="regular"
                   loading={loading}
                 />

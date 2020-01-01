@@ -2,9 +2,11 @@ import React from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 
 import { Button } from 'components';
-import { palette } from 'styles';
+import { palette, typography } from 'styles';
+import { i18n } from 'locale';
 
 interface Props {
+  reason: string;
   question: string;
   answers: string[];
   onPress: (answer: string) => void;
@@ -27,9 +29,12 @@ export class QuizCard extends React.PureComponent<Props> {
     ));
   };
   render() {
-    const { question } = this.props;
+    const { question, reason } = this.props;
     return (
       <View style={styles.container}>
+        <Text style={typography.secondaryInfo}>
+          {i18n.t('quiz:category') + reason}
+        </Text>
         <Text style={styles.question}>{question}</Text>
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -59,6 +64,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   question: {
+    marginTop: 10,
     marginBottom: 40,
     fontSize: 24,
     fontWeight: 'bold',

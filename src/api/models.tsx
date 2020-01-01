@@ -14,7 +14,14 @@ export interface GameData {
 export interface LocationDataResponse {
   locationData: LocationData;
 }
+
+export interface GameDataResponse {
+  gameData: GameData;
+}
+
 export type LocationDataResults = LocationDataResponse & QueryResult;
+
+export type GameDataResults = GameDataResponse & QueryResult;
 
 export interface GameSettings {
   answeredQuestions: [string | null];
@@ -74,6 +81,7 @@ export interface QuestionData {
   language: string;
   question: string;
   tip: string;
+  id: string;
   type: 'question' | 'result';
 }
 
@@ -81,6 +89,7 @@ export interface Result {
   id: string;
   type: 'question' | 'result';
   question: string;
+  reasonValue: string;
   correct_answer?: string;
   incorrect_answers?: string[];
   description?: string;

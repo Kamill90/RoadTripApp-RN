@@ -63,7 +63,6 @@ export const setGameData = (_: any, { quiz }: any, { cache }: any) => {
     quizzes: currentGameData.quizzes.concat({ ...quiz, __typename: 'quiz' }),
     __typename: 'gameData',
   };
-  console.log('newQuizzess', newGameData);
   cache.writeData({ data: { gameData: newGameData } });
   return quiz;
 };

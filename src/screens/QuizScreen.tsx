@@ -15,7 +15,6 @@ import {
   locationDataQuery,
   gameSettingsQuery,
   setGameSettingsMutation,
-  Question,
   GameSettingsResponse,
   Result,
   GameSettingsMutationVariables,
@@ -23,20 +22,20 @@ import {
   GameSettingsResults,
   LocationDataResponse,
   QUESTION_TYPE,
+  gameDataQuery,
+  QuestionData,
+  GameDataResults,
 } from 'api';
 import { i18n } from 'locale';
 import { QuizCard, ResultCard, Template } from 'components';
 import { typography, palette } from 'styles';
 
-import pl_questions from '../assets/pl_questions';
-import en_questions from '../assets/en_questions';
-
-const baseQuestions = i18n.language === 'pl' ? pl_questions : en_questions;
 const WIDTH = Dimensions.get('screen').width;
 
 interface Props extends NavigationInjectedProps {
   locationDataResults: LocationDataResults;
   gameSettingsResults: GameSettingsResults;
+  gameDataResults: GameDataResults;
   setGameSettings: ({
     variables,
   }: {
@@ -57,24 +56,34 @@ class QuizScreen extends React.PureComponent<Props, State> {
     const {
       locationDataResults: { locationData },
       gameSettingsResults: { gameSettings },
+      gameDataResults: { gameData },
     } = props;
 
+    const baseQuestions = gameData.quizzes.filter(
+      (question: QuestionData) =>
+        question.approved && question.language === i18n.language,
+    );
+
     const adminDistrictBasedQuestions = baseQuestions.filter(
-      question => question.reason.adminDistrict === locationData.adminDistrict,
+      (question: QuestionData) =>
+        question.reason === 'adminDistrict' &&
+        question.reasonValue.toLowerCase() === locationData.adminDistrict,
     );
     const adminDistrict2BasedQuestions = baseQuestions.filter(
-      question =>
-        question.reason.adminDistrict2 === locationData.adminDistrict2,
+      (question: QuestionData) =>
+        question.reason === 'adminDistrict2' &&
+        question.reasonValue.toLowerCase() === locationData.adminDistrict2,
     );
     const countryBasedQuestions = baseQuestions.filter(
-      question => question.reason.countryRegion === locationData.countryRegion,
+      (question: QuestionData) =>
+        question.reason === 'countryRegion' &&
+        question.reasonValue.toLowerCase() === locationData.countryRegion,
     );
     const locationBasedQuestions = [
       ...adminDistrictBasedQuestions,
       ...adminDistrict2BasedQuestions,
       ...countryBasedQuestions,
     ];
-
     const filteredQuestions = locationBasedQuestions.filter(question => {
       if (!gameSettings.answeredQuestions!.includes(question.id)) {
         return question;
@@ -147,7 +156,7 @@ class QuizScreen extends React.PureComponent<Props, State> {
     });
   };
 
-  renderQuizCard = ({ item }: { item: Question | Result }) => {
+  renderQuizCard = ({ item }: { item: QuestionData | Result }) => {
     if (item.type === QUESTION_TYPE.RESULT) {
       return (
         // @ts-ignore
@@ -158,6 +167,7 @@ class QuizScreen extends React.PureComponent<Props, State> {
     return (
       <QuizCard
         question={item.question}
+        reason={item.reasonValue}
         answers={answers}
         onPress={(gotAnswer: string) =>
           this.onAnswerPressed(
@@ -172,17 +182,7 @@ class QuizScreen extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const {
-      locationDataResults: {
-        locationData: {
-          adminDistrict2,
-          adminDistrict,
-          countryRegion,
-          formattedAddress,
-        },
-      },
-      gameSettingsResults,
-    } = this.props;
+    const { gameSettingsResults } = this.props;
     const { questions, answeredInSession } = this.state;
     const progress =
       questions.length - 1 === 0 || answeredInSession === 0
@@ -190,15 +190,6 @@ class QuizScreen extends React.PureComponent<Props, State> {
         : `${(answeredInSession / (questions.length - 1)) * 100}%`;
     return (
       <Template>
-        <View style={styles.summary}>
-          <Text style={typography.basicInfo}>
-            {i18n.t('quiz:location')}
-            {adminDistrict || adminDistrict2 || countryRegion}
-          </Text>
-          <Text style={typography.secondaryInfo}>
-            {`Address: ${formattedAddress}`}
-          </Text>
-        </View>
         <View style={styles.scoreContainer}>
           <View
             style={[
@@ -256,5 +247,8 @@ export default compose(
   }),
   graphql<GameSettingsResponse, GameSettingsResults>(gameSettingsQuery, {
     name: 'gameSettingsResults',
+  }),
+  graphql(gameDataQuery, {
+    name: 'gameDataResults',
   }),
 )(QuizScreen);

@@ -9,6 +9,7 @@ exports.translations = {
     newQuiz: 'Dostępne nowe quizy!',
   },
   quiz: {
+    category: 'Kategoria: ',
     right: 'Masz rację!',
     wrong: 'Błąd!',
     correctIs: 'Poprawna odpowiedź to: ',

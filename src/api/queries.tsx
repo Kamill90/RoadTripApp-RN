@@ -26,6 +26,7 @@ export const gameDataQuery = gql`
   query gameData {
     gameData @client {
       quizzes {
+        id
         approved
         correct_answer
         incorrect_answers
