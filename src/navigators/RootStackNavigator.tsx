@@ -6,10 +6,12 @@ import {
 
 import { MainNavigator } from './MainNavigator';
 import { TipCard } from '../screens/TipCard';
+import { BadgeCard } from '../screens/BadgeCard';
 
 export const RootStackNavigator = createStackNavigator(
   {
     Main: MainNavigator,
+    BadgeCard,
     TipCard,
   },
   {

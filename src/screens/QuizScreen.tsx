@@ -46,6 +46,7 @@ interface Props extends NavigationInjectedProps {
 interface State {
   questions: [];
   answeredInSession: number;
+  sessionScore: number;
 }
 
 class QuizScreen extends React.PureComponent<Props, State> {
@@ -109,6 +110,7 @@ class QuizScreen extends React.PureComponent<Props, State> {
   state = {
     questions: [],
     answeredInSession: 0,
+    sessionScore: 0,
   } as State;
 
   componentDidMount() {
@@ -140,6 +142,7 @@ class QuizScreen extends React.PureComponent<Props, State> {
     tip: string,
   ) => {
     if (correctAnswer === answer) {
+      this.setState({ sessionScore: this.state.sessionScore + 1 });
       await this.props.setGameSettings({
         variables: {
           score: 1,
@@ -182,12 +185,17 @@ class QuizScreen extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { gameSettingsResults } = this.props;
-    const { questions, answeredInSession } = this.state;
+    const { gameSettingsResults, navigation } = this.props;
+    const { questions, answeredInSession, sessionScore } = this.state;
     const progress =
       questions.length - 1 === 0 || answeredInSession === 0
         ? 0
         : `${(answeredInSession / (questions.length - 1)) * 100}%`;
+    if (progress === '100%') {
+      navigation.navigate('BadgeCard', {
+        score: sessionScore / (questions.length - 1),
+      });
+    }
     return (
       <Template>
         <View style={styles.scoreContainer}>

@@ -1,9 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { PureComponent } from 'react';
-import { Animated, StyleSheet, View, Text, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, ScrollView } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
 
-import { Button } from 'components';
+import { Button, ModalTemplate } from 'components';
 import { palette, typography } from 'styles';
 import { i18n } from 'locale';
 
@@ -12,7 +12,6 @@ interface State {
   description: string;
   correctAnswer: string;
   onPress: () => void;
-  backgroundAnimation: any;
 }
 
 export class TipCard extends PureComponent<NavigationInjectedProps, State> {
@@ -38,32 +37,13 @@ export class TipCard extends PureComponent<NavigationInjectedProps, State> {
     description: '',
     correctAnswer: '',
     onPress: () => null,
-    backgroundAnimation: new Animated.Value(0),
   };
 
-  async componentDidMount() {
-    await Animated.timing(this.state.backgroundAnimation, {
-      toValue: 1,
-      duration: 2000,
-    }).start();
-  }
-
   render() {
-    const backgroundColorAnimated = this.state.backgroundAnimation.interpolate({
-      inputRange: [0, 1],
-      outputRange: ['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0.2)'],
-    });
     const { isCorrect, description, correctAnswer, onPress } = this.state;
     const { navigation } = this.props;
     return (
-      <Animated.View
-        style={[
-          styles.container,
-          {
-            backgroundColor: backgroundColorAnimated,
-          },
-        ]}
-      >
+      <ModalTemplate>
         <View
           style={[
             styles.contentContainer,
@@ -114,17 +94,12 @@ export class TipCard extends PureComponent<NavigationInjectedProps, State> {
             />
           </View>
         </View>
-      </Animated.View>
+      </ModalTemplate>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    ...StyleSheet.absoluteFillObject,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   contentContainer: {
     justifyContent: 'space-between',
     width: '80%',
