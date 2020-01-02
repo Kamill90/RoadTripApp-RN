@@ -23,6 +23,7 @@ import {
   FetchLocation,
   GameSettingsMutationVariables,
   setGameDataMutation,
+  BADGES,
   QuestionData,
 } from 'api';
 import { Button, Template, ScoreBox } from 'components';
@@ -210,6 +211,15 @@ class HomeScreen extends PureComponent<Props, State> {
       gameSettingsResults: { gameSettings },
     } = this.props;
     const { loading } = this.state;
+
+    const goldBadges = gameSettings.badges.filter(
+      badge => badge === BADGES.GOLD,
+    ).length;
+
+    const silverBadges = gameSettings.badges.filter(
+      badge => badge === BADGES.SILVER,
+    ).length;
+
     return (
       <Template>
         <NavigationEvents
@@ -222,10 +232,22 @@ class HomeScreen extends PureComponent<Props, State> {
         />
         <View style={styles.mainContainer}>
           {gameSettings.isGameActive && (
-            <ScoreBox
-              score={gameSettings.score!}
-              noOfQuestions={gameSettings.answeredQuestions.length - 1}
-            />
+            <>
+              <View>
+                {!!goldBadges && (
+                  <Text style={typography.popupInfo}>GOLD: x{goldBadges}</Text>
+                )}
+                {!!silverBadges && (
+                  <Text style={typography.popupInfo}>
+                    SILVER: x{silverBadges}
+                  </Text>
+                )}
+              </View>
+              <ScoreBox
+                score={gameSettings.score!}
+                noOfQuestions={gameSettings.answeredQuestions.length - 1}
+              />
+            </>
           )}
           <View style={styles.buttonsContainer}>
             {gameSettings.isGameActive ? (

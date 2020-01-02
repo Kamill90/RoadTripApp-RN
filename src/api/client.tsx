@@ -8,7 +8,7 @@ import { GameSettings, LocationData, GameData } from 'api';
 
 const cache = new InMemoryCache();
 
-const SCHEMA_VERSION = '3';
+const SCHEMA_VERSION = '5';
 const SCHEMA_VERSION_KEY = 'apollo-schema-version';
 
 export const initialData = {
@@ -18,6 +18,7 @@ export const initialData = {
       isGameActive: false,
       isLocationChanged: false,
       score: 0,
+      badges: [],
       __typename: 'gameSettings',
     } as GameSettings,
     locationData: {

@@ -25,6 +25,7 @@ import {
   gameDataQuery,
   QuestionData,
   GameDataResults,
+  BADGES,
 } from 'api';
 import { i18n } from 'locale';
 import { QuizCard, ResultCard, Template } from 'components';
@@ -121,20 +122,6 @@ class QuizScreen extends React.PureComponent<Props, State> {
     });
   }
 
-  componentDidUpdate() {
-    const { navigation } = this.props;
-    const { questions, answeredInSession, sessionScore } = this.state;
-    const progress =
-      questions.length - 1 === 0 || answeredInSession === 0
-        ? 0
-        : `${(answeredInSession / (questions.length - 1)) * 100}%`;
-    if (progress === '100%') {
-      navigation.navigate('BadgeCard', {
-        score: sessionScore / (questions.length - 1),
-      });
-    }
-  }
-
   showTip = (isCorrect: boolean, correctAnswer: string, tip?: string) => {
     this.props.navigation.navigate('TipCard', {
       isCorrect,
@@ -142,11 +129,41 @@ class QuizScreen extends React.PureComponent<Props, State> {
       description: tip,
       onPress: async () => {
         await this.carouselRef.current!.snapToNext();
-        this.setState({
-          answeredInSession: this.state.answeredInSession + 1,
-        });
+        this.setState(
+          {
+            answeredInSession: this.state.answeredInSession + 1,
+          },
+          this.showBadge,
+        );
       },
     });
+  };
+
+  showBadge = async () => {
+    const { questions, answeredInSession, sessionScore } = this.state;
+    const progress =
+      questions.length - 1 === 0 || answeredInSession === 0
+        ? 0
+        : answeredInSession / (questions.length - 1);
+    if (progress === 1) {
+      const sessionScoreRate = sessionScore / answeredInSession;
+      const badge =
+        sessionScoreRate === 1
+          ? BADGES.GOLD
+          : sessionScoreRate > 0.7
+          ? BADGES.SILVER
+          : null;
+      if (badge) {
+        await this.props.setGameSettings({
+          variables: {
+            badge,
+          },
+        });
+        this.props.navigation.navigate('BadgeCard', {
+          badge,
+        });
+      }
+    }
   };
 
   onAnswerPressed = async (

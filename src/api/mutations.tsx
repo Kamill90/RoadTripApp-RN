@@ -22,12 +22,14 @@ export const setGameSettingsMutation = gql`
     $isLocationChanged: isLocationChanged
     $score: Int
     $answeredQuestion: String
+    $badge: String
   ) {
     setGameSettings(
       isGameActive: $isGameActive
       isLocationChanged: $isLocationChanged
       score: $score
       answeredQuestion: $answeredQuestion
+      badge: $badge
     ) @client
   }
 `;

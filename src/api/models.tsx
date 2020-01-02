@@ -28,6 +28,7 @@ export interface GameSettings {
   isGameActive?: boolean;
   isLocationChanged?: boolean;
   score?: number;
+  badges: [string?];
 }
 
 export interface GameSettingsMutationVariables {
@@ -35,6 +36,7 @@ export interface GameSettingsMutationVariables {
   isGameActive?: boolean;
   isLocationChanged?: boolean;
   score?: number;
+  badge?: string;
 }
 
 export interface GameSettingsData {

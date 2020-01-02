@@ -32,6 +32,7 @@ export const setGameSettings = (
     score,
     answeredQuestion,
     isLocationChanged,
+    badge,
   }: GameSettingsMutationVariables,
   { cache }: any,
 ) => {
@@ -47,6 +48,10 @@ export const setGameSettings = (
       answeredQuestion === undefined
         ? currentGameSettings.answeredQuestions
         : currentGameSettings.answeredQuestions.concat(answeredQuestion),
+    badges:
+      badge === undefined
+        ? currentGameSettings.badges
+        : currentGameSettings.badges.concat(badge),
     score:
       score === undefined
         ? currentGameSettings.score

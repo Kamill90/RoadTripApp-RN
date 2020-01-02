@@ -6,7 +6,7 @@ import { ModalTemplate } from 'components';
 import { palette } from 'styles';
 
 interface State {
-  score: number;
+  badge: string;
 }
 
 export class BadgeCard extends PureComponent<NavigationInjectedProps, State> {
@@ -15,23 +15,23 @@ export class BadgeCard extends PureComponent<NavigationInjectedProps, State> {
     props: NavigationInjectedProps,
     state: State,
   ) {
-    if (state.score) {
+    if (state.badge.length) {
       return null;
     }
     const { navigation } = props;
     return {
-      score: navigation.getParam('score'),
+      badge: navigation.getParam('badge'),
     };
   }
 
   state = {
-    score: 0,
+    badge: '',
   };
   render() {
     return (
       <ModalTemplate>
         <View style={styles.contentContainer}>
-          <Text>{this.state.score.toString()}</Text>
+          <Text>{this.state.badge}</Text>
         </View>
       </ModalTemplate>
     );

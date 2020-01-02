@@ -18,6 +18,7 @@ export const gameSettingsQuery = gql`
       isLocationChanged
       score
       answeredQuestions
+      badges
     }
   }
 `;
