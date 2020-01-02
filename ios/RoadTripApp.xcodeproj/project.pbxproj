@@ -64,6 +64,7 @@
 		86C58D81C344A97AEC32D65E /* Pods-RoadTripApp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RoadTripApp-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-RoadTripApp-tvOSTests/Pods-RoadTripApp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		913B8963DDAD58DF98D0716E /* Pods-RoadTripAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RoadTripAppTests.release.xcconfig"; path = "Target Support Files/Pods-RoadTripAppTests/Pods-RoadTripAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		A22E61392398ED380080405D /* RNBackgroundFetch+AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "RNBackgroundFetch+AppDelegate.m"; path = "../node_modules/react-native-background-fetch/ios/RNBackgroundFetch/RNBackgroundFetch+AppDelegate.m"; sourceTree = "<group>"; };
+		A26755C123BE1EAF00B434F5 /* RoadTripApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = RoadTripApp.entitlements; path = RoadTripApp/RoadTripApp.entitlements; sourceTree = "<group>"; };
 		A2D200AE23B80EEA000C06EC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AF0B3AF4CA68B6699B362288 /* Pods-RoadTripApp-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RoadTripApp-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-RoadTripApp-tvOS/Pods-RoadTripApp-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		BBA9D0A43C7CA6DA3A2E04FF /* libPods-RoadTripAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RoadTripAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,6 +130,7 @@
 		13B07FAE1A68108700A75B9A /* RoadTripApp */ = {
 			isa = PBXGroup;
 			children = (
+				A26755C123BE1EAF00B434F5 /* RoadTripApp.entitlements */,
 				A22E61392398ED380080405D /* RNBackgroundFetch+AppDelegate.m */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -668,6 +670,7 @@
 			baseConfigurationReference = 3FFFDB084C1D4FAA67382652 /* Pods-RoadTripApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = RoadTripApp/RoadTripApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -692,6 +695,7 @@
 			baseConfigurationReference = 682041E1ECB2F43A918A7F95 /* Pods-RoadTripApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = RoadTripApp/RoadTripApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
