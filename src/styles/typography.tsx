@@ -51,4 +51,13 @@ export const typography = StyleSheet.create({
     textTransform: 'uppercase',
     fontWeight: '600',
   },
+  badgeTitle: {
+    fontSize: 20,
+    fontWeight: '600',
+  },
+  badgeDescription: {
+    fontSize: 16,
+    fontWeight: 'normal',
+    textAlign: 'center',
+  },
 });

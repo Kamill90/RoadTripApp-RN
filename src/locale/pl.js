@@ -20,4 +20,12 @@ exports.translations = {
     resultDescription:
       'Odpowiedziałeś na wszystkie pytania dostępne dla tej lokalizacji. Kontynuuj swoją podróż, żeby odblokować kolejne. \nBezpiecznej podróży!',
   },
+  badge: {
+    close: 'zamknij',
+    congratulation: 'Gratulacje!',
+    silverDescription:
+      'Odpowiedziałeś poprawnie na więcej niż 70% pytań. Zdobywasz srebrną odznakę.',
+    goldDescription:
+      'Odpowiedziałeś poprawnie wszystkie pytania. Zdobywasz złotą odznakę.',
+  },
 };

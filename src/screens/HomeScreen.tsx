@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet, View, Text, Alert, AppState } from 'react-native';
+import { StyleSheet, View, Text, Alert, AppState, Image } from 'react-native';
 import { graphql } from 'react-apollo';
 import { NavigationInjectedProps, NavigationEvents } from 'react-navigation';
 import compose from 'lodash.flowright';
@@ -29,6 +29,7 @@ import {
 import { Button, Template, ScoreBox } from 'components';
 import { i18n } from 'locale';
 import { LocationManager, NotificationService } from 'services';
+import { images } from 'assets';
 import { typography } from 'styles';
 
 interface Props extends NavigationInjectedProps {
@@ -112,6 +113,7 @@ class HomeScreen extends PureComponent<Props, State> {
     };
     try {
       const address = (await LocationManager.getCurrentLocation()) as AddressData;
+      console.log('address', address);
       const newLocationData = {
         countryRegion: address.countryRegion,
         adminDistrict: address.adminDistrict,
@@ -233,14 +235,26 @@ class HomeScreen extends PureComponent<Props, State> {
         <View style={styles.mainContainer}>
           {gameSettings.isGameActive && (
             <>
-              <View>
+              <View style={styles.badgeContainer}>
                 {!!goldBadges && (
-                  <Text style={typography.popupInfo}>GOLD: x{goldBadges}</Text>
+                  <>
+                    <Image
+                      source={images.medal_gold}
+                      style={styles.minibadges}
+                    />
+                    <Text style={typography.secondaryInfo}>x{goldBadges}</Text>
+                  </>
                 )}
                 {!!silverBadges && (
-                  <Text style={typography.popupInfo}>
-                    SILVER: x{silverBadges}
-                  </Text>
+                  <>
+                    <Image
+                      source={images.medal_silver}
+                      style={styles.minibadges}
+                    />
+                    <Text style={typography.secondaryInfo}>
+                      x{silverBadges}
+                    </Text>
+                  </>
                 )}
               </View>
               <ScoreBox
@@ -287,7 +301,8 @@ class HomeScreen extends PureComponent<Props, State> {
 const styles = StyleSheet.create({
   mainContainer: {
     height: '100%',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
+    paddingBottom: 50,
     alignItems: 'center',
   },
   buttonsContainer: {
@@ -295,6 +310,11 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'space-between',
     paddingHorizontal: 30,
+  },
+  minibadges: { width: 50, height: 50 },
+  badgeContainer: {
+    flexDirection: 'row',
+    width: '100%',
   },
 });
 
