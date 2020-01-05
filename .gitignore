@@ -70,3 +70,4 @@ android/gradle.properties
 #Firebase
 /ios/GoogleService-Info.plist
 android/app/google-services.json
+android/java_pid42074.hprof

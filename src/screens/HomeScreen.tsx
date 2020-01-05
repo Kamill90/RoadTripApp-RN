@@ -89,12 +89,10 @@ class HomeScreen extends PureComponent<Props, State> {
         NotificationService.localNotification(
           `Welcome to ${adminDistrict || countryRegion}`,
         );
-        BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
       } else {
         NotificationService.localNotification(
           'Hello there. Try quizes about current location',
         );
-        BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
       }
     }
     BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
@@ -113,7 +111,6 @@ class HomeScreen extends PureComponent<Props, State> {
     };
     try {
       const address = (await LocationManager.getCurrentLocation()) as AddressData;
-      console.log('address', address);
       const newLocationData = {
         countryRegion: address.countryRegion,
         adminDistrict: address.adminDistrict,

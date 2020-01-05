@@ -1,5 +1,9 @@
 apply plugin: "com.android.application"
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'io.fabric'
+crashlytics {
+  enableNdk true
+}
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 import com.android.build.OutputFile
@@ -133,8 +137,8 @@ android {
         applicationId "com.RN.roadTripApp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 8
-        versionName "0.1.3"
+        versionCode 10
+        versionName "0.1.4"
     }
     splits {
         abi {
