@@ -1,7 +1,7 @@
 import { gameSettingsQuery, gameDataQuery } from './queries';
 import { LocationData, GameSettingsMutationVariables } from './models';
 
-const getValue = (value: any, defaultValue: any) =>
+export const getValue = (value: any, defaultValue: any) =>
   value !== undefined ? value : defaultValue;
 
 export const setLocationData = (
