@@ -5,7 +5,6 @@ import { NavigationInjectedProps, NavigationEvents } from 'react-navigation';
 import compose from 'lodash.flowright';
 import BackgroundFetch from 'react-native-background-fetch';
 import firestore from '@react-native-firebase/firestore';
-import { inject, observer } from 'mobx-react';
 
 import {
   setLocationDataMutation,
@@ -222,8 +221,7 @@ class HomeScreen extends PureComponent<Props, State> {
 
     return (
       <Template>
-        <Text style={typography.popupInfo}>Game is active</Text>
-        {/* <NavigationEvents
+        <NavigationEvents
           // bug on react-apollo
           onDidFocus={() => {
             setTimeout(async () => {
@@ -291,7 +289,7 @@ class HomeScreen extends PureComponent<Props, State> {
               </Text>
             )}
           </View>
-        </View> */}
+        </View>
       </Template>
     );
   }
