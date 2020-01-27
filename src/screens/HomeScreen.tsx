@@ -1,28 +1,19 @@
 import React, { PureComponent } from 'react';
 import { StyleSheet, View, Text, Alert, AppState, Image } from 'react-native';
-import { graphql } from 'react-apollo';
-import { NavigationInjectedProps, NavigationEvents } from 'react-navigation';
+import { inject, observer } from 'mobx-react';
+import { NavigationInjectedProps } from 'react-navigation';
 import compose from 'lodash.flowright';
 import BackgroundFetch from 'react-native-background-fetch';
 import firestore from '@react-native-firebase/firestore';
 
 import {
-  setLocationDataMutation,
   LocationData,
   AddressData,
   LocationDataResults,
-  LocationDataResponse,
-  setGameSettingsMutation,
-  gameSettingsQuery,
   GameSettingsResults,
   GameSettingsResponse,
-  persistor,
-  client,
-  initialData,
-  locationDataQuery,
   FetchLocation,
   GameSettingsMutationVariables,
-  setGameDataMutation,
   BADGES,
   QuestionData,
 } from 'api';
@@ -99,35 +90,27 @@ class HomeScreen extends PureComponent<Props, State> {
   };
 
   updateLocation = async (): Promise<{ status: FetchLocation }> => {
-    const {
-      locationDataResults: { locationData },
-    } = this.props;
+    const { location, gameSettings } = this.props;
 
     const currentLocationData = {
-      countryRegion: locationData.countryRegion,
-      adminDistrict: locationData.adminDistrict,
-      adminDistrict2: locationData.adminDistrict2,
-      formattedAddress: locationData.formattedAddress,
+      countryRegion: location.countryRegion,
+      adminDistrict: location.adminDistrict,
+      adminDistrict2: location.adminDistrict2,
+      formattedAddress: location.formattedAddress,
     };
     try {
       const address = (await LocationManager.getCurrentLocation()) as AddressData;
       const newLocationData = {
         countryRegion: address.countryRegion,
+        formattedAddress: address.formattedAddress,
         adminDistrict: address.adminDistrict,
         adminDistrict2: address.adminDistrict2,
-        formattedAddress: address.formattedAddress,
       };
-      this.props.setLocationData({
-        variables: newLocationData,
-      });
+      this.props.location.setLocationData(newLocationData);
       if (
         JSON.stringify(currentLocationData) !== JSON.stringify(newLocationData)
       ) {
-        this.props.setGameSettings({
-          variables: {
-            isLocationChanged: true,
-          },
-        });
+        gameSettings.setIsLocationChanged(true);
       }
       this.setState({
         loading: false,
@@ -147,15 +130,11 @@ class HomeScreen extends PureComponent<Props, State> {
   };
 
   stopGame = async () => {
-    persistor.purge();
-    client.cache.writeData(initialData);
-    BackgroundFetch.stop();
-    NotificationService.cancelNotifications();
-    this.props.setGameSettings({
-      variables: {
-        isGameActive: false,
-      },
-    });
+    // persistor.purge();
+    // client.cache.writeData(initialData);
+    // BackgroundFetch.stop();
+    // NotificationService.cancelNotifications();
+    this.props.gameSettings.deactivateGame();
   };
 
   startGame = async () => {
@@ -171,21 +150,13 @@ class HomeScreen extends PureComponent<Props, State> {
     const quizes = documentsSnapshot.docs;
     quizes.forEach(quiz => {
       const quizData = { id: quiz.id, ...quiz.data() };
-      this.props.setGameData({
-        variables: {
-          quiz: quizData,
-        } as any,
-      });
+      this.props.gameData.setQuizzes(quizData);
     });
     const { status } = await this.updateLocation();
     if (status !== 'success') {
       return;
     }
-    this.props.setGameSettings({
-      variables: {
-        isGameActive: true,
-      },
-    });
+    this.props.gameSettings.activateGame();
     this.props.navigation.navigate('Quiz');
   };
 
@@ -197,40 +168,30 @@ class HomeScreen extends PureComponent<Props, State> {
     if (status !== 'success') {
       return;
     }
-    this.props.setGameSettings({
-      variables: {
-        isGameActive: true,
-      },
-    });
+    this.props.gameSettings.activateGame();
     this.props.navigation.navigate('Quiz');
   };
 
   render() {
     const {
-      gameSettingsResults: { gameSettings },
+      gameSettings: {
+        isGameActive,
+        score,
+        badges,
+        answeredQuestions,
+        isLocationChanged,
+      },
     } = this.props;
     const { loading } = this.state;
 
-    const goldBadges = gameSettings.badges.filter(
-      badge => badge === BADGES.GOLD,
-    ).length;
+    const goldBadges = badges.filter(badge => badge === BADGES.GOLD).length;
 
-    const silverBadges = gameSettings.badges.filter(
-      badge => badge === BADGES.SILVER,
-    ).length;
+    const silverBadges = badges.filter(badge => badge === BADGES.SILVER).length;
 
     return (
       <Template>
-        <NavigationEvents
-          // bug on react-apollo
-          onDidFocus={() => {
-            setTimeout(async () => {
-              await this.props.gameSettingsResults.refetch();
-            });
-          }}
-        />
         <View style={styles.mainContainer}>
-          {gameSettings.isGameActive && (
+          {isGameActive && (
             <>
               <View style={styles.badgeContainer}>
                 {!!goldBadges && (
@@ -255,13 +216,13 @@ class HomeScreen extends PureComponent<Props, State> {
                 )}
               </View>
               <ScoreBox
-                score={gameSettings.score!}
-                noOfQuestions={gameSettings.answeredQuestions.length - 1}
+                score={score!}
+                noOfQuestions={answeredQuestions.length - 1}
               />
             </>
           )}
           <View style={styles.buttonsContainer}>
-            {gameSettings.isGameActive ? (
+            {isGameActive ? (
               <>
                 <Button
                   onPress={this.stopGame}
@@ -283,7 +244,7 @@ class HomeScreen extends PureComponent<Props, State> {
                 loading={loading}
               />
             )}
-            {gameSettings.isLocationChanged && gameSettings.isGameActive && (
+            {isLocationChanged && isGameActive && (
               <Text style={typography.popupInfo}>
                 {i18n.t('announcement:newQuiz')}
               </Text>
@@ -316,13 +277,7 @@ const styles = StyleSheet.create({
 });
 
 export default compose(
-  graphql<LocationDataResponse, LocationDataResults>(locationDataQuery, {
-    name: 'locationDataResults',
-  }),
-  graphql<GameSettingsResponse, GameSettingsResults>(gameSettingsQuery, {
-    name: 'gameSettingsResults',
-  }),
-  graphql(setGameSettingsMutation, { name: 'setGameSettings' }),
-  graphql(setLocationDataMutation, { name: 'setLocationData' }),
-  graphql(setGameDataMutation, { name: 'setGameData' }),
-)(HomeScreen);
+  inject('gameSettings'),
+  inject('gameData'),
+  inject('location'),
+)(observer(HomeScreen));

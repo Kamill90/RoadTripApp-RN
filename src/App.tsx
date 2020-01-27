@@ -1,12 +1,12 @@
 import React from 'react';
-import { ApolloProvider } from 'react-apollo';
 import { Platform, PermissionsAndroid, StatusBar } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { I18nextProvider } from 'react-i18next';
+import { Provider } from 'mobx-react';
 
 import { RootStackNavigator } from './navigators/RootStackNavigator';
 import { i18n } from 'locale';
-import { client } from './api';
+import { locationStore, gameSettingsStore, gameDataStore } from './api';
 
 if (Platform.OS === 'android') {
   PermissionsAndroid.request(
@@ -25,10 +25,14 @@ const AppContainer = createAppContainer(RootStackNavigator);
 
 const App = () => (
   <I18nextProvider i18n={i18n}>
-    <ApolloProvider client={client}>
+    <Provider
+      gameSettings={gameSettingsStore}
+      location={locationStore}
+      gameData={gameDataStore}
+    >
       <StatusBar barStyle="light-content" />
       <AppContainer />
-    </ApolloProvider>
+    </Provider>
   </I18nextProvider>
 );
 

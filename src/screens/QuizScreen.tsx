@@ -6,23 +6,18 @@ import {
   Dimensions,
   ScrollViewProps,
 } from 'react-native';
-import { graphql } from 'react-apollo';
+import { inject, observer } from 'mobx-react';
 import compose from 'lodash.flowright';
 import { NavigationInjectedProps } from 'react-navigation';
 import Carousel, { CarouselStatic } from 'react-native-snap-carousel';
 
 import {
-  locationDataQuery,
-  gameSettingsQuery,
-  setGameSettingsMutation,
   GameSettingsResponse,
   Result,
   GameSettingsMutationVariables,
   LocationDataResults,
   GameSettingsResults,
-  LocationDataResponse,
   QUESTION_TYPE,
-  gameDataQuery,
   QuestionData,
   GameDataResults,
   BADGES,
@@ -55,12 +50,7 @@ class QuizScreen extends React.PureComponent<Props, State> {
     if (state.questions.length) {
       return null;
     }
-    const {
-      locationDataResults: { locationData },
-      gameSettingsResults: { gameSettings },
-      gameDataResults: { gameData },
-    } = props;
-
+    const { location, gameSettings, gameData } = props;
     const baseQuestions = gameData.quizzes.filter(
       (question: QuestionData) =>
         question.approved && question.language === i18n.language,
@@ -69,18 +59,19 @@ class QuizScreen extends React.PureComponent<Props, State> {
     const adminDistrictBasedQuestions = baseQuestions.filter(
       (question: QuestionData) =>
         question.reason === 'adminDistrict' &&
-        question.reasonValue.toLowerCase() === locationData.adminDistrict,
+        question.reasonValue.toLowerCase() === location.adminDistrict,
     );
     const adminDistrict2BasedQuestions = baseQuestions.filter(
       (question: QuestionData) =>
         question.reason === 'adminDistrict2' &&
-        question.reasonValue.toLowerCase() === locationData.adminDistrict2,
+        question.reasonValue.toLowerCase() === location.adminDistrict2,
     );
     const countryBasedQuestions = baseQuestions.filter(
       (question: QuestionData) =>
         question.reason === 'countryRegion' &&
-        question.reasonValue.toLowerCase() === locationData.countryRegion,
+        question.reasonValue.toLowerCase() === location.countryRegion,
     );
+
     const locationBasedQuestions = [
       ...adminDistrictBasedQuestions,
       ...adminDistrict2BasedQuestions,
@@ -115,11 +106,7 @@ class QuizScreen extends React.PureComponent<Props, State> {
   } as State;
 
   componentDidMount() {
-    this.props.setGameSettings({
-      variables: {
-        isLocationChanged: false,
-      },
-    });
+    this.props.gameSettings.setIsLocationChanged(false);
   }
 
   showTip = (isCorrect: boolean, correctAnswer: string, tip?: string) => {
@@ -154,11 +141,7 @@ class QuizScreen extends React.PureComponent<Props, State> {
           ? BADGES.SILVER
           : null;
       if (badge) {
-        await this.props.setGameSettings({
-          variables: {
-            badge,
-          },
-        });
+        await this.props.gameSettings.setBadges(badge);
         this.props.navigation.navigate('BadgeCard', {
           badge,
         });
@@ -174,20 +157,12 @@ class QuizScreen extends React.PureComponent<Props, State> {
   ) => {
     if (correctAnswer === answer) {
       this.setState({ sessionScore: this.state.sessionScore + 1 });
-      await this.props.setGameSettings({
-        variables: {
-          score: 1,
-        },
-      });
+      await this.props.gameSettings.setScore(1);
       this.showTip(true, correctAnswer, tip);
     } else {
       this.showTip(false, correctAnswer, tip);
     }
-    this.props.setGameSettings({
-      variables: {
-        answeredQuestion: id,
-      },
-    });
+    this.props.gameSettings.setAnsweredQuestions(id);
   };
 
   renderQuizCard = ({ item }: { item: QuestionData | Result }) => {
@@ -216,7 +191,7 @@ class QuizScreen extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { gameSettingsResults } = this.props;
+    const { gameSettings } = this.props;
     const { questions, answeredInSession } = this.state;
     const progress =
       questions.length - 1 === 0 || answeredInSession === 0
@@ -235,7 +210,7 @@ class QuizScreen extends React.PureComponent<Props, State> {
           />
           {/* eslint-disable-next-line react-native/no-inline-styles */}
           <Text style={[typography.score, { alignSelf: 'center' }]}>
-            {i18n.t('quiz:score')} {gameSettingsResults.gameSettings.score}
+            {i18n.t('quiz:score')} {gameSettings.score}
           </Text>
         </View>
         <Carousel
@@ -275,14 +250,7 @@ const styles = StyleSheet.create({
 });
 
 export default compose(
-  graphql(setGameSettingsMutation, { name: 'setGameSettings' }),
-  graphql<LocationDataResponse, LocationDataResults>(locationDataQuery, {
-    name: 'locationDataResults',
-  }),
-  graphql<GameSettingsResponse, GameSettingsResults>(gameSettingsQuery, {
-    name: 'gameSettingsResults',
-  }),
-  graphql(gameDataQuery, {
-    name: 'gameDataResults',
-  }),
-)(QuizScreen);
+  inject('gameSettings'),
+  inject('gameData'),
+  inject('location'),
+)(observer(QuizScreen));
