@@ -1,4 +1,5 @@
 import { decorate, observable } from 'mobx';
+import { LocationData } from './models';
 
 class Location {
   countryRegion = '';
@@ -6,7 +7,7 @@ class Location {
   adminDistrict2 = '';
   formattedAddress = '';
 
-  setLocationData(newLocation) {
+  setLocationData(newLocation: LocationData) {
     this.adminDistrict = newLocation.adminDistrict;
     this.countryRegion = newLocation.countryRegion;
     this.formattedAddress = newLocation.formattedAddress;

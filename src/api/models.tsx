@@ -1,62 +1,37 @@
-import { QueryResult } from 'react-apollo';
-
-export interface LocationData {
-  countryRegion?: string;
-  adminDistrict?: string;
-  adminDistrict2?: string;
-  formattedAddress?: string;
-}
-
 export interface GameData {
-  quizzes: [QuestionData?];
+  quizzes: [QuestionData | undefined];
 }
 
-export interface LocationDataResponse {
-  locationData: LocationData;
-}
-
-export interface GameDataResponse {
-  gameData: GameData;
-}
-
-export type LocationDataResults = LocationDataResponse & QueryResult;
-
-export type GameDataResults = GameDataResponse & QueryResult;
+export type GameDataStore = GameData & {
+  setQuizzes: (quiz: QuestionData) => void;
+};
 
 export interface GameSettings {
   answeredQuestions: [string | null];
   isGameActive?: boolean;
   isLocationChanged?: boolean;
   score?: number;
-  badges: [string?];
+  badges: [string];
 }
 
-export interface GameSettingsMutationVariables {
-  answeredQuestion?: string;
-  isGameActive?: boolean;
-  isLocationChanged?: boolean;
-  score?: number;
-  badge?: string;
-}
-
-export interface GameSettingsData {
-  gameSettings: GameSettings;
-}
-
-export interface GameSettingsResponse {
-  data: {
-    setGameSettings: GameSettings;
-  };
-}
-
-export type GameSettingsResults = GameSettingsData & QueryResult;
-
-export interface AddressData {
+export interface LocationData {
   adminDistrict: string;
   adminDistrict2: string;
   countryRegion: string;
   formattedAddress: string;
 }
+export type LocationStore = LocationData & {
+  setLocationData: (newLocation: LocationData) => void;
+};
+
+export type GameSettingsStore = GameSettings & {
+  setAnsweredQuestions: (question: string) => void;
+  activateGame: () => void;
+  deactivateGame: () => void;
+  setIsLocationChanged: (change: boolean) => void;
+  setScore: (newScore: number) => void;
+  setBadges: (badge: string) => void;
+};
 
 enum Reason {
   countryRegion = 'countryRegion',
@@ -75,6 +50,7 @@ export interface Question {
 }
 
 export interface QuestionData {
+  id: string;
   approved: boolean;
   reason: string;
   reasonValue: string;
@@ -83,7 +59,6 @@ export interface QuestionData {
   language: string;
   question: string;
   tip: string;
-  id: string;
   type: 'question' | 'result';
 }
 
@@ -109,3 +84,8 @@ export interface AddressComponent {
 }
 
 export type FetchLocation = 'success' | 'failure';
+
+export enum BadgesType {
+  SILVER = 'silver',
+  GOLD = 'gold',
+}

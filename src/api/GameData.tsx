@@ -1,9 +1,10 @@
 import { decorate, observable } from 'mobx';
+// import { QuestionData } from './models';
 
 class GameData {
   quizzes = [];
 
-  setQuizzes(quiz) {
+  setQuizzes(quiz: any) {
     this.quizzes = this.quizzes.concat(quiz);
   }
 }

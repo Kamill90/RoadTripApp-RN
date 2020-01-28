@@ -12,15 +12,13 @@ import { NavigationInjectedProps } from 'react-navigation';
 import Carousel, { CarouselStatic } from 'react-native-snap-carousel';
 
 import {
-  GameSettingsResponse,
   Result,
-  GameSettingsMutationVariables,
-  LocationDataResults,
-  GameSettingsResults,
   QUESTION_TYPE,
   QuestionData,
-  GameDataResults,
   BADGES,
+  LocationStore,
+  GameSettingsStore,
+  GameDataStore,
 } from 'api';
 import { i18n } from 'locale';
 import { QuizCard, ResultCard, Template } from 'components';
@@ -29,14 +27,9 @@ import { typography, palette } from 'styles';
 const WIDTH = Dimensions.get('screen').width;
 
 interface Props extends NavigationInjectedProps {
-  locationDataResults: LocationDataResults;
-  gameSettingsResults: GameSettingsResults;
-  gameDataResults: GameDataResults;
-  setGameSettings: ({
-    variables,
-  }: {
-    variables: GameSettingsMutationVariables;
-  }) => GameSettingsResponse;
+  location: LocationStore;
+  gameSettings: GameSettingsStore;
+  gameData: GameDataStore;
 }
 
 interface State {
@@ -52,24 +45,24 @@ class QuizScreen extends React.PureComponent<Props, State> {
     }
     const { location, gameSettings, gameData } = props;
     const baseQuestions = gameData.quizzes.filter(
-      (question: QuestionData) =>
-        question.approved && question.language === i18n.language,
+      (question: QuestionData | undefined) =>
+        question!.approved && question!.language === i18n.language,
     );
 
     const adminDistrictBasedQuestions = baseQuestions.filter(
-      (question: QuestionData) =>
-        question.reason === 'adminDistrict' &&
-        question.reasonValue.toLowerCase() === location.adminDistrict,
+      (question: QuestionData | undefined) =>
+        question!.reason === 'adminDistrict' &&
+        question!.reasonValue.toLowerCase() === location.adminDistrict,
     );
     const adminDistrict2BasedQuestions = baseQuestions.filter(
-      (question: QuestionData) =>
-        question.reason === 'adminDistrict2' &&
-        question.reasonValue.toLowerCase() === location.adminDistrict2,
+      (question: QuestionData | undefined) =>
+        question!.reason === 'adminDistrict2' &&
+        question!.reasonValue.toLowerCase() === location.adminDistrict2,
     );
     const countryBasedQuestions = baseQuestions.filter(
-      (question: QuestionData) =>
-        question.reason === 'countryRegion' &&
-        question.reasonValue.toLowerCase() === location.countryRegion,
+      (question: QuestionData | undefined) =>
+        question!.reason === 'countryRegion' &&
+        question!.reasonValue.toLowerCase() === location.countryRegion,
     );
 
     const locationBasedQuestions = [
@@ -77,11 +70,16 @@ class QuizScreen extends React.PureComponent<Props, State> {
       ...adminDistrict2BasedQuestions,
       ...countryBasedQuestions,
     ];
-    const filteredQuestions = locationBasedQuestions.filter(question => {
-      if (!gameSettings.answeredQuestions!.includes(question.id)) {
-        return question;
-      }
-    });
+    const filteredQuestions = locationBasedQuestions.filter(
+      (question: QuestionData | undefined) => {
+        if (
+          question!.id &&
+          !gameSettings.answeredQuestions!.includes(question!.id)
+        ) {
+          return question;
+        }
+      },
+    );
     const result = {
       id: '0',
       type: 'result',

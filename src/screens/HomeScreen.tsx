@@ -8,14 +8,11 @@ import firestore from '@react-native-firebase/firestore';
 
 import {
   LocationData,
-  AddressData,
-  LocationDataResults,
-  GameSettingsResults,
-  GameSettingsResponse,
+  LocationStore,
+  GameSettingsStore,
+  GameDataStore,
   FetchLocation,
-  GameSettingsMutationVariables,
   BADGES,
-  QuestionData,
 } from 'api';
 import { Button, Template, ScoreBox } from 'components';
 import { i18n } from 'locale';
@@ -24,15 +21,9 @@ import { images } from 'assets';
 import { typography } from 'styles';
 
 interface Props extends NavigationInjectedProps {
-  locationDataResults: LocationDataResults;
-  gameSettingsResults: GameSettingsResults;
-  setGameSettings: ({
-    variables,
-  }: {
-    variables: GameSettingsMutationVariables;
-  }) => GameSettingsResponse;
-  setLocationData: ({ variables }: { variables: LocationData }) => LocationData;
-  setGameData: ({ variables }: { variables: QuestionData }) => QuestionData;
+  location: LocationStore;
+  gameSettings: GameSettingsStore;
+  gameData: GameDataStore;
 }
 
 interface State {
@@ -66,10 +57,8 @@ class HomeScreen extends PureComponent<Props, State> {
 
   backgroundProcess = async () => {
     const {
-      gameSettingsResults: { gameSettings },
-      locationDataResults: {
-        locationData: { adminDistrict, countryRegion },
-      },
+      gameSettings,
+      location: { adminDistrict, countryRegion },
     } = this.props;
     if (!gameSettings.isGameActive) {
       return BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
@@ -99,13 +88,13 @@ class HomeScreen extends PureComponent<Props, State> {
       formattedAddress: location.formattedAddress,
     };
     try {
-      const address = (await LocationManager.getCurrentLocation()) as AddressData;
+      const address = (await LocationManager.getCurrentLocation()) as LocationData;
       const newLocationData = {
         countryRegion: address.countryRegion,
         formattedAddress: address.formattedAddress,
         adminDistrict: address.adminDistrict,
         adminDistrict2: address.adminDistrict2,
-      };
+      } as LocationData;
       this.props.location.setLocationData(newLocationData);
       if (
         JSON.stringify(currentLocationData) !== JSON.stringify(newLocationData)
@@ -141,15 +130,16 @@ class HomeScreen extends PureComponent<Props, State> {
     this.setState({
       loading: true,
     });
-    //exeptions to handle
+    // exeptions to handle
     const documentsSnapshot = await firestore()
       .collection('quizzes')
       .get();
 
-    //cache it
+    // cache it
     const quizes = documentsSnapshot.docs;
-    quizes.forEach(quiz => {
-      const quizData = { id: quiz.id, ...quiz.data() };
+    quizes.map(quiz => {
+      const quizData = quiz.data();
+      quizData!.id = quiz.id;
       this.props.gameData.setQuizzes(quizData);
     });
     const { status } = await this.updateLocation();
@@ -184,9 +174,12 @@ class HomeScreen extends PureComponent<Props, State> {
     } = this.props;
     const { loading } = this.state;
 
-    const goldBadges = badges.filter(badge => badge === BADGES.GOLD).length;
+    const goldBadges = badges.filter((badge: string) => badge === BADGES.GOLD)
+      .length;
 
-    const silverBadges = badges.filter(badge => badge === BADGES.SILVER).length;
+    const silverBadges = badges.filter(
+      (badge: string) => badge === BADGES.SILVER,
+    ).length;
 
     return (
       <Template>
