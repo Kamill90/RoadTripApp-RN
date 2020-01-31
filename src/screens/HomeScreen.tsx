@@ -1,5 +1,13 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet, View, Text, Alert, AppState, Image } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Alert,
+  AppState,
+  Image,
+  AsyncStorage,
+} from 'react-native';
 import { inject, observer } from 'mobx-react';
 import { NavigationInjectedProps } from 'react-navigation';
 import compose from 'lodash.flowright';
@@ -119,11 +127,11 @@ class HomeScreen extends PureComponent<Props, State> {
   };
 
   stopGame = async () => {
-    // persistor.purge();
-    // client.cache.writeData(initialData);
-    // BackgroundFetch.stop();
-    // NotificationService.cancelNotifications();
-    this.props.gameSettings.deactivateGame();
+    const { location, gameSettings, gameData } = this.props;
+    location.reset();
+    gameSettings.reset();
+    gameData.reset();
+    await AsyncStorage.clear();
   };
 
   startGame = async () => {
@@ -146,7 +154,7 @@ class HomeScreen extends PureComponent<Props, State> {
     if (status !== 'success') {
       return;
     }
-    this.props.gameSettings.activateGame();
+    this.props.gameSettings.setIsGameActive(true);
     this.props.navigation.navigate('Quiz');
   };
 
@@ -158,7 +166,7 @@ class HomeScreen extends PureComponent<Props, State> {
     if (status !== 'success') {
       return;
     }
-    this.props.gameSettings.activateGame();
+    this.props.gameSettings.setIsGameActive(true);
     this.props.navigation.navigate('Quiz');
   };
 
@@ -210,7 +218,7 @@ class HomeScreen extends PureComponent<Props, State> {
               </View>
               <ScoreBox
                 score={score!}
-                noOfQuestions={answeredQuestions.length - 1}
+                noOfQuestions={answeredQuestions.length}
               />
             </>
           )}

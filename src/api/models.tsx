@@ -4,14 +4,15 @@ export interface GameData {
 
 export type GameDataStore = GameData & {
   setQuizzes: (quiz: QuestionData) => void;
+  reset: () => void;
 };
 
 export interface GameSettings {
-  answeredQuestions: [string | null];
+  answeredQuestions: string[] | null[];
   isGameActive?: boolean;
   isLocationChanged?: boolean;
   score?: number;
-  badges: [string];
+  badges: string[] | null[];
 }
 
 export interface LocationData {
@@ -20,17 +21,19 @@ export interface LocationData {
   countryRegion: string;
   formattedAddress: string;
 }
+
 export type LocationStore = LocationData & {
   setLocationData: (newLocation: LocationData) => void;
+  reset: () => void;
 };
 
 export type GameSettingsStore = GameSettings & {
   setAnsweredQuestions: (question: string) => void;
-  activateGame: () => void;
-  deactivateGame: () => void;
+  setIsGameActive: (value: boolean) => void;
   setIsLocationChanged: (change: boolean) => void;
   setScore: (newScore: number) => void;
   setBadges: (badge: string) => void;
+  reset: () => void;
 };
 
 enum Reason {

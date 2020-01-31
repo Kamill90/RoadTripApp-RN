@@ -1,46 +1,78 @@
-import { decorate, observable, action } from 'mobx';
+import { decorate, observable, action, computed } from 'mobx';
 
 class GameSettings {
-  answeredQuestions = [''];
-  isGameActive = false;
-  isLocationChanged = false;
-  score = 0;
-  badges = [''];
+  private _answeredQuestions = [];
+  private _isGameActive = false;
+  private _isLocationChanged = false;
+  private _score = 0;
+  private _badges = [];
 
-  setAnsweredQuestions(question: string) {
-    this.answeredQuestions.push(question);
+  get answeredQuestions(): string[] | undefined[] {
+    return this._answeredQuestions;
   }
 
-  activateGame() {
-    this.isGameActive = true;
+  setAnsweredQuestions(value: string) {
+    this._answeredQuestions = this._answeredQuestions.concat(value);
   }
 
-  deactivateGame() {
-    this.isGameActive = false;
+  get isLocationChanged(): boolean {
+    return this._isLocationChanged;
   }
 
-  setIsLocationChanged(change: boolean) {
-    this.isLocationChanged = change;
+  setIsLocationChanged(value: boolean) {
+    this._isLocationChanged = value;
   }
 
-  setScore(newScore: number) {
-    this.score += newScore;
+  get isGameActive(): boolean {
+    return this._isGameActive;
   }
 
-  setBadges(badge: string) {
-    this.badges.push(badge);
+  setIsGameActive(value: boolean) {
+    this._isGameActive = value;
+  }
+
+  get score(): number {
+    return this._score;
+  }
+
+  setScore(value: number) {
+    this._score += value;
+  }
+
+  get badges(): string[] | undefined[] {
+    return this._badges;
+  }
+
+  setBadges(value: string) {
+    this._badges = this._badges.concat(value);
+  }
+
+  reset() {
+    this._answeredQuestions = [];
+    this._isGameActive = false;
+    this._isLocationChanged = false;
+    this._score = 0;
+    this._badges = [];
   }
 }
 
 decorate(GameSettings, {
-  answeredQuestions: observable,
-  isGameActive: observable,
-  isLocationChanged: observable,
-  score: observable,
-  badges: observable,
-  activateGame: action.bound,
-  deactivateGame: action.bound,
-  setScore: action.bound,
+  _answeredQuestions: observable,
+  _isGameActive: observable,
+  _isLocationChanged: observable,
+  _score: observable,
+  _badges: observable,
+  answeredQuestions: computed,
+  isGameActive: computed,
+  isLocationChanged: computed,
+  score: computed,
+  badges: computed,
+  setAnsweredQuestions: action,
+  setIsLocationChanged: action,
+  setIsGameActive: action,
+  setScore: action,
+  setBadges: action,
+  reset: action,
 });
 
 export const gameSettingsStore = new GameSettings();
