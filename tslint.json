@@ -17,6 +17,14 @@
     "no-object-literal-type-assertion": false,
     "no-unused-expression": [true, "allow-fast-null-checks"],
     "no-var-requires": false,
-    "no-empty": [true, "allow-empty-functions"]
+    "no-empty": [true, "allow-empty-functions"],
+    "variable-name": {
+      "options": [
+        "ban-keywords",
+        "check-format",
+        "allow-leading-underscore",
+        "allow-pascal-case"
+      ]
+    }
   }
 }

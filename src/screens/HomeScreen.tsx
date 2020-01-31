@@ -21,6 +21,7 @@ import {
   GameDataStore,
   FetchLocation,
   BADGES,
+  QuestionData,
 } from 'api';
 import { Button, Template, ScoreBox } from 'components';
 import { i18n } from 'locale';
@@ -147,8 +148,10 @@ class HomeScreen extends PureComponent<Props, State> {
     const quizes = documentsSnapshot.docs;
     quizes.map(quiz => {
       const quizData = quiz.data();
-      quizData!.id = quiz.id;
-      this.props.gameData.setQuizzes(quizData);
+      if (quizData) {
+        quizData.id = quiz.id;
+        this.props.gameData.setQuizzes(quizData as QuestionData);
+      }
     });
     const { status } = await this.updateLocation();
     if (status !== 'success') {
@@ -182,12 +185,11 @@ class HomeScreen extends PureComponent<Props, State> {
     } = this.props;
     const { loading } = this.state;
 
-    const goldBadges = badges.filter((badge: string) => badge === BADGES.GOLD)
-      .length;
+    const goldBadges = badges.filter((badge: string) => badge === BADGES.GOLD);
 
     const silverBadges = badges.filter(
       (badge: string) => badge === BADGES.SILVER,
-    ).length;
+    );
 
     return (
       <Template>
@@ -195,23 +197,25 @@ class HomeScreen extends PureComponent<Props, State> {
           {isGameActive && (
             <>
               <View style={styles.badgeContainer}>
-                {!!goldBadges && (
+                {!!goldBadges.length && (
                   <>
                     <Image
                       source={images.medal_gold}
                       style={styles.minibadges}
                     />
-                    <Text style={typography.secondaryInfo}>x{goldBadges}</Text>
+                    <Text style={typography.secondaryInfo}>
+                      x{goldBadges.length}
+                    </Text>
                   </>
                 )}
-                {!!silverBadges && (
+                {!!silverBadges.length && (
                   <>
                     <Image
                       source={images.medal_silver}
                       style={styles.minibadges}
                     />
                     <Text style={typography.secondaryInfo}>
-                      x{silverBadges}
+                      x{silverBadges.length}
                     </Text>
                   </>
                 )}

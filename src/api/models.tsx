@@ -8,11 +8,11 @@ export type GameDataStore = GameData & {
 };
 
 export interface GameSettings {
-  answeredQuestions: string[] | null[];
+  answeredQuestions: string[];
   isGameActive?: boolean;
   isLocationChanged?: boolean;
   score?: number;
-  badges: string[] | null[];
+  badges: string[];
 }
 
 export interface LocationData {

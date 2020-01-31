@@ -1,13 +1,14 @@
 import { decorate, observable, computed, action } from 'mobx';
+import { QuestionData } from './models';
 
 class GameData {
   _quizzes = [];
 
-  get quizzes(): string[] | undefined[] {
+  get quizzes(): string[] {
     return this._quizzes;
   }
 
-  setQuizzes(quiz: string) {
+  setQuizzes(quiz: QuestionData) {
     this._quizzes = this.quizzes.concat(quiz);
   }
 

@@ -33,7 +33,7 @@ interface Props extends NavigationInjectedProps {
 }
 
 interface State {
-  questions: [];
+  questions: any[];
   answeredInSession: number;
   sessionScore: number;
 }
@@ -79,15 +79,12 @@ class QuizScreen extends React.PureComponent<Props, State> {
     ];
     const filteredQuestions = locationBasedQuestions.filter(
       (question: QuestionData | undefined) => {
-        if (
-          question!.id &&
-          !gameSettings.answeredQuestions!.includes(question!.id)
-        ) {
+        if (!gameSettings.answeredQuestions.includes(question!.id)) {
           return question;
         }
       },
     );
-    filteredQuestions.splice(19);
+    filteredQuestions.splice(20);
 
     const result = {
       id: '0',
