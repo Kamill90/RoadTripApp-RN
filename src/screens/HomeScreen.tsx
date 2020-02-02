@@ -4,7 +4,6 @@ import {
   View,
   Text,
   Alert,
-  AppState,
   Image,
   AsyncStorage,
 } from 'react-native';
@@ -67,23 +66,23 @@ class HomeScreen extends PureComponent<Props, State> {
   backgroundProcess = async () => {
     const {
       gameSettings,
-      location: { adminDistrict, countryRegion },
+      // location: { adminDistrict, countryRegion },
     } = this.props;
     if (!gameSettings.isGameActive) {
       return BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
     }
     await this.updateLocation();
-    if (AppState.currentState.match(/inactive|background/)) {
-      if (gameSettings.isLocationChanged) {
-        NotificationService.localNotification(
-          `Welcome to ${adminDistrict || countryRegion}`,
-        );
-      } else {
-        NotificationService.localNotification(
-          'Hello there. Try quizes about current location',
-        );
-      }
-    }
+    // if (AppState.currentState.match(/inactive|background/)) {
+    //   if (gameSettings.isLocationChanged) {
+    //     NotificationService.localNotification(
+    //       `Welcome to ${adminDistrict || countryRegion}`,
+    //     );
+    //   } else {
+    //     NotificationService.localNotification(
+    //       'Hello there. Try quizes about current location',
+    //     );
+    //   }
+    // }
     BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
   };
 
@@ -132,10 +131,12 @@ class HomeScreen extends PureComponent<Props, State> {
     location.reset();
     gameSettings.reset();
     gameData.reset();
+    NotificationService.cancelNotifications();
     await AsyncStorage.clear();
   };
 
   startGame = async () => {
+    const { gameSettings, location, navigation } = this.props;
     this.setState({
       loading: true,
     });
@@ -144,7 +145,6 @@ class HomeScreen extends PureComponent<Props, State> {
       .collection('quizzes')
       .get();
 
-    // cache it
     const quizes = documentsSnapshot.docs;
     quizes.map(quiz => {
       const quizData = quiz.data();
@@ -157,8 +157,9 @@ class HomeScreen extends PureComponent<Props, State> {
     if (status !== 'success') {
       return;
     }
-    this.props.gameSettings.setIsGameActive(true);
-    this.props.navigation.navigate('Quiz');
+    NotificationService.scheduledNotification(location.countryRegion);
+    gameSettings.setIsGameActive(true);
+    navigation.navigate('Quiz');
   };
 
   continueGame = async () => {
