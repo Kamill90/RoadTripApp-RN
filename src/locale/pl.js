@@ -1,4 +1,9 @@
 exports.translations = {
+  common: {
+    notificationTitle: 'Nie śpij, zwiedzaj!',
+    notificationMessage:
+      'Sprawdź czy wiesz coś o regionie, w którym się znajdujesz',
+  },
   home: {
     start: 'Zacznij grę',
     stop: 'Zakończ grę',

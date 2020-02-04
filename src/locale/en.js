@@ -1,4 +1,9 @@
 exports.translations = {
+  common: {
+    notificationTitle: 'Hey, wake up!',
+    notificationMessage:
+      'Find out if how much you know about region you are currently in',
+  },
   home: {
     start: 'Start the game',
     stop: 'Stop the game',

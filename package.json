@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "android": "node node_modules/react-native/local-cli/cli.js run-android",
+    "android-build": "cd android && ./gradlew assembleRelease",
     "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
     "lint": "tslint --project .",
     "test": "jest"

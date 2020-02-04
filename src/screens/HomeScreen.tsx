@@ -136,7 +136,7 @@ class HomeScreen extends PureComponent<Props, State> {
   };
 
   startGame = async () => {
-    const { gameSettings, location, navigation } = this.props;
+    const { gameSettings, navigation } = this.props;
     this.setState({
       loading: true,
     });
@@ -157,7 +157,7 @@ class HomeScreen extends PureComponent<Props, State> {
     if (status !== 'success') {
       return;
     }
-    NotificationService.scheduledNotification(location.countryRegion);
+    NotificationService.scheduledNotification();
     gameSettings.setIsGameActive(true);
     navigation.navigate('Quiz');
   };

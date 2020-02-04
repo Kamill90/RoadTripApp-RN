@@ -1,4 +1,5 @@
 import PushNotification from 'react-native-push-notification';
+import { i18n } from 'locale';
 
 export default class NotificationService {
   tmpConfig = {
@@ -57,13 +58,13 @@ export default class NotificationService {
     PushNotification.cancelAllLocalNotifications();
   }
 
-  // deprecated
-  scheduledNotification(country: string) {
+  // observe location and notify about current location in notification box
+  scheduledNotification() {
     PushNotification.localNotificationSchedule({
       ...this.tmpConfig,
-      title: `You are in ${country}`, // (optional)
-      message: 'Open the app to continue the game', // (required)
-      date: new Date(Date.now() + 1000),
+      title: i18n.t('common:notificationTitle'),
+      message: i18n.t('common:notificationMessage'),
+      date: new Date(Date.now() + 60 * 60 * 1000),
       repeatType: 'hour',
     });
   }
