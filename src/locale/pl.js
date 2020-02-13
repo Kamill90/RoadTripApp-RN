@@ -1,8 +1,10 @@
 exports.translations = {
-  common: {
-    notificationTitle: 'Nie śpij, zwiedzaj!',
-    notificationMessage:
-      'Sprawdź czy wiesz coś o regionie, w którym się znajdujesz',
+  notification: {
+    changeTitle: 'Nowa lokalizacja, nowe quizy!',
+    changeMessage:
+      '{{ newLocation }}. Otwórz aplikację i dowiedz się więcej o tym regionie.',
+    staticTitle: 'Nie śpij, zwiedzaj!',
+    staticMessage: 'Sprawdź czy wiesz coś o regionie, w którym się znajdujesz',
   },
   home: {
     start: 'Zacznij grę',
@@ -31,6 +33,6 @@ exports.translations = {
     silverDescription:
       'Odpowiedziałeś poprawnie na więcej niż 70% pytań. Zdobywasz srebrną odznakę.',
     goldDescription:
-      'Odpowiedziałeś poprawnie wszystkie pytania. Zdobywasz złotą odznakę.',
+      'Odpowiedziałeś poprawnie na wszystkie pytania. Zdobywasz złotą odznakę.',
   },
 };

@@ -1,20 +1,28 @@
 import { AsyncTrunk } from 'mobx-sync';
 import { AsyncStorage } from 'react-native';
 
-import { gameSettingsStore, locationStore, gameDataStore } from 'api';
+import { GameData } from './GameData';
+import { Location } from './Location';
+import { GameSettings } from './GameSettings';
 
-export const gameSettingsTrunk = new AsyncTrunk(gameSettingsStore, {
-  storage: AsyncStorage,
-});
-export const locationTrunk = new AsyncTrunk(locationStore, {
-  storage: AsyncStorage,
-});
-export const gameDataTrunk = new AsyncTrunk(gameDataStore, {
+class RootStore {
+  gameData: GameData;
+  location: Location;
+  gameSettings: GameSettings;
+
+  constructor() {
+    this.gameData = new GameData();
+    this.location = new Location();
+    this.gameSettings = new GameSettings();
+  }
+}
+
+export const rootStore = new RootStore();
+
+export const rootStoreTrunk = new AsyncTrunk(rootStore, {
   storage: AsyncStorage,
 });
 
 export async function clearStores() {
-  await gameSettingsTrunk.clear();
-  await locationTrunk.clear();
-  await gameDataTrunk.clear();
+  await rootStoreTrunk.clear();
 }

@@ -1,6 +1,6 @@
 import { decorate, observable, action, computed } from 'mobx';
 
-class GameSettings {
+export class GameSettings {
   private _answeredQuestions = [];
   private _isGameActive = false;
   private _isLocationChanged = false;
@@ -74,5 +74,3 @@ decorate(GameSettings, {
   setBadges: action,
   reset: action,
 });
-
-export const gameSettingsStore = new GameSettings();

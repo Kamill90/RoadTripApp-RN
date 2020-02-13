@@ -4,12 +4,10 @@ import { i18n } from 'locale';
 export default class NotificationService {
   tmpConfig = {
     /* Android Only Properties */
-    ticker: 'My Notification Ticker', // (optional)
     autoCancel: true, // (optional) default: true
     largeIcon: 'ic_launcher', // (optional) default: "ic_launcher"
     smallIcon: 'ic_notification', // (optional) default: "ic_notification" with fallback for "ic_launcher"
-    bigText: 'My big text that will be shown when notification is expanded', // (optional) default: "message" prop
-    subText: 'This is a subText', // (optional) default: none
+
     color: 'red', // (optional) default: system default
     vibrate: true, // (optional) default: true
     vibration: 300, // vibration length in milliseconds, ignored if vibrate=false, default: 1000
@@ -23,8 +21,6 @@ export default class NotificationService {
     // userInfo: null, // (optional) default: null (object containing additional notification data)
 
     /* iOS and Android properties */
-    title: 'title: Local Notification', // (optional)
-    message: 'message: My Notification Message', // (required)
     soundName: 'default', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
     // number: 10, // (optional) Valid 32 bit integer specified as string. default: none (Cannot be zero)
     // actions: '["Yes", "No"]', // (Android only) See the doc for notification actions to know more
@@ -46,11 +42,11 @@ export default class NotificationService {
     });
   }
 
-  localNotification(title: string) {
+  localNotification(title: string, message: string) {
     PushNotification.localNotification({
       ...this.tmpConfig,
       title,
-      message: 'Open the app to continue the game', // (required)
+      message,
     });
   }
 
@@ -59,13 +55,13 @@ export default class NotificationService {
   }
 
   // observe location and notify about current location in notification box
-  scheduledNotification() {
+  scheduledNotification(title: string, message: string) {
     PushNotification.localNotificationSchedule({
       ...this.tmpConfig,
-      title: i18n.t('common:notificationTitle'),
-      message: i18n.t('common:notificationMessage'),
+      title,
+      message,
       date: new Date(Date.now() + 60 * 60 * 1000),
-      repeatType: 'hour',
+      repeatType: 'hour', // every 2 hours only in daytime
     });
   }
 }

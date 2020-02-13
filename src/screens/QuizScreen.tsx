@@ -7,7 +7,6 @@ import {
   ScrollViewProps,
 } from 'react-native';
 import { inject, observer } from 'mobx-react';
-import compose from 'lodash.flowright';
 import { NavigationInjectedProps } from 'react-navigation';
 import Carousel, { CarouselStatic } from 'react-native-snap-carousel';
 
@@ -27,9 +26,11 @@ import { typography, palette } from 'styles';
 const WIDTH = Dimensions.get('screen').width;
 
 interface Props extends NavigationInjectedProps {
-  location: LocationStore;
-  gameSettings: GameSettingsStore;
-  gameData: GameDataStore;
+  rootStore: {
+    location: LocationStore;
+    gameSettings: GameSettingsStore;
+    gameData: GameDataStore;
+  };
 }
 
 interface State {
@@ -43,7 +44,7 @@ class QuizScreen extends React.PureComponent<Props, State> {
     if (state.questions.length) {
       return null;
     }
-    const { location, gameSettings, gameData } = props;
+    const { location, gameSettings, gameData } = props.rootStore;
     const baseQuestions = gameData.quizzes.filter(
       (question: QuestionData | undefined) =>
         question!.approved && question!.language === i18n.language,
@@ -109,7 +110,7 @@ class QuizScreen extends React.PureComponent<Props, State> {
   } as State;
 
   componentDidMount() {
-    this.props.gameSettings.setIsLocationChanged(false);
+    this.props.rootStore.gameSettings.setIsLocationChanged(false);
   }
 
   showTip = (isCorrect: boolean, correctAnswer: string, tip?: string) => {
@@ -144,7 +145,7 @@ class QuizScreen extends React.PureComponent<Props, State> {
           ? BADGES.SILVER
           : null;
       if (badge) {
-        await this.props.gameSettings.setBadges(badge);
+        await this.props.rootStore.gameSettings.setBadges(badge);
         this.props.navigation.navigate('BadgeCard', {
           badge,
         });
@@ -160,12 +161,12 @@ class QuizScreen extends React.PureComponent<Props, State> {
   ) => {
     if (correctAnswer === answer) {
       this.setState({ sessionScore: this.state.sessionScore + 1 });
-      await this.props.gameSettings.setScore(1);
+      await this.props.rootStore.gameSettings.setScore(1);
       this.showTip(true, correctAnswer, tip);
     } else {
       this.showTip(false, correctAnswer, tip);
     }
-    this.props.gameSettings.setAnsweredQuestions(id);
+    this.props.rootStore.gameSettings.setAnsweredQuestions(id);
   };
 
   renderQuizCard = ({ item }: { item: QuestionData | Result }) => {
@@ -194,7 +195,7 @@ class QuizScreen extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { gameSettings } = this.props;
+    const { gameSettings } = this.props.rootStore;
     const { questions, answeredInSession } = this.state;
     const progress =
       questions.length - 1 === 0 || answeredInSession === 0
@@ -252,8 +253,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default compose(
-  inject('gameSettings'),
-  inject('gameData'),
-  inject('location'),
-)(observer(QuizScreen));
+export default inject('rootStore')(observer(QuizScreen));

@@ -6,14 +6,7 @@ import { Provider } from 'mobx-react';
 
 import { RootStackNavigator } from './navigators/RootStackNavigator';
 import { i18n } from 'locale';
-import {
-  locationStore,
-  gameSettingsStore,
-  gameDataStore,
-  gameSettingsTrunk,
-  locationTrunk,
-  gameDataTrunk,
-} from './api';
+import { rootStoreTrunk, rootStore } from './api';
 
 if (Platform.OS === 'android') {
   PermissionsAndroid.request(
@@ -32,18 +25,12 @@ const AppContainer = createAppContainer(RootStackNavigator);
 
 class App extends PureComponent {
   async componentDidMount() {
-    await gameSettingsTrunk.init();
-    await locationTrunk.init();
-    await gameDataTrunk.init();
+    await rootStoreTrunk.init();
   }
   render() {
     return (
       <I18nextProvider i18n={i18n}>
-        <Provider
-          gameSettings={gameSettingsStore}
-          location={locationStore}
-          gameData={gameDataStore}
-        >
+        <Provider rootStore={rootStore}>
           <StatusBar barStyle="light-content" />
           <AppContainer />
         </Provider>

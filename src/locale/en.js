@@ -1,7 +1,10 @@
 exports.translations = {
-  common: {
-    notificationTitle: 'Hey, wake up!',
-    notificationMessage:
+  notification: {
+    changeTitle: 'New location, new quizzes!',
+    changeMessage:
+      'Welcome to {{ newLocation }}. Open the app to solve quizzes about new location.',
+    staticTitle: 'Hey, wake up!',
+    staticMessage:
       'Find out if how much you know about region you are currently in',
   },
   home: {

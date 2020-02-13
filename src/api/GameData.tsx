@@ -1,7 +1,7 @@
 import { decorate, observable, computed, action } from 'mobx';
 import { QuestionData } from './models';
 
-class GameData {
+export class GameData {
   _quizzes = [];
 
   get quizzes(): string[] {
@@ -23,5 +23,3 @@ decorate(GameData, {
   setQuizzes: action,
   reset: action,
 });
-
-export const gameDataStore = new GameData();

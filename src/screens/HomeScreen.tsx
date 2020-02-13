@@ -6,10 +6,10 @@ import {
   Alert,
   Image,
   AsyncStorage,
+  AppState,
 } from 'react-native';
 import { inject, observer } from 'mobx-react';
 import { NavigationInjectedProps } from 'react-navigation';
-import compose from 'lodash.flowright';
 import BackgroundFetch from 'react-native-background-fetch';
 import firestore from '@react-native-firebase/firestore';
 
@@ -29,9 +29,11 @@ import { images } from 'assets';
 import { typography } from 'styles';
 
 interface Props extends NavigationInjectedProps {
-  location: LocationStore;
-  gameSettings: GameSettingsStore;
-  gameData: GameDataStore;
+  rootStore: {
+    location: LocationStore;
+    gameSettings: GameSettingsStore;
+    gameData: GameDataStore;
+  };
 }
 
 interface State {
@@ -66,44 +68,44 @@ class HomeScreen extends PureComponent<Props, State> {
   backgroundProcess = async () => {
     const {
       gameSettings,
-      // location: { adminDistrict, countryRegion },
-    } = this.props;
+      location: { adminDistrict, countryRegion },
+    } = this.props.rootStore;
     if (!gameSettings.isGameActive) {
       return BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
     }
+
+    // title: i18n.t('common:notificationTitle'),
+    // message: i18n.t('common:notificationMessage'),
     await this.updateLocation();
-    // if (AppState.currentState.match(/inactive|background/)) {
-    //   if (gameSettings.isLocationChanged) {
-    //     NotificationService.localNotification(
-    //       `Welcome to ${adminDistrict || countryRegion}`,
-    //     );
-    //   } else {
-    //     NotificationService.localNotification(
-    //       'Hello there. Try quizes about current location',
-    //     );
-    //   }
-    // }
+    if (AppState.currentState.match(/inactive|background/)) {
+      if (gameSettings.isLocationChanged) {
+        NotificationService.localNotification(
+          i18n.t('notification:changeTitle'),
+          i18n.t('notification:changeMessage', {
+            newLocation: adminDistrict || countryRegion,
+          }),
+        );
+      }
+    }
     BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
   };
 
   updateLocation = async (): Promise<{ status: FetchLocation }> => {
-    const { location, gameSettings } = this.props;
+    const { location, gameSettings } = this.props.rootStore;
 
     const currentLocationData = {
       countryRegion: location.countryRegion,
       adminDistrict: location.adminDistrict,
       adminDistrict2: location.adminDistrict2,
-      formattedAddress: location.formattedAddress,
     };
     try {
       const address = (await LocationManager.getCurrentLocation()) as LocationData;
       const newLocationData = {
         countryRegion: address.countryRegion,
-        formattedAddress: address.formattedAddress,
         adminDistrict: address.adminDistrict,
         adminDistrict2: address.adminDistrict2,
       } as LocationData;
-      this.props.location.setLocationData(newLocationData);
+      this.props.rootStore.location.setLocationData(newLocationData);
       if (
         JSON.stringify(currentLocationData) !== JSON.stringify(newLocationData)
       ) {
@@ -127,7 +129,7 @@ class HomeScreen extends PureComponent<Props, State> {
   };
 
   stopGame = async () => {
-    const { location, gameSettings, gameData } = this.props;
+    const { location, gameSettings, gameData } = this.props.rootStore;
     location.reset();
     gameSettings.reset();
     gameData.reset();
@@ -136,7 +138,10 @@ class HomeScreen extends PureComponent<Props, State> {
   };
 
   startGame = async () => {
-    const { gameSettings, navigation } = this.props;
+    const {
+      rootStore: { gameSettings, gameData },
+      navigation,
+    } = this.props;
     this.setState({
       loading: true,
     });
@@ -150,14 +155,17 @@ class HomeScreen extends PureComponent<Props, State> {
       const quizData = quiz.data();
       if (quizData) {
         quizData.id = quiz.id;
-        this.props.gameData.setQuizzes(quizData as QuestionData);
+        gameData.setQuizzes(quizData as QuestionData);
       }
     });
     const { status } = await this.updateLocation();
     if (status !== 'success') {
       return;
     }
-    NotificationService.scheduledNotification();
+    NotificationService.scheduledNotification(
+      i18n.t('notification:staticTitle'),
+      i18n.t('notification:staticMessage'),
+    );
     gameSettings.setIsGameActive(true);
     navigation.navigate('Quiz');
   };
@@ -170,7 +178,7 @@ class HomeScreen extends PureComponent<Props, State> {
     if (status !== 'success') {
       return;
     }
-    this.props.gameSettings.setIsGameActive(true);
+    this.props.rootStore.gameSettings.setIsGameActive(true);
     this.props.navigation.navigate('Quiz');
   };
 
@@ -183,7 +191,7 @@ class HomeScreen extends PureComponent<Props, State> {
         answeredQuestions,
         isLocationChanged,
       },
-    } = this.props;
+    } = this.props.rootStore;
     const { loading } = this.state;
 
     const goldBadges = badges.filter((badge: string) => badge === BADGES.GOLD);
@@ -282,8 +290,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default compose(
-  inject('gameSettings'),
-  inject('gameData'),
-  inject('location'),
-)(observer(HomeScreen));
+export default inject('rootStore')(observer(HomeScreen));

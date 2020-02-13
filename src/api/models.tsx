@@ -9,8 +9,8 @@ export type GameDataStore = GameData & {
 
 export interface GameSettings {
   answeredQuestions: string[];
+  isLocationChanged: boolean;
   isGameActive?: boolean;
-  isLocationChanged?: boolean;
   score?: number;
   badges: string[];
 }
@@ -19,7 +19,6 @@ export interface LocationData {
   adminDistrict: string;
   adminDistrict2: string;
   countryRegion: string;
-  formattedAddress: string;
 }
 
 export type LocationStore = LocationData & {
