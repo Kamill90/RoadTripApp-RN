@@ -4,6 +4,6 @@ export const QUESTION_TYPE = {
 };
 
 export const BADGES = {
-  SILVER: 'silver',
-  GOLD: 'gold',
+  SILVER: 'Silver',
+  GOLD: 'Gold',
 };

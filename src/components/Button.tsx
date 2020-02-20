@@ -9,7 +9,7 @@ import {
 import { palette } from 'styles';
 
 interface Props {
-  type: 'regular' | 'answer';
+  type: 'regular' | 'answer' | 'secondary';
   title: string;
   onPress: () => void;
   loading?: boolean;
@@ -32,11 +32,11 @@ export const Button: React.FunctionComponent<Props> = ({ ...props }) => (
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 10,
-    maxHeight: 50,
+    height: 50,
+    margin: 10,
   },
   regular: {
     borderRadius: 20,
@@ -45,5 +45,8 @@ const styles = StyleSheet.create({
   answer: {
     borderRadius: 8,
     backgroundColor: palette.button1,
+  },
+  secondary: {
+    opacity: 1,
   },
 });

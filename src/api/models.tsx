@@ -10,8 +10,8 @@ export type GameDataStore = GameData & {
 export interface GameSettings {
   answeredQuestions: string[];
   isLocationChanged: boolean;
-  isGameActive?: boolean;
-  score?: number;
+  isGameActive: boolean;
+  score: number;
   badges: string[];
 }
 
@@ -91,3 +91,10 @@ export enum BadgesType {
   SILVER = 'silver',
   GOLD = 'gold',
 }
+
+export type Score = {
+  goldBadges: number;
+  silverBadges: number;
+  score: number;
+  noOfQuestions: number;
+};

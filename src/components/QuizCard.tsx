@@ -17,7 +17,7 @@ export class QuizCard extends React.PureComponent<Props> {
     const { answers, onPress } = this.props;
     answers.sort(() => Math.random() - 0.5);
     return answers.map((answer, index) => (
-      <View key={index} style={styles.buttonContainer}>
+      <View key={index} style={styles.button}>
         <Button
           title={answer}
           onPress={() => {
@@ -32,16 +32,18 @@ export class QuizCard extends React.PureComponent<Props> {
     const { question, reason } = this.props;
     return (
       <View style={styles.container}>
-        <Text style={typography.secondaryInfo}>
-          {i18n.t('quiz:category') + reason}
-        </Text>
-        <Text style={styles.question}>{question}</Text>
         <ScrollView
           showsVerticalScrollIndicator={false}
           bounces={false}
           style={styles.scroll}
         >
-          {this.renderAnswerButtons()}
+          <Text style={[typography.secondaryInfo, styles.secondaryInfo]}>
+            {i18n.t('quiz:category') + reason}
+          </Text>
+          <Text style={styles.question}>{question}</Text>
+          <View style={styles.buttonsContainer}>
+            {this.renderAnswerButtons()}
+          </View>
         </ScrollView>
       </View>
     );
@@ -50,25 +52,25 @@ export class QuizCard extends React.PureComponent<Props> {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 23,
-    backgroundColor: palette.secondaryBackground,
+    paddingHorizontal: 10,
+    backgroundColor: palette.grey,
     borderRadius: 15,
-    maxHeight: '80%',
   },
   scroll: {
     borderRadius: 8,
+    paddingBottom: 20,
   },
-  buttonContainer: {
-    width: '100%',
+  secondaryInfo: { marginTop: 10 },
+  button: {
     height: 40,
     marginBottom: 15,
   },
+  buttonsContainer: { marginBottom: 20 },
   question: {
     marginTop: 10,
     marginBottom: 40,
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: '600',
     textAlign: 'center',
-    color: palette.white,
   },
 });

@@ -3,14 +3,18 @@ import { createStackNavigator } from 'react-navigation-stack';
 import HomeScreen from '../screens/HomeScreen';
 import QuizScreen from '../screens/QuizScreen';
 import { palette } from 'styles';
+import { i18n } from 'locale';
 
-const darkHeaderOption = {
+const customHeader = {
   headerStyle: {
-    backgroundColor: palette.secondaryBackground,
+    backgroundColor: palette.white,
+    height: 50,
   },
-  headerTintColor: palette.white,
+  headerTintColor: palette.mainBlack,
   headerTitleStyle: {
-    fontWeight: 'bold',
+    fontFamily: 'Pacifico',
+    fontSize: 30,
+    lineHeight: 40,
   },
 };
 
@@ -19,17 +23,17 @@ export const MainNavigator = createStackNavigator(
     Home: {
       screen: HomeScreen,
       navigationOptions: {
-        title: 'Road trip game',
-        ...darkHeaderOption,
+        title: i18n.t('home:name'),
+        ...customHeader,
       },
     },
     Quiz: {
       screen: QuizScreen,
       navigationOptions: {
-        title: 'Quiz',
-        ...darkHeaderOption,
+        title: i18n.t('home:name'),
+        ...customHeader,
       },
     },
   },
-  { headerMode: 'screen' },
+  { headerMode: 'float', headerBackTitleVisible: false },
 );

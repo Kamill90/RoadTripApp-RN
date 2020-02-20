@@ -203,29 +203,32 @@ class QuizScreen extends React.PureComponent<Props, State> {
         : `${(answeredInSession / (questions.length - 1)) * 100}%`;
     return (
       <Template>
-        <View style={styles.scoreContainer}>
-          <View
-            style={[
-              styles.progressBar,
-              {
-                width: progress,
-              },
-            ]}
-          />
-          {/* eslint-disable-next-line react-native/no-inline-styles */}
-          <Text style={[typography.score, { alignSelf: 'center' }]}>
-            {i18n.t('quiz:score')} {gameSettings.score}
-          </Text>
+        <View style={styles.mainContainer}>
+          <View style={styles.scoreContainer}>
+            <View
+              style={[
+                styles.progressBar,
+                {
+                  width: progress,
+                },
+              ]}
+            />
+            <Text style={[typography.score, styles.scoreText]}>
+              {i18n.t('quiz:score')} {gameSettings.score}
+            </Text>
+          </View>
+          <View style={styles.carouselContainer}>
+            <Carousel
+              ref={this.carouselRef as any}
+              removeClippedSubviews={false}
+              data={this.state.questions}
+              renderItem={this.renderQuizCard}
+              sliderWidth={WIDTH}
+              itemWidth={WIDTH * 0.8}
+              scrollEnabled={false}
+            />
+          </View>
         </View>
-        <Carousel
-          ref={this.carouselRef as any}
-          removeClippedSubviews={false}
-          data={this.state.questions}
-          renderItem={this.renderQuizCard}
-          sliderWidth={WIDTH}
-          itemWidth={WIDTH * 0.8}
-          scrollEnabled={false}
-        />
       </Template>
     );
   }
@@ -234,6 +237,9 @@ class QuizScreen extends React.PureComponent<Props, State> {
 const styles = StyleSheet.create({
   summary: {
     marginHorizontal: 15,
+  },
+  mainContainer: {
+    flex: 1,
   },
   scoreContainer: {
     width: '80%',
@@ -245,12 +251,19 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     marginTop: 10,
   },
+  scoreText: { alignSelf: 'center' },
   progressBar: {
     backgroundColor: palette.primary,
     position: 'absolute',
     height: '100%',
     borderRadius: 15,
   },
+  carouselContainer: {
+    flex: 1,
+    alignSelf: 'flex-start',
+    paddingVertical: 20,
+  },
 });
 
+// @ts-ignore
 export default inject('rootStore')(observer(QuizScreen));

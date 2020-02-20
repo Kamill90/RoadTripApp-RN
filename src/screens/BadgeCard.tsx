@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, Image } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
 
 import { ModalTemplate, Button } from 'components';
-import { images } from 'assets';
+import { icons } from 'assets';
 import { palette, typography } from 'styles';
 import { i18n } from 'locale';
 
@@ -44,7 +44,7 @@ export class BadgeCard extends PureComponent<NavigationInjectedProps, State> {
           <Text style={typography.badgeDescription}>
             {i18n.t(`badge:${badge}Description`)}
           </Text>
-          <Image source={images[`medal_${badge}`]} style={styles.badgeIcon} />
+          <Image source={icons[`medal${badge}`]} style={styles.badgeIcon} />
           <Button
             type="regular"
             title={i18n.t('badge:close')}

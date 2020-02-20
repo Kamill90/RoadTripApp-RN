@@ -12,7 +12,7 @@ export const typography = StyleSheet.create({
   secondaryInfo: {
     fontSize: 12,
     letterSpacing: 0.4,
-    color: palette.white,
+    // color: palette.white,
   },
   score: {
     fontSize: 20,
@@ -59,5 +59,15 @@ export const typography = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'normal',
     textAlign: 'center',
+  },
+  tipDescription: {
+    fontSize: 14,
+    lineHeight: 24,
+    textAlign: 'center',
+    marginBottom: 40,
+  },
+  tipTitle: {
+    fontSize: 18,
+    // fontFamily: 'Muli-SemiBold',
   },
 });

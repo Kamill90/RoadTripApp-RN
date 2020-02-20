@@ -12,8 +12,7 @@ export const Template: React.FunctionComponent<Props> = ({ children }) => {
 
 const styles = StyleSheet.create({
   contentContainer: {
-    paddingVertical: 10,
     flexGrow: 1,
-    backgroundColor: palette.mainBackground,
+    backgroundColor: palette.white,
   },
 });

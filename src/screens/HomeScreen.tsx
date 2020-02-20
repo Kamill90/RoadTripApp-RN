@@ -1,13 +1,5 @@
 import React, { PureComponent } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Alert,
-  Image,
-  AsyncStorage,
-  AppState,
-} from 'react-native';
+import { StyleSheet, View, Alert, AsyncStorage, AppState } from 'react-native';
 import { inject, observer } from 'mobx-react';
 import { NavigationInjectedProps } from 'react-navigation';
 import BackgroundFetch from 'react-native-background-fetch';
@@ -22,11 +14,9 @@ import {
   BADGES,
   QuestionData,
 } from 'api';
-import { Button, Template, ScoreBox } from 'components';
+import { Button, Template, TipCarousel } from 'components';
 import { i18n } from 'locale';
 import { LocationManager, NotificationService } from 'services';
-import { images } from 'assets';
-import { typography } from 'styles';
 
 interface Props extends NavigationInjectedProps {
   rootStore: {
@@ -184,84 +174,53 @@ class HomeScreen extends PureComponent<Props, State> {
 
   render() {
     const {
-      gameSettings: {
-        isGameActive,
-        score,
-        badges,
-        answeredQuestions,
-        isLocationChanged,
-      },
+      gameSettings: { isGameActive, score, badges, answeredQuestions },
     } = this.props.rootStore;
     const { loading } = this.state;
 
-    const goldBadges = badges.filter((badge: string) => badge === BADGES.GOLD);
-
+    const goldBadges = badges.filter((badge: string) => badge === BADGES.GOLD)
+      .length;
+    console.log('goldBadges', goldBadges);
     const silverBadges = badges.filter(
       (badge: string) => badge === BADGES.SILVER,
-    );
+    ).length;
 
     return (
       <Template>
         <View style={styles.mainContainer}>
-          {isGameActive && (
-            <>
-              <View style={styles.badgeContainer}>
-                {!!goldBadges.length && (
-                  <>
-                    <Image
-                      source={images.medal_gold}
-                      style={styles.minibadges}
-                    />
-                    <Text style={typography.secondaryInfo}>
-                      x{goldBadges.length}
-                    </Text>
-                  </>
-                )}
-                {!!silverBadges.length && (
-                  <>
-                    <Image
-                      source={images.medal_silver}
-                      style={styles.minibadges}
-                    />
-                    <Text style={typography.secondaryInfo}>
-                      x{silverBadges.length}
-                    </Text>
-                  </>
-                )}
-              </View>
-              <ScoreBox
-                score={score!}
-                noOfQuestions={answeredQuestions.length}
-              />
-            </>
-          )}
+          <View style={styles.carouselContainer}>
+            <TipCarousel
+              containScoreboard={isGameActive}
+              score={{
+                goldBadges,
+                silverBadges,
+                score,
+                noOfQuestions: answeredQuestions.length,
+              }}
+            />
+          </View>
           <View style={styles.buttonsContainer}>
-            {isGameActive ? (
-              <>
-                <Button
-                  onPress={this.stopGame}
-                  title={i18n.t('home:stop')}
-                  type="regular"
-                />
-                <Button
-                  title={i18n.t('home:goTo')}
-                  onPress={this.continueGame}
-                  type="regular"
-                  loading={loading}
-                />
-              </>
-            ) : (
+            {!isGameActive ? (
               <Button
                 title={i18n.t('home:start')}
                 onPress={this.startGame}
                 type="regular"
                 loading={loading}
               />
-            )}
-            {isLocationChanged && isGameActive && (
-              <Text style={typography.popupInfo}>
-                {i18n.t('announcement:newQuiz')}
-              </Text>
+            ) : (
+              <>
+                <Button
+                  title={i18n.t('home:goTo')}
+                  onPress={this.continueGame}
+                  type="regular"
+                  loading={loading}
+                />
+                <Button
+                  title={i18n.t('home:stop')}
+                  onPress={this.stopGame}
+                  type="secondary"
+                />
+              </>
             )}
           </View>
         </View>
@@ -272,17 +231,14 @@ class HomeScreen extends PureComponent<Props, State> {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    height: '100%',
     justifyContent: 'space-between',
     paddingBottom: 50,
-    alignItems: 'center',
+    flex: 1,
   },
-  buttonsContainer: {
-    height: 120,
-    width: '100%',
-    justifyContent: 'space-between',
-    paddingHorizontal: 30,
+  carouselContainer: {
+    flex: 4,
   },
+  buttonsContainer: { flex: 1, justifyContent: 'flex-start' },
   minibadges: { width: 50, height: 50 },
   badgeContainer: {
     flexDirection: 'row',
