@@ -176,7 +176,7 @@ class QuizScreen extends React.PureComponent<Props, State> {
         <ResultCard question={item.question} description={item.description} />
       );
     }
-    const answers = item.incorrect_answers!.concat(item.correct_answer!);
+    const answers = item.incorrect_answers.concat(item.correct_answer!);
     return (
       <QuizCard
         question={item.question}
@@ -224,7 +224,7 @@ class QuizScreen extends React.PureComponent<Props, State> {
               data={this.state.questions}
               renderItem={this.renderQuizCard}
               sliderWidth={WIDTH}
-              itemWidth={WIDTH * 0.8}
+              itemWidth={WIDTH}
               scrollEnabled={false}
             />
           </View>
@@ -242,14 +242,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scoreContainer: {
-    width: '80%',
     height: 50,
     backgroundColor: palette.secondaryBackground,
     borderRadius: 15,
-    alignSelf: 'center',
+    alignSelf: 'stretch',
     justifyContent: 'center',
     marginBottom: 15,
     marginTop: 10,
+    marginHorizontal: 15,
   },
   scoreText: { alignSelf: 'center' },
   progressBar: {

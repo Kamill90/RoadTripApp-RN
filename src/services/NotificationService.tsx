@@ -1,5 +1,4 @@
 import PushNotification from 'react-native-push-notification';
-import { i18n } from 'locale';
 
 export default class NotificationService {
   tmpConfig = {
@@ -8,7 +7,7 @@ export default class NotificationService {
     largeIcon: 'ic_launcher', // (optional) default: "ic_launcher"
     smallIcon: 'ic_notification', // (optional) default: "ic_notification" with fallback for "ic_launcher"
 
-    color: 'red', // (optional) default: system default
+    // color: 'red', // (optional) default: system default
     vibrate: true, // (optional) default: true
     vibration: 300, // vibration length in milliseconds, ignored if vibrate=false, default: 1000
     tag: 'some_tag', // (optional) add tag to message
@@ -33,7 +32,7 @@ export default class NotificationService {
   configure() {
     PushNotification.configure({
       // (required) Called when a remote or local notification is opened or received
-      // onNotification: () => ,
+      onNotification: () => {},
       permissions: {
         alert: true,
         badge: false,

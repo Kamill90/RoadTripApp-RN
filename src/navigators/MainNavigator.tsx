@@ -8,13 +8,13 @@ import { i18n } from 'locale';
 const customHeader = {
   headerStyle: {
     backgroundColor: palette.white,
-    height: 50,
+    height: 60,
+    borderBottomWidth: 0,
   },
   headerTintColor: palette.mainBlack,
   headerTitleStyle: {
     fontFamily: 'Pacifico',
     fontSize: 30,
-    lineHeight: 40,
   },
 };
 
@@ -23,14 +23,14 @@ export const MainNavigator = createStackNavigator(
     Home: {
       screen: HomeScreen,
       navigationOptions: {
-        title: i18n.t('home:name'),
+        title: i18n.t('home:title'),
         ...customHeader,
       },
     },
     Quiz: {
       screen: QuizScreen,
       navigationOptions: {
-        title: i18n.t('home:name'),
+        title: i18n.t('home:title'),
         ...customHeader,
       },
     },

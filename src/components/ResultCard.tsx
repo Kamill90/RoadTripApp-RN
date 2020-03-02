@@ -13,8 +13,8 @@ export class ResultCard extends React.PureComponent<Props> {
     const { question, description } = this.props;
     return (
       <View style={styles.container}>
-        <Text style={typography.basicInfo}>{question}</Text>
-        <Text style={typography.description}> {description} </Text>
+        <Text style={typography.question}>{question}</Text>
+        <Text style={typography.description}>{description}</Text>
       </View>
     );
   }
@@ -26,7 +26,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     height: 250,
     padding: 30,
-    backgroundColor: palette.secondaryBackground,
+    backgroundColor: palette.primary,
     borderRadius: 15,
+    margin: 15,
   },
 });

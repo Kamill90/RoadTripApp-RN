@@ -22,6 +22,9 @@
 		A548E1B30469788C73EFB469 /* libPods-RoadTripApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EC700767057E88FBD02DF59 /* libPods-RoadTripApp.a */; };
 		AC5C64F42CAF2E9ECEB46BCE /* libPods-RoadTripApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 773D1AAF164C63A1D3A34CB2 /* libPods-RoadTripApp-tvOS.a */; };
 		B058472E491E48D9B7C37354 /* Pacifico.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D439AFE18F5457DA8814D96 /* Pacifico.ttf */; };
+		1B66DCE493644A98A8619334 /* Muli-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2290097721AE49F7A8FADC58 /* Muli-Light.ttf */; };
+		E5037E083652478EBC9FE130 /* Muli-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C569372BA10B4A549EDC1604 /* Muli-SemiBold.ttf */; };
+		B45CAA1BFFCB48C39CF12D95 /* Muli.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2F2B3EF3270B4CA8B966C8E6 /* Muli.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +76,9 @@
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F351C1B3920C5B920E099B27 /* Pods-RoadTripAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RoadTripAppTests.debug.xcconfig"; path = "Target Support Files/Pods-RoadTripAppTests/Pods-RoadTripAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3D439AFE18F5457DA8814D96 /* Pacifico.ttf */ = {isa = PBXFileReference; name = "Pacifico.ttf"; path = "../src/assets/fonts/Pacifico.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2290097721AE49F7A8FADC58 /* Muli-Light.ttf */ = {isa = PBXFileReference; name = "Muli-Light.ttf"; path = "../src/assets/fonts/Muli-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C569372BA10B4A549EDC1604 /* Muli-SemiBold.ttf */ = {isa = PBXFileReference; name = "Muli-SemiBold.ttf"; path = "../src/assets/fonts/Muli-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2F2B3EF3270B4CA8B966C8E6 /* Muli.ttf */ = {isa = PBXFileReference; name = "Muli.ttf"; path = "../src/assets/fonts/Muli.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +217,9 @@
 			isa = "PBXGroup";
 			children = (
 				3D439AFE18F5457DA8814D96 /* Pacifico.ttf */,
+				2290097721AE49F7A8FADC58 /* Muli-Light.ttf */,
+				C569372BA10B4A549EDC1604 /* Muli-SemiBold.ttf */,
+				2F2B3EF3270B4CA8B966C8E6 /* Muli.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -367,6 +376,9 @@
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				A2D200AF23B80EEA000C06EC /* GoogleService-Info.plist in Resources */,
 				B058472E491E48D9B7C37354 /* Pacifico.ttf in Resources */,
+				1B66DCE493644A98A8619334 /* Muli-Light.ttf in Resources */,
+				E5037E083652478EBC9FE130 /* Muli-SemiBold.ttf in Resources */,
+				B45CAA1BFFCB48C39CF12D95 /* Muli.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

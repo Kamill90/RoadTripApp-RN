@@ -1,35 +1,25 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, Image } from 'react-native';
+import { StyleSheet, Image, View } from 'react-native';
 
-import { icons } from 'assets';
-import { palette, typography } from 'styles';
+import { images } from 'assets';
 
-export const TipCard = ({
-  description,
-  iconName,
-}: {
-  description: string;
-  iconName: string;
-}) => {
-  console.log('url');
+export const TipCard = ({ tipImage }: { tipImage: string }) => {
   return (
-    <ScrollView
-      style={styles.container}
-      bounces={false}
-      showsVerticalScrollIndicator={true}
-    >
-      <Image source={icons[iconName]} style={styles.image} />
-      <Text style={typography.tipDescription}>{description}</Text>
-    </ScrollView>
+    <View>
+      <Image
+        source={images[tipImage]}
+        style={styles.container}
+        resizeMode="cover"
+      />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-    backgroundColor: palette.grey,
+    width: '100%',
     borderRadius: 22,
-    padding: 20,
   },
   image: {
     height: 100,

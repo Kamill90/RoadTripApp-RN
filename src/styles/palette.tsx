@@ -7,7 +7,9 @@ export const palette = {
   mainBlack: '#161518',
   mainGrey: '#aaaaaa',
   grey: '#C4C4C4',
+  lightGrey: '#F1F1F1',
   white: '#ffffff',
   button1: '#01aae6',
-  wrongAnswerColor: '#c12536',
+  wrongAnswerColor: '#FF8383',
+  transparent: 'rgba(0,0,0,0)',
 };

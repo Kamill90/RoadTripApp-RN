@@ -17,11 +17,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.1.5</string>
+	<string>0.1.6</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>11</string>
+	<string>12</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
@@ -72,6 +72,9 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Pacifico.ttf</string>
+		<string>Muli-Light.ttf</string>
+		<string>Muli-SemiBold.ttf</string>
+		<string>Muli.ttf</string>
 	</array>
 </dict>
 </plist>

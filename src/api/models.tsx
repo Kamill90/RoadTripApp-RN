@@ -70,7 +70,8 @@ export interface Result {
   question: string;
   reasonValue: string;
   correct_answer?: string;
-  incorrect_answers?: string[];
+  incorrect_answers: string[];
+  answers: string[];
   description?: string;
   tip?: string;
 }
@@ -92,9 +93,9 @@ export enum BadgesType {
   GOLD = 'gold',
 }
 
-export type Score = {
+export interface Score {
   goldBadges: number;
   silverBadges: number;
   score: number;
   noOfQuestions: number;
-};
+}

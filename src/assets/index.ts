@@ -1,6 +1,6 @@
 export const icons = {
-  medalGold: require('./medal_gold.png'),
-  medalSilver: require('./medal_silver.png'),
+  medalGold: require('./icons/medal_gold.png'),
+  medalSilver: require('./icons/medal_silver.png'),
   airport: require('./icons/icons8-airport-100.png'),
   beach: require('./icons/icons8-beach-100.png'),
   camper: require('./icons/icons8-camper-100.png'),
@@ -10,6 +10,12 @@ export const icons = {
   nationalPark: require('./icons/icons8-national-park-100.png'),
   waterTransportation: require('./icons/icons8-water-transportation-100.png'),
   defaultThumbnail: require('./icons/default_thumbnail.png'),
+};
+
+export const images = {
+  teamSpirit: require('./images/teamspirit.jpg'),
+  mapGirl: require('./images/mapGirl.jpg'),
+  badges: require('./images/badges.jpeg'),
 };
 
 export * from './data/tips';

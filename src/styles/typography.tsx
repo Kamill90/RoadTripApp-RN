@@ -10,9 +10,9 @@ export const typography = StyleSheet.create({
     color: palette.white,
   },
   secondaryInfo: {
+    fontFamily: 'Muli',
     fontSize: 12,
     letterSpacing: 0.4,
-    // color: palette.white,
   },
   score: {
     fontSize: 20,
@@ -23,18 +23,16 @@ export const typography = StyleSheet.create({
   },
   popupInfo: {
     textAlign: 'center',
-    fontSize: 12,
+    fontSize: 15,
+    fontFamily: 'Muli-SemiBold',
     fontWeight: '600',
-    color: palette.white,
     textTransform: 'uppercase',
   },
   description: {
     fontSize: 16,
     letterSpacing: 0.3,
     lineHeight: 22,
-    color: palette.white,
-    fontWeight: '400',
-    textAlign: 'auto',
+    color: palette.mainBlack,
   },
   homeScreenVideoTitle: {
     fontSize: 24,
@@ -47,7 +45,6 @@ export const typography = StyleSheet.create({
   bigScore: {
     fontSize: 60,
     letterSpacing: 0.5,
-    color: palette.white,
     textTransform: 'uppercase',
     fontWeight: '600',
   },
@@ -61,13 +58,27 @@ export const typography = StyleSheet.create({
     textAlign: 'center',
   },
   tipDescription: {
+    fontFamily: 'Muli-SemiBold',
     fontSize: 14,
-    lineHeight: 24,
+    lineHeight: 20,
     textAlign: 'center',
-    marginBottom: 40,
   },
   tipTitle: {
     fontSize: 18,
-    // fontFamily: 'Muli-SemiBold',
+    fontFamily: 'Muli-SemiBold',
+  },
+  answerButtonTitle: {
+    fontSize: 15,
+    fontFamily: 'Muli',
+  },
+  question: {
+    fontFamily: 'Muli-SemiBold',
+    fontSize: 21,
+  },
+  result: {
+    fontFamily: 'Muli-SemiBold',
+    textTransform: 'uppercase',
+    fontSize: 23,
+    letterSpacing: 4,
   },
 });

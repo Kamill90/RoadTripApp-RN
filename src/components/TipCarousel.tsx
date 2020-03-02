@@ -60,9 +60,7 @@ export class TipCarousel extends PureComponent<Props, State> {
     if (this.props.containScoreboard && item.index === 0) {
       return this.renderScoreboard();
     }
-    return (
-      <TipCard description={item.item.description} iconName={item.item.image} />
-    );
+    return <TipCard tipImage={item.item.image} />;
   };
 
   onSnapToItem = (slideIndex: number) => {
@@ -73,7 +71,6 @@ export class TipCarousel extends PureComponent<Props, State> {
 
   render() {
     const { tips } = this.state;
-    console.log('tips', tips);
     return (
       <View style={styles.container}>
         <Carousel
@@ -85,9 +82,14 @@ export class TipCarousel extends PureComponent<Props, State> {
           removeClippedSubviews={false}
         />
         <ProgressDots data={tips} active={this.state.activeCardIndex} />
-        <Text style={[typography.tipTitle]}>
-          {tips[this.state.activeCardIndex].title}
-        </Text>
+        <View style={styles.textContainer}>
+          <Text style={[typography.tipTitle, styles.title]}>
+            {tips[this.state.activeCardIndex].title}
+          </Text>
+          <Text style={typography.tipDescription}>
+            {tips[this.state.activeCardIndex].description}
+          </Text>
+        </View>
       </View>
     );
   }
@@ -105,5 +107,12 @@ const styles = StyleSheet.create({
     backgroundColor: palette.grey,
     borderRadius: 22,
     padding: 20,
+  },
+  title: { paddingBottom: 5 },
+  textContainer: {
+    height: 100,
+    paddingHorizontal: 30,
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 });

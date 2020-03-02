@@ -2,21 +2,21 @@ export const tips = {
   pl: [
     {
       title: 'Quizy na podstawie Twojej lokalizacji',
-      image: 'camper',
+      image: 'mapGirl',
       description:
-        'Podróżujesz przez kraj? Kontynent? Świat? Włącz grę, rozwiąż pierwsze quizy i ciesz się drogą. Co jakiś czas dostaniesz powiadomienie - jeśli jesteś w nowym miejscu będą na Ciebie czekać nowe quizy. Baw się, konkuruj ze współpodróżującymi i dowiaduj się o ciekawych miejscach w Twojej okolicy.',
+        'Podróżujesz przez kraj? Kontynent? Świat? Rozpocznij grę, a quizy i ciekawostki o miejscu, przez który przejedżasz będą Ci towarzyszyć przez całą drogę.',
     },
     {
       title: 'Zdobywaj odznaki',
-      image: 'medalGold',
+      image: 'badges',
       description:
         'Im więcej wiesz o miejscach, przez które przejedż tym większa szansa na zdobycie kolekcji odznak na koniec podróży. Lepiej dobrze przemyśl każdą odpowiedź.',
     },
     {
       title: 'Zostań współautorem',
-      image: 'nationalPark',
+      image: 'teamSpirit',
       description:
-        'Bądź jak lokalny przedownik zadający intrygujące pytania o miejscach, które znasz. Wejdź w link, wypełnij formularz i już. Jeśli dodasz ciekawostkę do pytania będziesz mógł się promować linkiem do swojej strony.',
+        'Bądź jak lokalny przedownik zadający intrygujące pytania. Wejdź na stonę aplikacji i sprawdź jak to zrobić i co możesz zyskać',
     },
   ],
   en: [

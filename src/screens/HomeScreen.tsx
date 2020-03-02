@@ -17,6 +17,7 @@ import {
 import { Button, Template, TipCarousel } from 'components';
 import { i18n } from 'locale';
 import { LocationManager, NotificationService } from 'services';
+import { palette } from 'styles';
 
 interface Props extends NavigationInjectedProps {
   rootStore: {
@@ -140,11 +141,15 @@ class HomeScreen extends PureComponent<Props, State> {
       .collection('quizzes')
       .get();
 
-    const quizes = documentsSnapshot.docs;
-    quizes.map(quiz => {
+    documentsSnapshot.docs.map(quiz => {
       const quizData = quiz.data();
       if (quizData) {
         quizData.id = quiz.id;
+        quizData.answers = [
+          quizData.correct_answer,
+          ...quizData.incorrect_answers,
+        ].sort(() => Math.random() - 0.5);
+
         gameData.setQuizzes(quizData as QuestionData);
       }
     });
@@ -180,7 +185,6 @@ class HomeScreen extends PureComponent<Props, State> {
 
     const goldBadges = badges.filter((badge: string) => badge === BADGES.GOLD)
       .length;
-    console.log('goldBadges', goldBadges);
     const silverBadges = badges.filter(
       (badge: string) => badge === BADGES.SILVER,
     ).length;
@@ -218,6 +222,7 @@ class HomeScreen extends PureComponent<Props, State> {
                 <Button
                   title={i18n.t('home:stop')}
                   onPress={this.stopGame}
+                  backgroundColor={palette.transparent}
                   type="secondary"
                 />
               </>
@@ -238,7 +243,11 @@ const styles = StyleSheet.create({
   carouselContainer: {
     flex: 4,
   },
-  buttonsContainer: { flex: 1, justifyContent: 'flex-start' },
+  buttonsContainer: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    paddingHorizontal: 15,
+  },
   minibadges: { width: 50, height: 50 },
   badgeContainer: {
     flexDirection: 'row',

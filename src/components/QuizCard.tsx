@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 
-import { Button } from 'components';
-import { palette, typography } from 'styles';
+import { AnswerButton } from 'components';
+import { typography } from 'styles';
 import { i18n } from 'locale';
 
 interface Props {
@@ -15,15 +15,15 @@ interface Props {
 export class QuizCard extends React.PureComponent<Props> {
   renderAnswerButtons = (): React.ReactNode => {
     const { answers, onPress } = this.props;
-    answers.sort(() => Math.random() - 0.5);
+    const prefixMap = ['A', 'B', 'C', 'D'];
     return answers.map((answer, index) => (
       <View key={index} style={styles.button}>
-        <Button
+        <AnswerButton
+          prefix={prefixMap[index]}
           title={answer}
           onPress={() => {
             onPress(answer);
           }}
-          type="answer"
         />
       </View>
     ));
@@ -37,13 +37,13 @@ export class QuizCard extends React.PureComponent<Props> {
           bounces={false}
           style={styles.scroll}
         >
-          <Text style={[typography.secondaryInfo, styles.secondaryInfo]}>
-            {i18n.t('quiz:category') + reason}
-          </Text>
-          <Text style={styles.question}>{question}</Text>
-          <View style={styles.buttonsContainer}>
-            {this.renderAnswerButtons()}
+          <View style={styles.carouselHeader}>
+            <Text style={[typography.secondaryInfo, styles.secondaryInfo]}>
+              {i18n.t('quiz:category') + reason}
+            </Text>
+            <Text style={typography.question}>{question}</Text>
           </View>
+          {this.renderAnswerButtons()}
         </ScrollView>
       </View>
     );
@@ -52,25 +52,18 @@ export class QuizCard extends React.PureComponent<Props> {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 10,
-    backgroundColor: palette.grey,
+    paddingHorizontal: 15,
     borderRadius: 15,
+  },
+  button: {
+    marginTop: 10,
   },
   scroll: {
     borderRadius: 8,
     paddingBottom: 20,
   },
   secondaryInfo: { marginTop: 10 },
-  button: {
-    height: 40,
-    marginBottom: 15,
-  },
-  buttonsContainer: { marginBottom: 20 },
-  question: {
-    marginTop: 10,
-    marginBottom: 40,
-    fontSize: 24,
-    fontWeight: '600',
-    textAlign: 'center',
+  carouselHeader: {
+    paddingVertical: 20,
   },
 });

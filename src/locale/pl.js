@@ -18,8 +18,8 @@ exports.translations = {
   },
   quiz: {
     category: 'Kategoria: ',
-    right: 'Masz rację!',
-    wrong: 'Błąd!',
+    right: 'Prawda!',
+    wrong: 'Niestety!',
     correctIs: 'Poprawna odpowiedź to: ',
     continue: 'Kontunuuj',
     location: 'Jesteś w: ',
@@ -29,11 +29,11 @@ exports.translations = {
       'Odpowiedziałeś na wszystkie pytania dostępne dla tej lokalizacji. Kontynuuj swoją podróż, żeby odblokować kolejne. \nBezpiecznej podróży!',
   },
   badge: {
-    close: 'zamknij',
+    close: 'ZAMKNIJ',
     congratulation: 'Gratulacje!',
-    silverDescription:
+    SilverDescription:
       'Odpowiedziałeś poprawnie na więcej niż 70% pytań. Zdobywasz srebrną odznakę.',
-    goldDescription:
+    GoldDescription:
       'Odpowiedziałeś poprawnie na wszystkie pytania. Zdobywasz złotą odznakę.',
   },
 };

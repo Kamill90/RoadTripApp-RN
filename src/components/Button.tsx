@@ -9,15 +9,19 @@ import {
 import { palette } from 'styles';
 
 interface Props {
-  type: 'regular' | 'answer' | 'secondary';
+  type?: 'regular' | 'answer' | 'secondary';
   title: string;
   onPress: () => void;
   loading?: boolean;
+  backgroundColor?: string;
 }
 
 export const Button: React.FunctionComponent<Props> = ({ ...props }) => (
   <TouchableOpacity
-    style={[styles.container, styles[props.type]]}
+    style={[
+      styles.container,
+      props.backgroundColor ? { backgroundColor: props.backgroundColor } : null,
+    ]}
     onPress={props.onPress}
     disabled={props.loading}
     activeOpacity={0.5}
@@ -36,15 +40,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
     height: 50,
-    margin: 10,
-  },
-  regular: {
     borderRadius: 20,
-    backgroundColor: palette.secondary,
-  },
-  answer: {
-    borderRadius: 8,
-    backgroundColor: palette.button1,
+    backgroundColor: palette.primary,
   },
   secondary: {
     opacity: 1,

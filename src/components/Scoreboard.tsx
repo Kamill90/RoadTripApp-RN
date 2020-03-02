@@ -1,9 +1,8 @@
 import React from 'react';
-import { View, Image, Text, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
 
 import { Score } from 'api';
 import { icons } from 'assets';
-import { typography } from 'styles';
 import { ScoreBox } from './ScoreBox';
 
 export const Scoreboard = ({
@@ -14,21 +13,25 @@ export const Scoreboard = ({
 }: Score) => {
   return (
     <>
-      <View style={styles.badgeContainer}>
-        {!!goldBadges && (
-          <>
-            <Image source={icons.medalGold} style={styles.minibadges} />
-            <Text style={typography.secondaryInfo}>x{goldBadges}</Text>
-          </>
-        )}
-        {!!silverBadges && (
-          <>
-            <Image source={icons.medalSilver} style={styles.minibadges} />
-            <Text style={typography.secondaryInfo}>x{silverBadges}</Text>
-          </>
-        )}
-      </View>
       <ScoreBox score={score!} noOfQuestions={noOfQuestions} />
+      <View style={styles.badgeContainer}>
+        {!!goldBadges &&
+          [...Array(goldBadges)].map((item, index) => (
+            <Image
+              source={icons.medalGold}
+              style={styles.minibadges}
+              key={index}
+            />
+          ))}
+        {!!silverBadges &&
+          [...Array(silverBadges)].map((item, index) => (
+            <Image
+              source={icons.medalSilver}
+              style={styles.minibadges}
+              key={index}
+            />
+          ))}
+      </View>
     </>
   );
 };
@@ -38,6 +41,6 @@ const styles = StyleSheet.create({
   badgeContainer: {
     flexDirection: 'row',
     width: '100%',
-    marginBottom: 40,
+    margin: 20,
   },
 });

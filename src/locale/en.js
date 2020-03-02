@@ -30,7 +30,7 @@ exports.translations = {
       'You have answered all the questions that are available for this location. Keep going on your trip to unlock new quizzes. Drive safe!',
   },
   badge: {
-    close: 'close',
+    close: 'CLOSE',
     congratulation: 'Congratulation!',
     silverDescription:
       'You have answered correctly for more then 70% questions. You have earned the silver badge.',

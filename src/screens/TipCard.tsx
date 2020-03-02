@@ -44,49 +44,47 @@ export class TipCard extends PureComponent<NavigationInjectedProps, State> {
     const { navigation } = this.props;
     return (
       <ModalTemplate>
-        <View
-          style={[
-            styles.contentContainer,
-            {
-              backgroundColor: isCorrect
-                ? palette.primary
-                : palette.wrongAnswerColor,
-            },
-          ]}
-        >
+        <View style={styles.contentContainer}>
           <View
             style={[
               styles.titleContainer,
-              description.length > 2 && {
-                borderBottomColor: palette.mainBlack,
-                borderBottomWidth: 2,
+              {
+                backgroundColor: isCorrect
+                  ? palette.primary
+                  : palette.wrongAnswerColor,
               },
             ]}
           >
             {!isCorrect ? (
               <>
-                <Text style={typography.score}>{i18n.t('quiz:wrong')}</Text>
-                <Text style={typography.popupInfo}>
-                  {i18n.t('quiz:correctIs') + correctAnswer}
-                </Text>
+                <Text style={typography.result}>{i18n.t('quiz:wrong')}</Text>
               </>
             ) : (
-              <Text style={typography.popupInfo}>{i18n.t('quiz:right')}</Text>
+              <Text style={typography.result}>{i18n.t('quiz:right')}</Text>
             )}
           </View>
+
           {description.length > 2 && (
             <ScrollView
               bounces={false}
               showsVerticalScrollIndicator={false}
-              style={styles.tipContainer}
+              style={styles.descriptionContainer}
             >
+              {!isCorrect && (
+                <Text style={[typography.popupInfo, styles.correctAnswet]}>
+                  {i18n.t('quiz:correctIs') + correctAnswer}
+                </Text>
+              )}
               <Text style={typography.description}>{description}</Text>
             </ScrollView>
           )}
           <View style={styles.buttonContainer}>
             <Button
               title={i18n.t('quiz:continue')}
-              type="answer"
+              type="regular"
+              backgroundColor={
+                isCorrect ? palette.primary : palette.wrongAnswerColor
+              }
               onPress={() => {
                 navigation.goBack();
                 onPress();
@@ -105,19 +103,23 @@ const styles = StyleSheet.create({
     width: '80%',
     maxHeight: '80%',
     borderRadius: 20,
-    padding: 15,
+    backgroundColor: palette.white,
   },
   titleContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     height: 60,
-  },
-  tipContainer: {
-    paddingVertical: 20,
+    borderRadius: 20,
+    borderBottomEndRadius: 0,
+    borderBottomStartRadius: 0,
   },
   buttonContainer: {
     height: 50,
-    marginVertical: 14,
+    margin: 14,
     justifyContent: 'flex-end',
+  },
+  descriptionContainer: { padding: 15 },
+  correctAnswet: {
+    marginVertical: 15,
   },
 });

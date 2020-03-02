@@ -15,13 +15,13 @@ export class ModalTemplate extends PureComponent<Props, State> {
   componentDidMount() {
     Animated.timing(this.state.backgroundAnimation, {
       toValue: 1,
-      duration: 2000,
+      duration: 200,
     }).start();
   }
   render() {
     const backgroundColorAnimated = this.state.backgroundAnimation.interpolate({
       inputRange: [0, 1],
-      outputRange: ['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0.2)'],
+      outputRange: ['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0.7)'],
     });
     return (
       <Animated.View
