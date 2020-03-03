@@ -4,6 +4,7 @@ import { inject, observer } from 'mobx-react';
 import { NavigationInjectedProps } from 'react-navigation';
 import BackgroundFetch from 'react-native-background-fetch';
 import firestore from '@react-native-firebase/firestore';
+import SplashScreen from 'react-native-splash-screen';
 
 import {
   LocationData,
@@ -37,6 +38,8 @@ class HomeScreen extends PureComponent<Props, State> {
   };
 
   componentDidMount() {
+    SplashScreen.hide();
+
     BackgroundFetch.configure(
       {
         minimumFetchInterval: 15, // <-- minutes (15 is minimum allowed)
