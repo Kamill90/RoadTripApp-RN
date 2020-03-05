@@ -5,12 +5,14 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* RoadTripAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* RoadTripAppTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		1B66DCE493644A98A8619334 /* Muli-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2290097721AE49F7A8FADC58 /* Muli-Light.ttf */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -22,9 +24,8 @@
 		A548E1B30469788C73EFB469 /* libPods-RoadTripApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EC700767057E88FBD02DF59 /* libPods-RoadTripApp.a */; };
 		AC5C64F42CAF2E9ECEB46BCE /* libPods-RoadTripApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 773D1AAF164C63A1D3A34CB2 /* libPods-RoadTripApp-tvOS.a */; };
 		B058472E491E48D9B7C37354 /* Pacifico.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D439AFE18F5457DA8814D96 /* Pacifico.ttf */; };
-		1B66DCE493644A98A8619334 /* Muli-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2290097721AE49F7A8FADC58 /* Muli-Light.ttf */; };
-		E5037E083652478EBC9FE130 /* Muli-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C569372BA10B4A549EDC1604 /* Muli-SemiBold.ttf */; };
 		B45CAA1BFFCB48C39CF12D95 /* Muli.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2F2B3EF3270B4CA8B966C8E6 /* Muli.ttf */; };
+		E5037E083652478EBC9FE130 /* Muli-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C569372BA10B4A549EDC1604 /* Muli-SemiBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,9 +57,12 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = RoadTripApp/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = RoadTripApp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = RoadTripApp/main.m; sourceTree = "<group>"; };
+		2290097721AE49F7A8FADC58 /* Muli-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Muli-Light.ttf"; path = "../src/assets/fonts/Muli-Light.ttf"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* RoadTripApp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RoadTripApp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* RoadTripApp-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "RoadTripApp-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EC700767057E88FBD02DF59 /* libPods-RoadTripApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RoadTripApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F2B3EF3270B4CA8B966C8E6 /* Muli.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Muli.ttf; path = ../src/assets/fonts/Muli.ttf; sourceTree = "<group>"; };
+		3D439AFE18F5457DA8814D96 /* Pacifico.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Pacifico.ttf; path = ../src/assets/fonts/Pacifico.ttf; sourceTree = "<group>"; };
 		3FFFDB084C1D4FAA67382652 /* Pods-RoadTripApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RoadTripApp.debug.xcconfig"; path = "Target Support Files/Pods-RoadTripApp/Pods-RoadTripApp.debug.xcconfig"; sourceTree = "<group>"; };
 		4204B017E0F2F3E5E264574E /* libPods-RoadTripApp-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RoadTripApp-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DC0017A26F6657DE3E3419E /* Pods-RoadTripApp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RoadTripApp-tvOS.release.xcconfig"; path = "Target Support Files/Pods-RoadTripApp-tvOS/Pods-RoadTripApp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -71,14 +75,11 @@
 		A2D200AE23B80EEA000C06EC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AF0B3AF4CA68B6699B362288 /* Pods-RoadTripApp-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RoadTripApp-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-RoadTripApp-tvOS/Pods-RoadTripApp-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		BBA9D0A43C7CA6DA3A2E04FF /* libPods-RoadTripAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RoadTripAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C569372BA10B4A549EDC1604 /* Muli-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Muli-SemiBold.ttf"; path = "../src/assets/fonts/Muli-SemiBold.ttf"; sourceTree = "<group>"; };
 		D640896EA9D02488BB8C93F8 /* Pods-RoadTripApp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RoadTripApp-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-RoadTripApp-tvOSTests/Pods-RoadTripApp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F351C1B3920C5B920E099B27 /* Pods-RoadTripAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RoadTripAppTests.debug.xcconfig"; path = "Target Support Files/Pods-RoadTripAppTests/Pods-RoadTripAppTests.debug.xcconfig"; sourceTree = "<group>"; };
-		3D439AFE18F5457DA8814D96 /* Pacifico.ttf */ = {isa = PBXFileReference; name = "Pacifico.ttf"; path = "../src/assets/fonts/Pacifico.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		2290097721AE49F7A8FADC58 /* Muli-Light.ttf */ = {isa = PBXFileReference; name = "Muli-Light.ttf"; path = "../src/assets/fonts/Muli-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		C569372BA10B4A549EDC1604 /* Muli-SemiBold.ttf */ = {isa = PBXFileReference; name = "Muli-SemiBold.ttf"; path = "../src/assets/fonts/Muli-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		2F2B3EF3270B4CA8B966C8E6 /* Muli.ttf */ = {isa = PBXFileReference; name = "Muli.ttf"; path = "../src/assets/fonts/Muli.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,7 +215,7 @@
 			sourceTree = "<group>";
 		};
 		F98546DE5BA24D8592211487 /* Resources */ = {
-			isa = "PBXGroup";
+			isa = PBXGroup;
 			children = (
 				3D439AFE18F5457DA8814D96 /* Pacifico.ttf */,
 				2290097721AE49F7A8FADC58 /* Muli-Light.ttf */,
@@ -223,7 +224,6 @@
 			);
 			name = Resources;
 			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
