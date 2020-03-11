@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     borderRadius: 22,
     padding: 20,
   },
-  title: { paddingBottom: 5 },
+  title: { paddingBottom: 5, textAlign: 'center' },
   textContainer: {
     height: 100,
     paddingHorizontal: 30,
