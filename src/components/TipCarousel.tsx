@@ -98,7 +98,7 @@ export class TipCarousel extends PureComponent<Props, State> {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    paddingVertical: 20,
+    paddingVertical: 21,
     height: '100%',
   },
   scoreboardContainer: {
