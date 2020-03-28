@@ -12,7 +12,7 @@ export const Scoreboard = ({
   noOfQuestions,
 }: Score) => {
   return (
-    <>
+    <View style={styles.container}>
       <ScoreBox score={score!} noOfQuestions={noOfQuestions} />
       <View style={styles.badgeContainer}>
         {!!goldBadges &&
@@ -23,6 +23,8 @@ export const Scoreboard = ({
               key={index}
             />
           ))}
+      </View>
+      <View style={styles.badgeContainer}>
         {!!silverBadges &&
           [...Array(silverBadges)].map((item, index) => (
             <Image
@@ -32,11 +34,12 @@ export const Scoreboard = ({
             />
           ))}
       </View>
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: { padding: 20 },
   minibadges: { width: 50, height: 50 },
   badgeContainer: {
     flexDirection: 'row',

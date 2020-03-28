@@ -14,8 +14,12 @@ export class ScoreBox extends PureComponent<Props> {
     const { score, noOfQuestions } = this.props;
     return (
       <View style={styles.container}>
-        <Text style={typography.popupInfo}>{i18n.t('home:yourScore')}</Text>
-        <Text style={typography.bigScore}>{`${score} / ${noOfQuestions}`}</Text>
+        <Text style={[typography.popupInfo, styles.textColor]}>
+          {i18n.t('home:yourScore')}
+        </Text>
+        <Text
+          style={[typography.bigScore, styles.textColor]}
+        >{`${score} / ${noOfQuestions}`}</Text>
       </View>
     );
   }
@@ -25,5 +29,8 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  textColor: {
+    color: 'white',
   },
 });

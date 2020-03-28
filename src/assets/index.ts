@@ -16,6 +16,7 @@ export const images = {
   teamSpirit: require('./images/teamspirit.jpg'),
   mapGirl: require('./images/mapGirl.jpg'),
   badges: require('./images/badges.jpeg'),
+  starBackground: require('./images/starBackground.jpg'),
 };
 
 export * from './data/tips';

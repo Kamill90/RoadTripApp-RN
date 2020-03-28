@@ -5,13 +5,11 @@ import { images } from 'assets';
 
 export const TipCard = ({ tipImage }: { tipImage: string }) => {
   return (
-    <View>
-      <Image
-        source={images[tipImage]}
-        style={styles.container}
-        resizeMode="cover"
-      />
-    </View>
+    <Image
+      source={images[tipImage]}
+      style={styles.container}
+      resizeMode="cover"
+    />
   );
 };
 
