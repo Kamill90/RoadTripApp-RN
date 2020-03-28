@@ -176,12 +176,11 @@ class QuizScreen extends React.PureComponent<Props, State> {
         <ResultCard question={item.question} description={item.description} />
       );
     }
-    const answers = item.incorrect_answers.concat(item.correct_answer!);
     return (
       <QuizCard
         question={item.question}
         reason={item.reasonValue}
-        answers={answers}
+        answers={item.answers}
         onPress={(gotAnswer: string) =>
           this.onAnswerPressed(
             gotAnswer,
