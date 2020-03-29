@@ -59,6 +59,8 @@ export interface QuestionData {
   correct_answer: string;
   incorrect_answers: string[];
   language: string;
+  answers: Array<string>;
+  description?: string;
   question: string;
   tip: string;
   type: 'question' | 'result';

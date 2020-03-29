@@ -64,20 +64,19 @@ export class TipCard extends PureComponent<NavigationInjectedProps, State> {
             )}
           </View>
 
-          {description.length > 2 && (
-            <ScrollView
-              bounces={false}
-              showsVerticalScrollIndicator={false}
-              style={styles.descriptionContainer}
-            >
-              {!isCorrect && (
-                <Text style={[typography.popupInfo, styles.correctAnswet]}>
-                  {i18n.t('quiz:correctIs') + correctAnswer}
-                </Text>
-              )}
-              <Text style={typography.description}>{description}</Text>
-            </ScrollView>
-          )}
+          <ScrollView
+            bounces={false}
+            showsVerticalScrollIndicator={false}
+            style={styles.descriptionContainer}
+          >
+            {!isCorrect && (
+              <Text style={[typography.popupInfo, styles.correctAnswet]}>
+                {i18n.t('quiz:correctIs') + correctAnswer}
+              </Text>
+            )}
+            <Text style={typography.description}>{description}</Text>
+          </ScrollView>
+
           <View style={styles.buttonContainer}>
             <Button
               title={i18n.t('quiz:continue')}

@@ -29,6 +29,11 @@ exports.translations = {
     resultDescription:
       'You have answered all the questions that are available for this location. Keep going on your trip to unlock new quizzes. Drive safe!',
   },
+  challenge: {
+    title: 'Challenge',
+    subtitle:
+      'While you are travelling and waiting for quizes from next location, think about the following challenge. Let everyone speak up - get know each other better',
+  },
   badge: {
     close: 'CLOSE',
     congratulation: 'Congratulation!',

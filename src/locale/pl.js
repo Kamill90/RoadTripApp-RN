@@ -28,6 +28,11 @@ exports.translations = {
     resultDescription:
       'Odpowiedziałeś na wszystkie pytania dostępne dla tej lokalizacji. Kontynuuj swoją podróż, żeby odblokować kolejne. \nBezpiecznej podróży!',
   },
+  challenge: {
+    title: 'Wyzwanie',
+    subtitle:
+      'W czasie kiedy razem podróżujecie i czekacie na quizy z nowego miejsca pomyślcie nad poniższym pytaniem. Porozmawiajce i poznajdzie się lepiej.',
+  },
   badge: {
     close: 'ZAMKNIJ',
     congratulation: 'Gratulacje!',

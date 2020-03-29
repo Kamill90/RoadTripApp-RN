@@ -81,4 +81,10 @@ export const typography = StyleSheet.create({
     fontSize: 23,
     letterSpacing: 4,
   },
+  subTitle: {
+    fontFamily: 'Muli',
+    fontSize: 12,
+    letterSpacing: 0.4,
+    textAlign: 'center',
+  },
 });

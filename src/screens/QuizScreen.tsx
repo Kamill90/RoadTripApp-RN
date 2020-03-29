@@ -20,8 +20,9 @@ import {
   GameDataStore,
 } from 'api';
 import { i18n } from 'locale';
-import { QuizCard, ResultCard, Template } from 'components';
+import { QuizCard, ResultCard, Template, ChallengeCard } from 'components';
 import { typography, palette } from 'styles';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const WIDTH = Dimensions.get('screen').width;
 
@@ -37,6 +38,7 @@ interface State {
   questions: any[];
   answeredInSession: number;
   sessionScore: number;
+  challenge: string;
 }
 
 class QuizScreen extends React.PureComponent<Props, State> {
@@ -87,6 +89,12 @@ class QuizScreen extends React.PureComponent<Props, State> {
     );
     filteredQuestions.splice(20);
 
+    const challenges = gameData.challenges
+      .filter(challenge => challenge.language === i18n.language)
+      .sort(() => Math.random() - 0.5);
+
+    const firstChallenge = challenges.length && challenges[0].content;
+
     const result = {
       id: '0',
       type: 'result',
@@ -94,8 +102,10 @@ class QuizScreen extends React.PureComponent<Props, State> {
       description: i18n.t('quiz:resultDescription'),
     };
     const filteredQuestionsWithResult = [...filteredQuestions, result];
+
     return {
       questions: filteredQuestionsWithResult,
+      challenge: firstChallenge,
     };
   }
 
@@ -107,6 +117,7 @@ class QuizScreen extends React.PureComponent<Props, State> {
     questions: [],
     answeredInSession: 0,
     sessionScore: 0,
+    challenge: '',
   } as State;
 
   componentDidMount() {
@@ -170,10 +181,16 @@ class QuizScreen extends React.PureComponent<Props, State> {
   };
 
   renderQuizCard = ({ item }: { item: QuestionData | Result }) => {
+    const { challenge } = this.state;
     if (item.type === QUESTION_TYPE.RESULT) {
       return (
-        // @ts-ignore
-        <ResultCard question={item.question} description={item.description} />
+        <ScrollView bounces={false}>
+          <ResultCard
+            question={item.question}
+            description={item.description || ''}
+          />
+          {!!challenge && <ChallengeCard content={challenge} />}
+        </ScrollView>
       );
     }
     return (

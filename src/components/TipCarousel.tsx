@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react';
-import { View, Text, Dimensions, StyleSheet, Image } from 'react-native';
+import { View, Text, Dimensions, StyleSheet } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
 import { TipCard } from './TipCard';
 import { typography, palette } from 'styles';
 import { ProgressDots } from './ProgressDots';
-import { tips as defaultTip, images } from 'assets';
+import { tips as defaultTip } from 'assets';
 import { Score } from 'api';
 import { Scoreboard } from './Scoreboard';
 import { i18n } from 'locale';
@@ -21,11 +21,11 @@ interface Props {
 
 interface State {
   activeCardIndex: number;
-  tips: {
+  tips: Array<{
     title: string;
     image?: string;
     description?: string;
-  }[];
+  }>;
 }
 export class TipCarousel extends PureComponent<Props, State> {
   static getDerivedStateFromProps(props: Props) {
@@ -46,11 +46,6 @@ export class TipCarousel extends PureComponent<Props, State> {
     const { score } = this.props;
     return (
       <View style={styles.scoreboardContainer}>
-        <Image
-          source={images.starBackground}
-          style={styles.image}
-          resizeMode="cover"
-        />
         <Scoreboard
           goldBadges={score.goldBadges}
           silverBadges={score.silverBadges}
@@ -115,7 +110,7 @@ const styles = StyleSheet.create({
   scoreboardContainer: {
     height: '100%',
     alignItems: 'center',
-    backgroundColor: palette.grey,
+    backgroundColor: palette.primary,
     borderRadius: 22,
   },
   title: { paddingBottom: 5, textAlign: 'center' },

@@ -51,6 +51,7 @@ class HomeScreen extends PureComponent<Props, State> {
       },
       this.backgroundProcess,
       error => {
+        // tslint:disable-next-line
         console.log('[js] RNBackgroundFetch failed to start', error);
       },
     );
@@ -96,6 +97,7 @@ class HomeScreen extends PureComponent<Props, State> {
         adminDistrict: address.adminDistrict,
         adminDistrict2: address.adminDistrict2,
       } as LocationData;
+      console.log('newLocationData', newLocationData);
       this.props.rootStore.location.setLocationData(newLocationData);
       if (
         JSON.stringify(currentLocationData) !== JSON.stringify(newLocationData)
@@ -137,11 +139,15 @@ class HomeScreen extends PureComponent<Props, State> {
       loading: true,
     });
     // exeptions to handle
-    const documentsSnapshot = await firestore()
+    const quizSnapshot = await firestore()
       .collection('quizzes')
       .get();
 
-    documentsSnapshot.docs.map(quiz => {
+    const challengesSnapshot = await firestore()
+      .collection('challenges')
+      .get();
+
+    quizSnapshot.docs.map(quiz => {
       const quizData = quiz.data();
       if (quizData) {
         quizData.id = quiz.id;
@@ -153,6 +159,14 @@ class HomeScreen extends PureComponent<Props, State> {
         gameData.setQuizzes(quizData as QuestionData);
       }
     });
+
+    challengesSnapshot.docs.map(challenge => {
+      const challengeData = challenge.data();
+      if (challengeData) {
+        gameData.setChallenges(challengeData);
+      }
+    });
+
     const { status } = await this.updateLocation();
     if (status !== 'success') {
       return;

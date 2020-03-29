@@ -7,3 +7,4 @@ export { ScoreBox } from './ScoreBox';
 export { TipCarousel } from './TipCarousel';
 export { Scoreboard } from './Scoreboard';
 export { AnswerButton } from './AnswerButton';
+export { ChallengeCard } from './ChallengeCard';
