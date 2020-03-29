@@ -100,7 +100,7 @@ class HomeScreen extends PureComponent<Props, State> {
         adminDistrict: address.adminDistrict,
         adminDistrict2: address.adminDistrict2,
       } as LocationData;
-      console.log('newLocationData', newLocationData);
+
       this.props.rootStore.location.setLocationData(newLocationData);
       if (
         JSON.stringify(currentLocationData) !== JSON.stringify(newLocationData)
