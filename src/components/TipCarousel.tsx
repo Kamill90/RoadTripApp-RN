@@ -84,10 +84,10 @@ export class TipCarousel extends PureComponent<Props, State> {
         <ProgressDots data={tips} active={this.state.activeCardIndex} />
         <View style={styles.textContainer}>
           <Text style={[typography.tipTitle, styles.title]}>
-            {tips[this.state.activeCardIndex].title}
+            {tips[this.state.activeCardIndex]!.title}
           </Text>
           <Text style={typography.tipDescription}>
-            {tips[this.state.activeCardIndex].description}
+            {tips[this.state.activeCardIndex]!.description}
           </Text>
         </View>
       </View>
