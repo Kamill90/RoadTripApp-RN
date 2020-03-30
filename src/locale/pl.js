@@ -7,7 +7,7 @@ exports.translations = {
     staticMessage: 'Sprawdź czy wiesz coś o regionie, w którym się znajdujesz',
   },
   home: {
-    name: 'Podróżne gry',
+    title: 'RoadFun',
     start: 'Zacznij grę',
     stop: 'Zakończ grę',
     goTo: 'Przejdź do gry',

@@ -254,7 +254,6 @@ class HomeScreen extends PureComponent<Props, State> {
 const styles = StyleSheet.create({
   mainContainer: {
     justifyContent: 'space-between',
-    paddingBottom: 50,
     flex: 1,
   },
   carouselContainer: {

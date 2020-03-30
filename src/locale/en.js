@@ -8,7 +8,7 @@ exports.translations = {
       'Find out if how much you know about region you are currently in',
   },
   home: {
-    title: 'Roadtrip game',
+    title: 'RoadFun',
     start: 'Start the game',
     stop: 'Stop the game',
     goTo: 'Go to the game',
