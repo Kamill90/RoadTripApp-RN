@@ -75,6 +75,12 @@ export class TipCard extends PureComponent<NavigationInjectedProps, State> {
               </Text>
             )}
             <Text style={typography.description}>{description}</Text>
+            <Text style={[typography.description, { textAlign: 'center' }]}>
+              Author:{' '}
+            </Text>
+            <Text style={[typography.description, { textAlign: 'center' }]}>
+              Kamil
+            </Text>
           </ScrollView>
 
           <View style={styles.buttonContainer}>

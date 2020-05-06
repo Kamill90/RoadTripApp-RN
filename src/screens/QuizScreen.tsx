@@ -52,28 +52,23 @@ class QuizScreen extends React.PureComponent<Props, State> {
         question!.approved && question!.language === i18n.language,
     );
 
-    const adminDistrictBasedQuestions = baseQuestions
-      .filter(
-        (question: QuestionData | undefined) =>
-          question!.reason === 'adminDistrict' &&
-          question!.reasonValue.toLowerCase() === location.adminDistrict,
-      )
-      .sort(() => Math.random() - 0.5);
+    const adminDistrictBasedQuestions = baseQuestions.filter(
+      (question: QuestionData | undefined) =>
+        question!.reason === 'adminDistrict' &&
+        question!.reasonValue.toLowerCase() === location.adminDistrict,
+    );
 
-    const adminDistrict2BasedQuestions = baseQuestions
-      .filter(
-        (question: QuestionData | undefined) =>
-          question!.reason === 'adminDistrict2' &&
-          question!.reasonValue.toLowerCase() === location.adminDistrict2,
-      )
-      .sort(() => Math.random() - 0.5);
-    const countryBasedQuestions = baseQuestions
-      .filter(
-        (question: QuestionData | undefined) =>
-          question!.reason === 'countryRegion' &&
-          question!.reasonValue.toLowerCase() === location.countryRegion,
-      )
-      .sort(() => Math.random() - 0.5);
+    const adminDistrict2BasedQuestions = baseQuestions.filter(
+      (question: QuestionData | undefined) =>
+        question!.reason === 'adminDistrict2' &&
+        question!.reasonValue.toLowerCase() === location.adminDistrict2,
+    );
+
+    const countryBasedQuestions = baseQuestions.filter(
+      (question: QuestionData | undefined) =>
+        question!.reason === 'countryRegion' &&
+        question!.reasonValue.toLowerCase() === location.countryRegion,
+    );
 
     const locationBasedQuestions = [
       ...adminDistrictBasedQuestions,

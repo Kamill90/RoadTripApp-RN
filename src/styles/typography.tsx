@@ -11,7 +11,7 @@ export const typography = StyleSheet.create({
   },
   secondaryInfo: {
     fontFamily: 'Muli',
-    fontSize: 12,
+    fontSize: 15,
     letterSpacing: 0.4,
   },
   score: {
