@@ -179,7 +179,7 @@ class QuizScreen extends React.PureComponent<Props, State> {
     const { challenge } = this.state;
     if (item.type === QUESTION_TYPE.RESULT) {
       return (
-        <ScrollView bounces={false}>
+        <ScrollView bounces={false} showsVerticalScrollIndicator={true}>
           <ResultCard
             question={item.question}
             description={item.description || ''}
@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
   carouselContainer: {
     flex: 1,
     alignSelf: 'flex-start',
-    paddingVertical: 20,
+    paddingTop: 20,
   },
 });
 

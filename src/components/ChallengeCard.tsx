@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     ...typography.subTitle,
+    opacity: 0.5,
     marginBottom: 5,
   },
   content: {

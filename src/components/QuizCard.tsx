@@ -33,7 +33,7 @@ export class QuizCard extends React.PureComponent<Props> {
     return (
       <View style={styles.container}>
         <ScrollView
-          showsVerticalScrollIndicator={false}
+          showsVerticalScrollIndicator={true}
           bounces={false}
           style={styles.scroll}
         >

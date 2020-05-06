@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>com.RN.roadTripApp.updateLocation</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -45,15 +49,18 @@
 	<string>Content depends on your location and new game will be suggested even when app is in the background</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Content depends on your location and new game will be suggested even when app is in the background</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Pacifico.ttf</string>
+		<string>Muli-Light.ttf</string>
+		<string>Muli-SemiBold.ttf</string>
+		<string>Muli.ttf</string>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
 		<string>location</string>
 		<string>processing</string>
-	</array>
-	<key>BGTaskSchedulerPermittedIdentifiers</key>
-	<array>
-		<string>com.RN.roadTripApp.updateLocation</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
@@ -64,17 +71,8 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Pacifico.ttf</string>
-		<string>Muli-Light.ttf</string>
-		<string>Muli-SemiBold.ttf</string>
-		<string>Muli.ttf</string>
-	</array>
 </dict>
 </plist>
