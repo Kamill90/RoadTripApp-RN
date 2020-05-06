@@ -105,9 +105,15 @@ export class TipCard extends PureComponent<NavigationInjectedProps, State> {
           <View style={styles.buttonContainer}>
             <Button
               title={i18n.t('quiz:continue')}
-              type="regular"
-              backgroundColor={
-                isCorrect ? palette.primary : palette.wrongAnswerColor
+              type={
+                isCorrect
+                  ? description
+                    ? 'regular'
+                    : 'textButton'
+                  : 'secondary'
+              }
+              titleStyle={
+                (isCorrect && !description && styles.buttonTitle) || undefined
               }
               onPress={() => {
                 navigation.goBack();
@@ -146,5 +152,8 @@ const styles = StyleSheet.create({
   descriptionContainer: { paddingHorizontal: 15 },
   correctAnswet: {
     marginVertical: 15,
+  },
+  buttonTitle: {
+    ...typography.description,
   },
 });

@@ -239,8 +239,7 @@ class HomeScreen extends PureComponent<Props, State> {
                 <Button
                   title={i18n.t('home:stop')}
                   onPress={this.stopGame}
-                  backgroundColor={palette.transparent}
-                  type="secondary"
+                  type="textButton"
                 />
               </>
             )}
@@ -261,7 +260,7 @@ const styles = StyleSheet.create({
   },
   buttonsContainer: {
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     paddingHorizontal: 15,
   },
   minibadges: { width: 50, height: 50 },
