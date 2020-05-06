@@ -74,13 +74,32 @@ export class TipCard extends PureComponent<NavigationInjectedProps, State> {
                 {i18n.t('quiz:correctIs') + correctAnswer}
               </Text>
             )}
-            <Text style={typography.description}>{description}</Text>
-            <Text style={[typography.description, { textAlign: 'center' }]}>
-              Author:{' '}
-            </Text>
-            <Text style={[typography.description, { textAlign: 'center' }]}>
-              Kamil
-            </Text>
+            {!!description && (
+              <>
+                <Text
+                  style={[
+                    typography.description,
+                    {
+                      marginVertical: 15,
+                    },
+                  ]}
+                >
+                  {description}
+                </Text>
+                <View style={styles.row}>
+                  <Text
+                    style={[typography.description, { textAlign: 'center' }]}
+                  >
+                    Author:{' '}
+                  </Text>
+                  <Text
+                    style={[typography.description, { textAlign: 'center' }]}
+                  >
+                    Kamil
+                  </Text>
+                </View>
+              </>
+            )}
           </ScrollView>
 
           <View style={styles.buttonContainer}>
@@ -123,7 +142,8 @@ const styles = StyleSheet.create({
     margin: 14,
     justifyContent: 'flex-end',
   },
-  descriptionContainer: { padding: 15 },
+  row: { flexDirection: 'row', paddingVertical: 10 },
+  descriptionContainer: { paddingHorizontal: 15 },
   correctAnswet: {
     marginVertical: 15,
   },
