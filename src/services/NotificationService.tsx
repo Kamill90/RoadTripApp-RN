@@ -1,5 +1,4 @@
 import PushNotification from 'react-native-push-notification';
-
 export default class NotificationService {
   tmpConfig = {
     /* Android Only Properties */
@@ -42,6 +41,7 @@ export default class NotificationService {
   }
 
   localNotification(title: string, message: string) {
+    PushNotification.cancelAllLocalNotifications();
     PushNotification.localNotification({
       ...this.tmpConfig,
       title,

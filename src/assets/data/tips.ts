@@ -10,7 +10,7 @@ export const tips = {
       title: 'Zdobywaj odznaki',
       image: 'badges',
       description:
-        'Im więcej wiesz o miejscach, przez które przejedż tym większa szansa na zdobycie kolekcji odznak na koniec podróży. Lepiej dobrze przemyśl każdą odpowiedź.',
+        'Im więcej wiesz o miejscach, przez które przejedżasz tym większa szansa na zdobycie kolekcji odznak na koniec podróży. Lepiej dobrze przemyśl każdą odpowiedź.',
     },
     {
       title: 'Zostań współautorem',

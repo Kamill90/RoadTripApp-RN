@@ -18,7 +18,6 @@ import {
 import { Button, Template, TipCarousel } from 'components';
 import { i18n } from 'locale';
 import { LocationManager, NotificationService } from 'services';
-import { palette } from 'styles';
 
 interface Props extends NavigationInjectedProps {
   rootStore: {

@@ -34,12 +34,10 @@ target 'RoadTripApp' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  pod 'react-native-config', :path => '../node_modules/react-native-config'
   pod 'react-native-geolocation', path: '../node_modules/@react-native-community/geolocation'
   pod 'RNCPushNotificationIOS', :path => '../node_modules/@react-native-community/push-notification-ios'
 
 
-  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
 
 
   target 'RoadTripAppTests' do

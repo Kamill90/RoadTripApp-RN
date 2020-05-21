@@ -31,7 +31,7 @@ exports.translations = {
   challenge: {
     title: 'Wyzwanie',
     subtitle:
-      'W czasie kiedy razem podróżujecie i czekacie na quizy z nowego miejsca pomyślcie nad poniższym pytaniem. Porozmawiajce i poznajdzie się lepiej.',
+      'W czasie kiedy razem podróżujecie i czekacie na quizy z nowego miejsca pomyślcie nad poniższym pytaniem. Porozmawiajce i poznajcie się lepiej.',
   },
   badge: {
     close: 'ZAMKNIJ',
