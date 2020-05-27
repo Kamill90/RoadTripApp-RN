@@ -39,7 +39,6 @@ export default class LocationManager {
         (error: GeoError) => {
           logToCrashlytics(`GeoError: ${error.message}`);
           reject(error.message);
-          // TODO send to crashlytics (error.code, error.message);
         },
         { timeout: 15000, maximumAge: 10000, enableHighAccuracy: false },
       );
@@ -53,6 +52,7 @@ export default class LocationManager {
       const response = await fetch(url);
       const data = await response.json();
       if (data.status !== 'OK') {
+        logToCrashlytics(`FetchGoogleMapApi: ${data.toString()}`);
         return Alert.alert('Something went wrong');
       }
       const { address_components } = data.results[0];
@@ -83,7 +83,6 @@ export default class LocationManager {
       };
       return address;
     } catch (error) {
-      // do something with crashlytics
       throw error;
     }
   }

@@ -120,13 +120,27 @@ class QuizScreen extends React.PureComponent<Props, State> {
     this.props.rootStore.gameSettings.setIsLocationChanged(false);
   }
 
-  showTip = (isCorrect: boolean, correctAnswer: string, tip?: string) => {
+  showTip = ({
+    isCorrect,
+    correctAnswer,
+    tip,
+    author,
+    link,
+  }: {
+    isCorrect: boolean;
+    correctAnswer: string;
+    tip?: string;
+    author?: string;
+    link?: string;
+  }) => {
     this.props.navigation.navigate('TipCard', {
       isCorrect,
       correctAnswer,
       description: tip,
+      author,
+      link,
       onPress: async () => {
-        await this.carouselRef.current!.snapToNext();
+        this.carouselRef.current!.snapToNext();
         this.setState(
           {
             answeredInSession: this.state.answeredInSession + 1,
@@ -152,7 +166,7 @@ class QuizScreen extends React.PureComponent<Props, State> {
           ? BADGES.SILVER
           : null;
       if (badge) {
-        await this.props.rootStore.gameSettings.setBadges(badge);
+        this.props.rootStore.gameSettings.setBadges(badge);
         this.props.navigation.navigate('BadgeCard', {
           badge,
         });
@@ -160,19 +174,21 @@ class QuizScreen extends React.PureComponent<Props, State> {
     }
   };
 
-  onAnswerPressed = async (
+  onAnswerPressed = (
     answer: string,
     correctAnswer: string,
     id: string,
     tip: string,
+    author: string,
+    link: string,
   ) => {
     this.props.rootStore.gameSettings.setAnsweredQuestions(id);
     if (correctAnswer === answer) {
       this.setState({ sessionScore: this.state.sessionScore + 1 });
-      await this.props.rootStore.gameSettings.setScore(1);
-      this.showTip(true, correctAnswer, tip);
+      this.props.rootStore.gameSettings.setScore(1);
+      this.showTip({ isCorrect: true, correctAnswer, tip, author, link });
     } else {
-      this.showTip(false, correctAnswer, tip);
+      this.showTip({ isCorrect: false, correctAnswer, tip, author, link });
     }
   };
 
@@ -200,6 +216,8 @@ class QuizScreen extends React.PureComponent<Props, State> {
             item.correct_answer!,
             item.id,
             item.tip || '',
+            item.author || '',
+            item.link || '',
           )
         }
       />

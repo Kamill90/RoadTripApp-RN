@@ -28,12 +28,13 @@ exports.translations = {
     right: 'Prawda!',
     wrong: 'Niestety!',
     correctIs: 'Poprawna odpowiedź to: ',
-    continue: 'Kontunuuj',
+    continue: 'Kontynuuj',
     location: 'Jesteś w: ',
     score: 'Wynik: ',
     resultTitle: 'Na razie to wszystko',
     resultDescription:
-      'Odpowiedziałeś na wszystkie pytania dostępne dla tej lokalizacji. Kontynuuj swoją podróż, żeby odblokować kolejne. \nBezpiecznej podróży!',
+      'Odpowiedziałeś na wszystkie pytania dostępne dla tej lokalizacji. Kontynuuj swoją podróż, żeby odblokować kolejne. \nJedź bezpiecznie!',
+    author: 'Autor: ',
   },
   challenge: {
     title: 'Wyzwanie',

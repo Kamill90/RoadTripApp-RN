@@ -1,9 +1,18 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { PureComponent } from 'react';
-import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Linking,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
 
 import { Button, ModalTemplate } from 'components';
+import { icons } from 'assets';
 import { palette, typography } from 'styles';
 import { i18n } from 'locale';
 
@@ -28,6 +37,8 @@ export class TipCard extends PureComponent<NavigationInjectedProps, State> {
       description: navigation.getParam('description'),
       correctAnswer: navigation.getParam('correctAnswer'),
       onPress: navigation.getParam('onPress'),
+      author: navigation.getParam('author'),
+      link: navigation.getParam('link'),
     };
   }
 
@@ -35,12 +46,42 @@ export class TipCard extends PureComponent<NavigationInjectedProps, State> {
     title: '',
     isCorrect: false,
     description: '',
+    author: '',
+    link: '',
     correctAnswer: '',
     onPress: () => null,
   };
 
+  renderAuthorRow = () => {
+    const { link } = this.state;
+    return (
+      <View style={styles.row}>
+        <Text style={styles.authorText}>{i18n.t('quiz:author')}</Text>
+        {link ? (
+          <TouchableOpacity
+            onPress={() => Linking.openURL(link)}
+            style={styles.linkRow}
+          >
+            <>
+              <Text style={styles.linkText}>{this.state.author}</Text>
+              <Image style={styles.icon} source={icons.externalLink} />
+            </>
+          </TouchableOpacity>
+        ) : (
+          <Text style={styles.authorText}>{this.state.author}</Text>
+        )}
+      </View>
+    );
+  };
+
   render() {
-    const { isCorrect, description, correctAnswer, onPress } = this.state;
+    const {
+      isCorrect,
+      description,
+      correctAnswer,
+      onPress,
+      author,
+    } = this.state;
     const { navigation } = this.props;
     return (
       <ModalTemplate>
@@ -86,18 +127,7 @@ export class TipCard extends PureComponent<NavigationInjectedProps, State> {
                 >
                   {description}
                 </Text>
-                <View style={styles.row}>
-                  <Text
-                    style={[typography.description, { textAlign: 'center' }]}
-                  >
-                    Author:{' '}
-                  </Text>
-                  <Text
-                    style={[typography.description, { textAlign: 'center' }]}
-                  >
-                    Kamil
-                  </Text>
-                </View>
+                {!!author && this.renderAuthorRow()}
               </>
             )}
           </ScrollView>
@@ -143,12 +173,20 @@ const styles = StyleSheet.create({
     borderBottomEndRadius: 0,
     borderBottomStartRadius: 0,
   },
+  linkText: {
+    ...typography.description,
+    textAlign: 'center',
+    borderBottomWidth: 1,
+  },
+  icon: { height: 24, width: 24 },
+  authorText: { ...typography.description, textAlign: 'center' },
   buttonContainer: {
     height: 50,
     margin: 14,
     justifyContent: 'flex-end',
   },
   row: { flexDirection: 'row', paddingVertical: 10 },
+  linkRow: { flexDirection: 'row' },
   descriptionContainer: { paddingHorizontal: 15 },
   correctAnswet: {
     marginVertical: 15,

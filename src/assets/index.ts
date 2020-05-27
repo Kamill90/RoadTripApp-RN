@@ -10,6 +10,7 @@ export const icons = {
   nationalPark: require('./icons/icons8-national-park-100.png'),
   waterTransportation: require('./icons/icons8-water-transportation-100.png'),
   defaultThumbnail: require('./icons/default_thumbnail.png'),
+  externalLink: require('./icons/externalLink.png'),
 };
 
 export const images = {

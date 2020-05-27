@@ -12,6 +12,7 @@ import {
   GameDataStore,
   FetchLocation,
   BADGES,
+  Challenge,
   QuestionData,
 } from 'api';
 import { Button, Template, TipCarousel } from 'components';
@@ -149,6 +150,7 @@ class HomeScreen extends PureComponent<Props, State> {
     quizSnapshot.docs.map(quiz => {
       const quizData = quiz.data();
       if (quizData) {
+        console.log('quizData', quizData);
         quizData.id = quiz.id;
         quizData.answers = [
           quizData.correct_answer,
@@ -160,7 +162,7 @@ class HomeScreen extends PureComponent<Props, State> {
     });
 
     challengesSnapshot.docs.map(challenge => {
-      const challengeData = challenge.data();
+      const challengeData = challenge.data() as Challenge;
       if (challengeData) {
         gameData.setChallenges(challengeData);
       }

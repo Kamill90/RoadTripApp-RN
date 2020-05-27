@@ -28,6 +28,7 @@ exports.translations = {
     resultTitle: 'Thats all for now',
     resultDescription:
       'You have answered all the questions that are available for this location. Keep going on your trip to unlock new quizzes. Drive safe!',
+    author: 'Author: ',
   },
   challenge: {
     title: 'Challenge',

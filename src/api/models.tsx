@@ -1,15 +1,16 @@
-export interface Challange {
+export interface Challenge {
   content: string;
   language: string;
 }
 
 export interface GameData {
   quizzes: [QuestionData | undefined];
-  challenges: [Challange];
+  challenges: [Challenge];
 }
 
 export type GameDataStore = GameData & {
   setQuizzes: (quiz: QuestionData) => void;
+  setChallenges: (challenge: Challenge) => void;
   reset: () => void;
 };
 
@@ -68,6 +69,8 @@ export interface QuestionData {
   answers: Array<string>;
   description?: string;
   question: string;
+  author?: string;
+  link?: string;
   tip: string;
   type: 'question' | 'result';
 }
@@ -80,6 +83,8 @@ export interface Result {
   correct_answer?: string;
   incorrect_answers: string[];
   answers: string[];
+  author?: string;
+  link?: string;
   description?: string;
   tip?: string;
 }
