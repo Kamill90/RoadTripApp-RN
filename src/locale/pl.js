@@ -16,6 +16,13 @@ exports.translations = {
   announcement: {
     newQuiz: 'Dostępne nowe quizy!',
   },
+  locationPermissionRequest: {
+    title: 'Potrzebuję dostęp do Twojej lokalizacji.',
+    message: 'Pytania zależą od regionu, w którym się znajdujesz.',
+    buttonNeutral: 'Zapytaj mnie później',
+    buttonNegative: 'Anuluj',
+    buttonPositive: 'OK',
+  },
   quiz: {
     category: 'Kategoria: ',
     right: 'Prawda!',

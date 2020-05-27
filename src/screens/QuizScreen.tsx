@@ -96,6 +96,7 @@ class QuizScreen extends React.PureComponent<Props, State> {
       question: i18n.t('quiz:resultTitle'),
       description: i18n.t('quiz:resultDescription'),
     };
+    console.log('filteredQuestions', filteredQuestions.length);
     const filteredQuestionsWithResult = [...filteredQuestions, result];
 
     return {
@@ -165,6 +166,7 @@ class QuizScreen extends React.PureComponent<Props, State> {
     id: string,
     tip: string,
   ) => {
+    this.props.rootStore.gameSettings.setAnsweredQuestions(id);
     if (correctAnswer === answer) {
       this.setState({ sessionScore: this.state.sessionScore + 1 });
       await this.props.rootStore.gameSettings.setScore(1);
@@ -172,7 +174,6 @@ class QuizScreen extends React.PureComponent<Props, State> {
     } else {
       this.showTip(false, correctAnswer, tip);
     }
-    this.props.rootStore.gameSettings.setAnsweredQuestions(id);
   };
 
   renderQuizCard = ({ item }: { item: QuestionData | Result }) => {

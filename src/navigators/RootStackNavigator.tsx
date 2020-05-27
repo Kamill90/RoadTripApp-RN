@@ -21,15 +21,14 @@ export const RootStackNavigator = createStackNavigator(
     navigationOptions: {
       gesturesEnabled: false,
     },
-    transitionConfig: /* istanbul ignore next */ () => ({
+    transitionConfig: () => ({
       transitionSpec: {
         duration: 200,
         easing: Easing.inOut(Easing.quad),
         timing: Animated.timing,
+        useNativeDriver: true,
       },
-      screenInterpolator: /* istanbul ignore next */ (
-        sceneProps: NavigationSceneRendererProps,
-      ) => {
+      screenInterpolator: (sceneProps: NavigationSceneRendererProps) => {
         const { position, scene } = sceneProps;
         const { index } = scene;
 

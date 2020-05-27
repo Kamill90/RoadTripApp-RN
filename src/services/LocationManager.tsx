@@ -2,13 +2,19 @@ import Geolocation, {
   GeoPosition,
   GeoError,
 } from 'react-native-geolocation-service';
-import { Alert } from 'react-native';
+import { Alert, Platform, PermissionsAndroid } from 'react-native';
 import Config from 'react-native-config';
+import { logToCrashlytics } from 'services';
 
 import { AddressComponent } from 'api';
 
 export default class LocationManager {
-  getCurrentLocation() {
+  async getCurrentLocation() {
+    if (Platform.OS === 'android') {
+      await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+      );
+    }
     return new Promise((resolve, reject) => {
       Geolocation.getCurrentPosition(
         async (position: GeoPosition) => {
@@ -31,6 +37,7 @@ export default class LocationManager {
           }
         },
         (error: GeoError) => {
+          logToCrashlytics(`GeoError: ${error.message}`);
           reject(error.message);
           // TODO send to crashlytics (error.code, error.message);
         },

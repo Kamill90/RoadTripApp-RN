@@ -22,8 +22,9 @@ export const AnswerButton: React.FunctionComponent<Props> = ({
       <View style={styles.prefix}>
         <Text style={typography.tipTitle}>{prefix}</Text>
       </View>
-
-      <Text style={typography.answerButtonTitle}>{title}</Text>
+      <View style={styles.answerTextContainer}>
+        <Text style={typography.answerButtonTitle}>{title}</Text>
+      </View>
     </TouchableOpacity>
   );
 };
@@ -32,7 +33,6 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     margin: 4,
-    height: 60,
     backgroundColor: palette.white,
     borderRadius: 5,
     shadowOpacity: 0.7,
@@ -40,15 +40,19 @@ const styles = StyleSheet.create({
     shadowOffset: { height: 2, width: StyleSheet.hairlineWidth },
     alignItems: 'center',
     elevation: 3,
-    paddingHorizontal: 3,
+  },
+  answerTextContainer: { flex: 1 },
+  answerText: {
+    ...typography.answerButtonTitle,
+    paddingVertical: 5,
   },
   prefix: {
     width: 45,
     height: 45,
     backgroundColor: palette.primary,
     borderRadius: 3,
-    marginLeft: 7,
-    marginRight: 14,
+    margin: 8,
+    marginRight: 12,
     justifyContent: 'center',
     alignItems: 'center',
   },

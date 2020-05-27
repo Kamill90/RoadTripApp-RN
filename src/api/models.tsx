@@ -1,5 +1,11 @@
+export interface Challange {
+  content: string;
+  language: string;
+}
+
 export interface GameData {
   quizzes: [QuestionData | undefined];
+  challenges: [Challange];
 }
 
 export type GameDataStore = GameData & {

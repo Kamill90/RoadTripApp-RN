@@ -16,6 +16,7 @@ export class ModalTemplate extends PureComponent<Props, State> {
     Animated.timing(this.state.backgroundAnimation, {
       toValue: 1,
       duration: 200,
+      useNativeDriver: false,
     }).start();
   }
   render() {
