@@ -66,8 +66,6 @@ class HomeScreen extends PureComponent<Props, State> {
       return BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
     }
 
-    // title: i18n.t('common:notificationTitle'),
-    // message: i18n.t('common:notificationMessage'),
     await this.updateLocation();
     if (AppState.currentState.match(/inactive|background/)) {
       if (gameSettings.isLocationChanged) {
@@ -104,16 +102,11 @@ class HomeScreen extends PureComponent<Props, State> {
       ) {
         gameSettings.setIsLocationChanged(true);
       }
-      this.setState({
-        loading: false,
-      });
+
       return {
         status: 'success',
       };
     } catch (error) {
-      this.setState({
-        loading: false,
-      });
       Alert.alert('Error', error);
       return {
         status: 'failure',
@@ -138,6 +131,13 @@ class HomeScreen extends PureComponent<Props, State> {
     this.setState({
       loading: true,
     });
+
+    const { status } = await this.updateLocation();
+    if (status !== 'success') {
+      return this.setState({
+        loading: false,
+      });
+    }
     // exeptions to handle
     const quizSnapshot = await firestore()
       .collection('quizzes')
@@ -150,7 +150,6 @@ class HomeScreen extends PureComponent<Props, State> {
     quizSnapshot.docs.map(quiz => {
       const quizData = quiz.data();
       if (quizData) {
-        console.log('quizData', quizData);
         quizData.id = quiz.id;
         quizData.answers = [
           quizData.correct_answer,
@@ -168,14 +167,15 @@ class HomeScreen extends PureComponent<Props, State> {
       }
     });
 
-    const { status } = await this.updateLocation();
-    if (status !== 'success') {
-      return;
-    }
+    this.setState({
+      loading: false,
+    });
+
     NotificationService.scheduledNotification(
       i18n.t('notification:staticTitle'),
       i18n.t('notification:staticMessage'),
     );
+
     gameSettings.setIsGameActive(true);
     navigation.navigate('Quiz');
   };
@@ -185,6 +185,9 @@ class HomeScreen extends PureComponent<Props, State> {
       loading: true,
     });
     const { status } = await this.updateLocation();
+    this.setState({
+      loading: false,
+    });
     if (status !== 'success') {
       return;
     }
@@ -208,15 +211,7 @@ class HomeScreen extends PureComponent<Props, State> {
       <Template>
         <View style={styles.mainContainer}>
           <View style={styles.carouselContainer}>
-            <TipCarousel
-              containScoreboard={isGameActive}
-              score={{
-                goldBadges,
-                silverBadges,
-                score,
-                noOfQuestions: answeredQuestions.length,
-              }}
-            />
+            {!isGameActive && <TipCarousel />}
           </View>
           <View style={styles.buttonsContainer}>
             {!isGameActive ? (

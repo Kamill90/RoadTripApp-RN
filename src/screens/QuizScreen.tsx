@@ -96,7 +96,7 @@ class QuizScreen extends React.PureComponent<Props, State> {
       question: i18n.t('quiz:resultTitle'),
       description: i18n.t('quiz:resultDescription'),
     };
-    console.log('filteredQuestions', filteredQuestions.length);
+
     const filteredQuestionsWithResult = [...filteredQuestions, result];
 
     return {

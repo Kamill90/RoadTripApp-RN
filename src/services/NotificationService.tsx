@@ -41,7 +41,7 @@ export default class NotificationService {
   }
 
   localNotification(title: string, message: string) {
-    PushNotification.cancelAllLocalNotifications();
+    // PushNotification.clearAllNotifications();
     PushNotification.localNotification({
       ...this.tmpConfig,
       title,

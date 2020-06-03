@@ -11,6 +11,8 @@ export const icons = {
   waterTransportation: require('./icons/icons8-water-transportation-100.png'),
   defaultThumbnail: require('./icons/default_thumbnail.png'),
   externalLink: require('./icons/externalLink.png'),
+  settings: require('./icons/settings.png'),
+  chevronDown: require('./icons/chevronDown.png'),
 };
 
 export const images = {

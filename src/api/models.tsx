@@ -20,6 +20,8 @@ export interface GameSettings {
   isGameActive: boolean;
   score: number;
   badges: string[];
+  isReminderActive: boolean;
+  isLocationNotificationActive: boolean;
 }
 
 export interface LocationData {
@@ -39,6 +41,8 @@ export type GameSettingsStore = GameSettings & {
   setIsLocationChanged: (change: boolean) => void;
   setScore: (newScore: number) => void;
   setBadges: (badge: string) => void;
+  setReminder: (value: boolean) => void;
+  setLocationNotification: (value: boolean) => void;
   reset: () => void;
 };
 

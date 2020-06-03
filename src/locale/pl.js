@@ -13,6 +13,24 @@ exports.translations = {
     goTo: 'Przejdź do gry',
     yourScore: 'Twój wynik',
   },
+  settings: {
+    title: 'Ustawienia',
+    notifications: 'Powiadomienia',
+    reminder: 'Przypominacz',
+    reminderDescription:
+      'Powiadomienie przypominające o włączonej rozgrywce co jakiś czas niezależnie od tego czy się przemieszczasz czy nie.',
+    newLocation: 'Nowa lokalizacja (zalecane)',
+    newLocationDescription:
+      'Powiadomienie o nowej lokalizacji i nowych quizach.',
+    createQuestions: 'Dodaj pytanie',
+    createQuestionsDescription:
+      'Przejdź do formularza dodawania pytań. Stwórz pytanie o Twoim regionie, dodaj ciekawostkę i link do swojej storny internetowej, dzięki czemu zwiększysz swoje zasięgi',
+    showOnboarding: 'Pokaż informacja o aplikacji',
+  },
+  onboarding: {
+    aboutApp: 'O aplikacji',
+    close: 'zamknij',
+  },
   announcement: {
     newQuiz: 'Dostępne nowe quizy!',
   },

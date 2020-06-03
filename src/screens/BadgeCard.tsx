@@ -46,6 +46,7 @@ export class BadgeCard extends PureComponent<NavigationInjectedProps, State> {
           </Text>
           <Image source={icons[`medal${badge}`]} style={styles.badgeIcon} />
           <Button
+            type="textButton"
             backgroundColor={palette.transparent}
             title={i18n.t('badge:close')}
             onPress={this.closeModal}

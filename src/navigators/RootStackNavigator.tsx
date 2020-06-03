@@ -5,12 +5,14 @@ import {
 } from 'react-navigation-stack';
 
 import { MainNavigator } from './MainNavigator';
-import { TipCard } from '../screens/TipCard';
-import { BadgeCard } from '../screens/BadgeCard';
+import { OnboardingNavigator } from './OnboardingNavigator';
+
+import { TipCard, BadgeCard } from 'screens';
 
 export const RootStackNavigator = createStackNavigator(
   {
     Main: MainNavigator,
+    Onboarding: OnboardingNavigator,
     BadgeCard,
     TipCard,
   },

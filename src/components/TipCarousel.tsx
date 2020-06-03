@@ -6,62 +6,21 @@ import { TipCard } from './TipCard';
 import { typography, palette } from 'styles';
 import { ProgressDots } from './ProgressDots';
 import { tips as defaultTip } from 'assets';
-import { Score } from 'api';
-import { Scoreboard } from './Scoreboard';
 import { i18n } from 'locale';
 
 const lang = i18n.language;
 
 const SCREEN_WIDTH = Dimensions.get('screen').width;
 
-interface Props {
-  containScoreboard: boolean;
-  score: Score;
-}
-
 interface State {
   activeCardIndex: number;
-  tips: Array<{
-    title: string;
-    image?: string;
-    description?: string;
-  }>;
 }
-export class TipCarousel extends PureComponent<Props, State> {
-  static getDerivedStateFromProps(props: Props) {
-    if (props.containScoreboard) {
-      return {
-        tips: [{ ...props.score, title: 'Scoreboard' }, ...defaultTip[lang]],
-      };
-    }
-    return { tips: defaultTip[lang] };
-  }
-
+export class TipCarousel extends PureComponent<any, State> {
   state = {
     activeCardIndex: 0,
-    tips: [],
   };
 
-  renderScoreboard = () => {
-    const { score } = this.props;
-    return (
-      <View style={styles.scoreboardContainer}>
-        <Scoreboard
-          goldBadges={score.goldBadges}
-          silverBadges={score.silverBadges}
-          score={score.score}
-          noOfQuestions={score.noOfQuestions}
-        />
-      </View>
-    );
-  };
-
-  renderCard = (item: any) => {
-    if (this.props.containScoreboard && item.index === 0) {
-      return this.renderScoreboard();
-    }
-    return <TipCard tipImage={item.item.image} />;
-  };
+  renderCard = (item: any) => <TipCard tipImage={item.item.image} />;
 
   onSnapToItem = (slideIndex: number) => {
     this.setState({
@@ -70,11 +29,12 @@ export class TipCarousel extends PureComponent<Props, State> {
   };
 
   render() {
-    const { tips } = this.state;
+    const { activeCardIndex } = this.state;
+    const tips = defaultTip[lang];
     return (
       <View style={styles.container}>
         <Carousel
-          data={tips!}
+          data={defaultTip[lang]}
           renderItem={this.renderCard}
           sliderWidth={SCREEN_WIDTH}
           itemWidth={SCREEN_WIDTH * 0.8}
@@ -84,10 +44,10 @@ export class TipCarousel extends PureComponent<Props, State> {
         <ProgressDots data={tips} active={this.state.activeCardIndex} />
         <View style={styles.textContainer}>
           <Text style={[typography.tipTitle, styles.title]}>
-            {tips[this.state.activeCardIndex]!.title}
+            {tips[activeCardIndex].title}
           </Text>
           <Text style={typography.tipDescription}>
-            {tips[this.state.activeCardIndex]!.description}
+            {tips[activeCardIndex].description}
           </Text>
         </View>
       </View>
