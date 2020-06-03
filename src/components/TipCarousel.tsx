@@ -3,7 +3,7 @@ import { View, Text, Dimensions, StyleSheet } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
 import { TipCard } from './TipCard';
-import { typography, palette } from 'styles';
+import { typography } from 'styles';
 import { ProgressDots } from './ProgressDots';
 import { tips as defaultTip } from 'assets';
 import { i18n } from 'locale';
@@ -66,12 +66,6 @@ const styles = StyleSheet.create({
     width: '100%',
     borderRadius: 22,
     position: 'absolute',
-  },
-  scoreboardContainer: {
-    height: '100%',
-    alignItems: 'center',
-    backgroundColor: palette.primary,
-    borderRadius: 22,
   },
   title: { paddingBottom: 5, textAlign: 'center' },
   textContainer: {

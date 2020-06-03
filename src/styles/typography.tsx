@@ -43,7 +43,7 @@ export const typography = StyleSheet.create({
     letterSpacing: 0.44,
   },
   bigScore: {
-    fontSize: 60,
+    fontSize: 30,
     letterSpacing: 0.5,
     textTransform: 'uppercase',
     fontWeight: '600',

@@ -3,7 +3,6 @@ export { ResultCard } from './ResultCard';
 export { Button } from './Button';
 export { Template } from './Template';
 export { ModalTemplate } from './ModalTemplate';
-export { ScoreBox } from './ScoreBox';
 export { TipCarousel } from './TipCarousel';
 export { Scoreboard } from './Scoreboard';
 export { AnswerButton } from './AnswerButton';

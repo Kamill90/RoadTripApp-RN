@@ -15,7 +15,7 @@ import {
   Challenge,
   QuestionData,
 } from 'api';
-import { Button, Template, TipCarousel } from 'components';
+import { Button, Template, TipCarousel, Scoreboard } from 'components';
 import { i18n } from 'locale';
 import { LocationManager, NotificationService } from 'services';
 
@@ -195,11 +195,44 @@ class HomeScreen extends PureComponent<Props, State> {
     this.props.navigation.navigate('Quiz');
   };
 
+  renderBottomButtons = () => {
+    const { loading } = this.state;
+    const {
+      gameSettings: { isGameActive },
+    } = this.props.rootStore;
+
+    if (!isGameActive) {
+      return (
+        <Button
+          title={i18n.t('home:start')}
+          onPress={this.startGame}
+          type="regular"
+          loading={loading}
+        />
+      );
+    } else {
+      return (
+        <>
+          <Button
+            title={i18n.t('home:goTo')}
+            onPress={this.continueGame}
+            type="regular"
+            loading={loading}
+          />
+          <Button
+            title={i18n.t('home:stop')}
+            onPress={this.stopGame}
+            type="textButton"
+          />
+        </>
+      );
+    }
+  };
+
   render() {
     const {
-      gameSettings: { isGameActive, score, badges, answeredQuestions },
+      gameSettings: { isGameActive, score, badges },
     } = this.props.rootStore;
-    const { loading } = this.state;
 
     const goldBadges = badges.filter((badge: string) => badge === BADGES.GOLD)
       .length;
@@ -211,31 +244,18 @@ class HomeScreen extends PureComponent<Props, State> {
       <Template>
         <View style={styles.mainContainer}>
           <View style={styles.carouselContainer}>
-            {!isGameActive && <TipCarousel />}
-          </View>
-          <View style={styles.buttonsContainer}>
-            {!isGameActive ? (
-              <Button
-                title={i18n.t('home:start')}
-                onPress={this.startGame}
-                type="regular"
-                loading={loading}
+            {isGameActive ? (
+              <Scoreboard
+                goldBadges={goldBadges}
+                silverBadges={silverBadges}
+                score={score}
               />
             ) : (
-              <>
-                <Button
-                  title={i18n.t('home:goTo')}
-                  onPress={this.continueGame}
-                  type="regular"
-                  loading={loading}
-                />
-                <Button
-                  title={i18n.t('home:stop')}
-                  onPress={this.stopGame}
-                  type="textButton"
-                />
-              </>
+              <TipCarousel />
             )}
+          </View>
+          <View style={styles.buttonsContainer}>
+            {this.renderBottomButtons()}
           </View>
         </View>
       </Template>

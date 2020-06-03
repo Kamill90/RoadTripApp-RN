@@ -1,49 +1,59 @@
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, Text } from 'react-native';
 
 import { Score } from 'api';
 import { icons } from 'assets';
-import { ScoreBox } from './ScoreBox';
+import { palette, typography } from 'styles';
+import { i18n } from 'locale';
 
-export const Scoreboard = ({
-  goldBadges,
-  silverBadges,
-  score,
-  noOfQuestions,
-}: Score) => {
+export const Scoreboard = ({ goldBadges, silverBadges, score }: Score) => {
   return (
     <View style={styles.container}>
-      <ScoreBox score={score!} noOfQuestions={noOfQuestions} />
-      <View style={styles.badgeContainer}>
-        {!!goldBadges &&
-          [...Array(goldBadges)].map((item, index) => (
-            <Image
-              source={icons.medalGold}
-              style={styles.minibadges}
-              key={index}
-            />
-          ))}
-      </View>
-      <View style={styles.badgeContainer}>
-        {!!silverBadges &&
-          [...Array(silverBadges)].map((item, index) => (
-            <Image
-              source={icons.medalSilver}
-              style={styles.minibadges}
-              key={index}
-            />
-          ))}
+      <Text style={styles.title}>{i18n.t('home:yourScore')}</Text>
+      <Text style={styles.score}>{`${score * 10}`}</Text>
+      <View>
+        <View style={styles.badgeContainer}>
+          {!!goldBadges &&
+            [...Array(goldBadges)].map((item, index) => (
+              <Image
+                source={icons.medalGold}
+                style={styles.minibadges}
+                key={index}
+              />
+            ))}
+        </View>
+        <View style={styles.badgeContainer}>
+          {!!silverBadges &&
+            [...Array(silverBadges)].map((item, index) => (
+              <Image
+                source={icons.medalSilver}
+                style={styles.minibadges}
+                key={index}
+              />
+            ))}
+        </View>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { padding: 20 },
-  minibadges: { width: 50, height: 50 },
-  badgeContainer: {
-    flexDirection: 'row',
-    width: '100%',
+  container: {
+    paddingVertical: 10,
+    backgroundColor: palette.white,
+    borderRadius: 10,
+    shadowOpacity: 0.7,
+    shadowColor: palette.grey,
+    shadowOffset: { height: 2, width: StyleSheet.hairlineWidth },
     margin: 20,
+  },
+  title: { ...typography.badgeTitle, margin: 10, alignSelf: 'center' },
+  score: { ...typography.bigScore, alignSelf: 'center' },
+  minibadges: { width: 30, height: 30 },
+  badgeContainer: {
+    alignSelf: 'stretch',
+    overflow: 'hidden',
+    flexDirection: 'row',
+    marginTop: 15,
   },
 });

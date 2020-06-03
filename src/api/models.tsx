@@ -114,5 +114,4 @@ export interface Score {
   goldBadges: number;
   silverBadges: number;
   score: number;
-  noOfQuestions: number;
 }
