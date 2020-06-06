@@ -137,8 +137,8 @@ android {
         applicationId "com.RN.roadTripApp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 40
-        versionName "0.2.3"
+        versionCode 41
+        versionName "0.3.1"
     }
     splits {
         abi {

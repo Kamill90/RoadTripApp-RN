@@ -162,11 +162,11 @@ class QuizScreen extends React.PureComponent<Props, State> {
       let badge = '';
       let extraPoints = 0;
       if (sessionScoreRate === 1) {
-        extraPoints = 100;
+        extraPoints = 10;
         badge = BADGES.GOLD;
       } else if (sessionScoreRate > 0.7) {
         badge = BADGES.SILVER;
-        extraPoints = 50;
+        extraPoints = 5;
       }
       this.props.rootStore.gameSettings.setScore(extraPoints);
       if (badge) {
