@@ -60,5 +60,6 @@ exports.translations = {
       'You have answered correctly for more then 70% questions. You have earned the silver badge.',
     goldDescription:
       'You have answered correctly for all the questions. You have earned the gold badge',
+    pints: 'points',
   },
 };

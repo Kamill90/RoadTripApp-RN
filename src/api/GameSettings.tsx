@@ -10,13 +10,25 @@ export class GameSettings {
   private _badges = [''];
   private _isReminderActive = true;
   private _isLocationNotificationActive = true;
+  private _locationScores = {};
 
   get answeredQuestions(): string[] {
     return this._answeredQuestions;
   }
 
-  setAnsweredQuestions(value: string) {
+  setAnsweredQuestions(value: string, reasonValue: string, score: number) {
     this._answeredQuestions = this._answeredQuestions.concat(value);
+    this._locationScores[reasonValue] = {
+      ...this._locationScores[reasonValue],
+      answeredQuestions: this._locationScores[reasonValue]?.answeredQuestions
+        ? this._locationScores[reasonValue].answeredQuestions + 1
+        : 1,
+      score: this._locationScores[reasonValue]?.score ? this._locationScores[reasonValue].score + score : score,
+    };
+  }
+
+  get locationScores(): any {
+    return this._locationScores;
   }
 
   get isLocationChanged(): boolean {
@@ -92,17 +104,20 @@ export class GameSettings {
     this._badges = [];
     this._isReminderActive = true;
     this._isLocationNotificationActive = true;
+    this._locationScores = {};
   }
 }
 
 decorate(GameSettings, {
   _answeredQuestions: observable,
+  _locationScores: observable,
   _isGameActive: observable,
   _isLocationChanged: observable,
   _score: observable,
   _badges: observable,
   _isReminderActive: observable,
   _isLocationNotificationActive: observable,
+  locationScores: computed,
   answeredQuestions: computed,
   isGameActive: computed,
   isLocationChanged: computed,

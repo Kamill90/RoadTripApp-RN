@@ -159,16 +159,21 @@ class QuizScreen extends React.PureComponent<Props, State> {
         : answeredInSession / (questions.length - 1);
     if (progress === 1) {
       const sessionScoreRate = sessionScore / answeredInSession;
-      const badge =
-        sessionScoreRate === 1
-          ? BADGES.GOLD
-          : sessionScoreRate > 0.7
-          ? BADGES.SILVER
-          : null;
+      let badge = '';
+      let extraPoints = 0;
+      if (sessionScoreRate === 1) {
+        extraPoints = 100;
+        badge = BADGES.GOLD;
+      } else if (sessionScoreRate > 0.7) {
+        badge = BADGES.SILVER;
+        extraPoints = 50;
+      }
+      this.props.rootStore.gameSettings.setScore(extraPoints);
       if (badge) {
         this.props.rootStore.gameSettings.setBadges(badge);
         this.props.navigation.navigate('BadgeCard', {
           badge,
+          extraPoints,
         });
       }
     }
@@ -181,13 +186,23 @@ class QuizScreen extends React.PureComponent<Props, State> {
     tip: string,
     author: string,
     link: string,
+    reasonValue: string,
   ) => {
-    this.props.rootStore.gameSettings.setAnsweredQuestions(id);
     if (correctAnswer === answer) {
+      this.props.rootStore.gameSettings.setAnsweredQuestions(
+        id,
+        reasonValue,
+        1,
+      );
       this.setState({ sessionScore: this.state.sessionScore + 1 });
       this.props.rootStore.gameSettings.setScore(1);
       this.showTip({ isCorrect: true, correctAnswer, tip, author, link });
     } else {
+      this.props.rootStore.gameSettings.setAnsweredQuestions(
+        id,
+        reasonValue,
+        0,
+      );
       this.showTip({ isCorrect: false, correctAnswer, tip, author, link });
     }
   };
@@ -218,6 +233,7 @@ class QuizScreen extends React.PureComponent<Props, State> {
             item.tip || '',
             item.author || '',
             item.link || '',
+            item.reasonValue,
           )
         }
       />

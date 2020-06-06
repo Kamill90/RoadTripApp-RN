@@ -1,5 +1,12 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet, View, Alert, AsyncStorage, AppState } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Alert,
+  AsyncStorage,
+  AppState,
+  FlatList,
+} from 'react-native';
 import { inject, observer } from 'mobx-react';
 import { NavigationInjectedProps } from 'react-navigation';
 import BackgroundFetch from 'react-native-background-fetch';
@@ -15,7 +22,14 @@ import {
   Challenge,
   QuestionData,
 } from 'api';
-import { Button, Template, TipCarousel, Scoreboard } from 'components';
+import {
+  Button,
+  Template,
+  TipCarousel,
+  Scoreboard,
+  LocalScoreboard,
+  FakeScoreboards,
+} from 'components';
 import { i18n } from 'locale';
 import { LocationManager, NotificationService } from 'services';
 
@@ -229,6 +243,25 @@ class HomeScreen extends PureComponent<Props, State> {
     }
   };
 
+  renderLocalScoreboards = () => {
+    const {
+      gameSettings: { locationScores },
+    } = this.props.rootStore;
+
+    const data = Object.keys(locationScores).map(locationScore => ({
+      ...locationScores[locationScore],
+      locationName: locationScore,
+    }));
+    return data.length ? (
+      <FlatList
+        data={data}
+        renderItem={item => <LocalScoreboard item={{ ...item }} />}
+      />
+    ) : (
+      <FakeScoreboards />
+    );
+  };
+
   render() {
     const {
       gameSettings: { isGameActive, score, badges },
@@ -239,17 +272,19 @@ class HomeScreen extends PureComponent<Props, State> {
     const silverBadges = badges.filter(
       (badge: string) => badge === BADGES.SILVER,
     ).length;
-
     return (
       <Template>
         <View style={styles.mainContainer}>
           <View style={styles.carouselContainer}>
             {isGameActive ? (
-              <Scoreboard
-                goldBadges={goldBadges}
-                silverBadges={silverBadges}
-                score={score}
-              />
+              <>
+                <Scoreboard
+                  goldBadges={goldBadges}
+                  silverBadges={silverBadges}
+                  score={score}
+                />
+                {this.renderLocalScoreboards()}
+              </>
             ) : (
               <TipCarousel />
             )}

@@ -15,6 +15,13 @@ export const OnboardingNavigator = createStackNavigator(
       navigationOptions: ({ navigation }) => ({
         title: i18n.t('onboarding:aboutApp'),
         ...customHeader,
+        headerTitleStyle: {
+          fontFamily: 'Pacifico',
+          fontSize: 30,
+          flex: 1,
+          textAlign: 'center',
+          marginRight: 50,
+        },
         headerLeft: () => (
           <TouchableOpacity
             style={styles.iconCointainer}

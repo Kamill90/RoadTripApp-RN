@@ -10,7 +10,7 @@ export const Scoreboard = ({ goldBadges, silverBadges, score }: Score) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{i18n.t('home:yourScore')}</Text>
-      <Text style={styles.score}>{`${score * 10}`}</Text>
+      <Text style={styles.score}>{`${score}`}</Text>
       <View>
         <View style={styles.badgeContainer}>
           {!!goldBadges &&
@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.7,
     shadowColor: palette.grey,
     shadowOffset: { height: 2, width: StyleSheet.hairlineWidth },
+    elevation: 3,
     margin: 20,
   },
   title: { ...typography.badgeTitle, margin: 10, alignSelf: 'center' },

@@ -63,8 +63,9 @@ exports.translations = {
     close: 'ZAMKNIJ',
     congratulation: 'Gratulacje!',
     SilverDescription:
-      'Odpowiedziałeś poprawnie na więcej niż 70% pytań. Zdobywasz srebrną odznakę.',
+      'Odpowiedziałeś poprawnie na więcej niż 70% pytań. Zdobywasz dodatkowe punkty i srebrną odznakę.',
     GoldDescription:
-      'Odpowiedziałeś poprawnie na wszystkie pytania. Zdobywasz złotą odznakę.',
+      'Odpowiedziałeś poprawnie na wszystkie pytania. Zdobywasz dodatkowe punkty i złotą odznakę.',
+    points: 'punktów',
   },
 };

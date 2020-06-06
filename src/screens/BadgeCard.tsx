@@ -9,6 +9,7 @@ import { i18n } from 'locale';
 
 interface State {
   badge: string;
+  extraPoints: number;
 }
 
 export class BadgeCard extends PureComponent<NavigationInjectedProps, State> {
@@ -22,11 +23,13 @@ export class BadgeCard extends PureComponent<NavigationInjectedProps, State> {
     const { navigation } = props;
     return {
       badge: navigation.getParam('badge'),
+      extraPoints: navigation.getParam('extraPoints'),
     };
   }
 
   state = {
     badge: '',
+    extraPoints: 0,
   };
 
   closeModal = () => {
@@ -34,7 +37,7 @@ export class BadgeCard extends PureComponent<NavigationInjectedProps, State> {
   };
 
   render() {
-    const { badge } = this.state;
+    const { badge, extraPoints } = this.state;
     return (
       <ModalTemplate>
         <View style={styles.contentContainer}>
@@ -44,7 +47,14 @@ export class BadgeCard extends PureComponent<NavigationInjectedProps, State> {
           <Text style={typography.badgeDescription}>
             {i18n.t(`badge:${badge}Description`)}
           </Text>
-          <Image source={icons[`medal${badge}`]} style={styles.badgeIcon} />
+          <Text style={typography.bigScore}>{`+ ${extraPoints} ${i18n.t(
+            'badge:points',
+          )}`}</Text>
+          <Image
+            source={icons[`medal${badge}`]}
+            style={styles.badgeIcon}
+            resizeMode="contain"
+          />
           <Button
             type="textButton"
             backgroundColor={palette.transparent}
@@ -67,5 +77,5 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  badgeIcon: { width: 200, height: 200 },
+  badgeIcon: { height: 150 },
 });
