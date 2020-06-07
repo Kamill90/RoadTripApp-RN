@@ -5,6 +5,7 @@ import {
   Text,
   Dimensions,
   ScrollViewProps,
+  RefreshControl,
 } from 'react-native';
 import { inject, observer } from 'mobx-react';
 import { NavigationInjectedProps } from 'react-navigation';
@@ -26,7 +27,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 const WIDTH = Dimensions.get('screen').width;
 
-interface Props extends NavigationInjectedProps {
+interface Props
+  extends NavigationInjectedProps<{ updateLocation: () => boolean }> {
   rootStore: {
     location: LocationStore;
     gameSettings: GameSettingsStore;
@@ -35,17 +37,19 @@ interface Props extends NavigationInjectedProps {
 }
 
 interface State {
+  refreshing: boolean;
   questions: any[];
   answeredInSession: number;
   sessionScore: number;
   challenge: string;
 }
 
-class QuizScreen extends React.PureComponent<Props, State> {
+class QuizScreen extends React.Component<Props, State> {
   static getDerivedStateFromProps(props: Props, state: State) {
-    if (state.questions.length) {
+    if (!state.refreshing) {
       return null;
     }
+
     const { location, gameSettings, gameData } = props.rootStore;
     const baseQuestions = gameData.quizzes.filter(
       (question: QuestionData | undefined) =>
@@ -100,6 +104,7 @@ class QuizScreen extends React.PureComponent<Props, State> {
     const filteredQuestionsWithResult = [...filteredQuestions, result];
 
     return {
+      refreshing: false,
       questions: filteredQuestionsWithResult,
       challenge: firstChallenge,
     };
@@ -110,6 +115,7 @@ class QuizScreen extends React.PureComponent<Props, State> {
   >();
 
   state = {
+    refreshing: true,
     questions: [],
     answeredInSession: 0,
     sessionScore: 0,
@@ -207,11 +213,35 @@ class QuizScreen extends React.PureComponent<Props, State> {
     }
   };
 
+  refresh = async () => {
+    const updateLocation = this.props.navigation.getParam('updateLocation');
+    await updateLocation();
+    this.setState(
+      {
+        refreshing: true,
+        answeredInSession: 0,
+        sessionScore: 0,
+      },
+      () => {
+        this.carouselRef.current!.snapToItem(0, false);
+      },
+    );
+  };
+
   renderQuizCard = ({ item }: { item: QuestionData | Result }) => {
-    const { challenge } = this.state;
+    const { challenge, refreshing } = this.state;
     if (item.type === QUESTION_TYPE.RESULT) {
       return (
-        <ScrollView bounces={false} showsVerticalScrollIndicator={true}>
+        <ScrollView
+          showsVerticalScrollIndicator={true}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={this.refresh}
+              tintColor={palette.mainBlack}
+            />
+          }
+        >
           <ResultCard
             question={item.question}
             description={item.description || ''}

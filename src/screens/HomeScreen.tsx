@@ -191,7 +191,9 @@ class HomeScreen extends PureComponent<Props, State> {
     );
 
     gameSettings.setIsGameActive(true);
-    navigation.navigate('Quiz');
+    navigation.navigate('Quiz', {
+      updateLocation: this.updateLocation,
+    });
   };
 
   continueGame = async () => {
@@ -206,7 +208,9 @@ class HomeScreen extends PureComponent<Props, State> {
       return;
     }
     this.props.rootStore.gameSettings.setIsGameActive(true);
-    this.props.navigation.navigate('Quiz');
+    this.props.navigation.navigate('Quiz', {
+      updateLocation: this.updateLocation,
+    });
   };
 
   renderBottomButtons = () => {
