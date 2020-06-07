@@ -20,6 +20,7 @@ import {
   GameSettingsStore,
   GameDataStore,
 } from 'api';
+import { logEvent } from 'services';
 import { i18n } from 'locale';
 import { QuizCard, ResultCard, Template, ChallengeCard } from 'components';
 import { typography, palette } from 'styles';
@@ -193,8 +194,15 @@ class QuizScreen extends React.Component<Props, State> {
     author: string,
     link: string,
     reasonValue: string,
+    question: string,
   ) => {
     if (correctAnswer === answer) {
+      logEvent('answer', {
+        id,
+        question,
+        correct: true,
+        answer: answer,
+      });
       this.props.rootStore.gameSettings.setAnsweredQuestions(
         id,
         reasonValue,
@@ -204,6 +212,12 @@ class QuizScreen extends React.Component<Props, State> {
       this.props.rootStore.gameSettings.setScore(1);
       this.showTip({ isCorrect: true, correctAnswer, tip, author, link });
     } else {
+      logEvent('answer', {
+        id,
+        question,
+        correct: false,
+        answer: answer,
+      });
       this.props.rootStore.gameSettings.setAnsweredQuestions(
         id,
         reasonValue,
@@ -233,6 +247,7 @@ class QuizScreen extends React.Component<Props, State> {
     if (item.type === QUESTION_TYPE.RESULT) {
       return (
         <ScrollView
+          key={item.id}
           showsVerticalScrollIndicator={true}
           refreshControl={
             <RefreshControl
@@ -252,6 +267,7 @@ class QuizScreen extends React.Component<Props, State> {
     }
     return (
       <QuizCard
+        key={item.id}
         question={item.question}
         reason={item.reasonValue}
         answers={item.answers}
@@ -264,6 +280,7 @@ class QuizScreen extends React.Component<Props, State> {
             item.author || '',
             item.link || '',
             item.reasonValue,
+            item.question,
           )
         }
       />

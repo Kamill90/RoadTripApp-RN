@@ -47,7 +47,9 @@ export default class LocationManager {
 
   async getGeocodingResults(latitude: number, longitude: number) {
     // eslint-disable-next-line prettier/prettier
-    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${Config.GOOGLE_MAP_KEY}&language=en`;
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${
+      Config.GOOGLE_MAP_KEY
+    }&language=en`;
     try {
       const response = await fetch(url);
       const data = await response.json();

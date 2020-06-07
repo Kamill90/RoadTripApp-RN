@@ -20,7 +20,9 @@ export class TipCarousel extends PureComponent<any, State> {
     activeCardIndex: 0,
   };
 
-  renderCard = (item: any) => <TipCard tipImage={item.item.image} />;
+  renderCard = (item: any) => (
+    <TipCard key={item.item.id} tipImage={item.item.image} />
+  );
 
   onSnapToItem = (slideIndex: number) => {
     this.setState({
