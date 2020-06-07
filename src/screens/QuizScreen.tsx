@@ -196,13 +196,18 @@ class QuizScreen extends React.Component<Props, State> {
     reasonValue: string,
     question: string,
   ) => {
+    logEvent('answer', {
+      id,
+      question,
+      correct: correctAnswer === answer,
+      answer,
+    });
+    logEvent(id, {
+      question,
+      correct: correctAnswer === answer,
+      answer,
+    });
     if (correctAnswer === answer) {
-      logEvent('answer', {
-        id,
-        question,
-        correct: true,
-        answer: answer,
-      });
       this.props.rootStore.gameSettings.setAnsweredQuestions(
         id,
         reasonValue,
@@ -212,12 +217,6 @@ class QuizScreen extends React.Component<Props, State> {
       this.props.rootStore.gameSettings.setScore(1);
       this.showTip({ isCorrect: true, correctAnswer, tip, author, link });
     } else {
-      logEvent('answer', {
-        id,
-        question,
-        correct: false,
-        answer: answer,
-      });
       this.props.rootStore.gameSettings.setAnsweredQuestions(
         id,
         reasonValue,
