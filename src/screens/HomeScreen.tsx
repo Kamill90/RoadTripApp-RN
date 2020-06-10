@@ -31,7 +31,7 @@ import {
   FakeScoreboards,
 } from 'components';
 import { i18n } from 'locale';
-import { LocationManager, NotificationService } from 'services';
+import { LocationManager, NotificationService, logEvent } from 'services';
 
 interface Props extends NavigationInjectedProps {
   rootStore: {
@@ -109,7 +109,7 @@ class HomeScreen extends PureComponent<Props, State> {
         adminDistrict: address.adminDistrict,
         adminDistrict2: address.adminDistrict2,
       } as LocationData;
-
+      logEvent('newLocation', newLocationData);
       this.props.rootStore.location.setLocationData(newLocationData);
       if (
         JSON.stringify(currentLocationData) !== JSON.stringify(newLocationData)

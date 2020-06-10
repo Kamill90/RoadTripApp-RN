@@ -20,7 +20,7 @@ class App extends PureComponent {
     return (
       <I18nextProvider i18n={i18n}>
         <Provider rootStore={rootStore}>
-          <StatusBar barStyle="light-content" />
+          <StatusBar barStyle="dark-content" backgroundColor="rgba(0,0,0,0)" />
           <AppContainer />
         </Provider>
       </I18nextProvider>

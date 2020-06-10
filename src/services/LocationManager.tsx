@@ -11,9 +11,21 @@ import { AddressComponent } from 'api';
 export default class LocationManager {
   async getCurrentLocation() {
     if (Platform.OS === 'android') {
-      await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+      console.log(
+        'PermissionsAndroid.check(Permission.ACCESS_COARSE_LOCATION',
+        PermissionsAndroid.check(
+          PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+        ),
       );
+      if (
+        PermissionsAndroid.check(
+          PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+        )
+      ) {
+        await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+        );
+      }
     }
     return new Promise((resolve, reject) => {
       Geolocation.getCurrentPosition(
@@ -30,7 +42,7 @@ export default class LocationManager {
               }
             }
           } catch (error) {
-            // throw error;
+            logToCrashlytics('internet connection problem');
             reject(
               'Could not connect to the internet. Please check your network connection',
             );
