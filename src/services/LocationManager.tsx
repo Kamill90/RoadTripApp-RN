@@ -52,7 +52,7 @@ export default class LocationManager {
           logToCrashlytics(`GeoError: ${error.message}`);
           reject(error.message);
         },
-        { timeout: 15000, enableHighAccuracy: false },
+        { timeout: 15000, enableHighAccuracy: false, maximumAge: 1500 },
       );
     });
   }
