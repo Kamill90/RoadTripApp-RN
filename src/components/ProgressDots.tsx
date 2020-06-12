@@ -20,7 +20,7 @@ export const ProgressDots = ({
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    width: 45,
+    width: 60,
     justifyContent: 'space-between',
     alignItems: 'center',
     marginVertical: 20,

@@ -1,14 +1,6 @@
 export const icons = {
-  medalGold: require('./icons/medal_gold.png'),
-  medalSilver: require('./icons/medal_silver.png'),
-  airport: require('./icons/icons8-airport-100.png'),
-  beach: require('./icons/icons8-beach-100.png'),
-  camper: require('./icons/icons8-camper-100.png'),
-  campfire: require('./icons/icons8-campfire-100.png'),
-  forest: require('./icons/icons8-forest-100.png'),
-  mountain: require('./icons/icons8-mountain-100.png'),
-  nationalPark: require('./icons/icons8-national-park-100.png'),
-  waterTransportation: require('./icons/icons8-water-transportation-100.png'),
+  medalGold: require('./icons/medalGold.png'),
+  medalSilver: require('./icons/medalSilver.png'),
   defaultThumbnail: require('./icons/default_thumbnail.png'),
   externalLink: require('./icons/externalLink.png'),
   settings: require('./icons/settings.png'),
@@ -16,10 +8,9 @@ export const icons = {
 };
 
 export const images = {
-  teamSpirit: require('./images/teamspirit.jpg'),
-  mapGirl: require('./images/mapGirl.jpg'),
-  badges: require('./images/badges.jpeg'),
-  starBackground: require('./images/starBackground.jpg'),
+  badges: require('./images/badges.png'),
+  locationBased: require('./images/locationBased.png'),
+  teamSpirit: require('./images/teamSpirit.png'),
+  battery: require('./images/eco.png'),
+  safetyFirst: require('./images/safetyFirst.png'),
 };
-
-export * from './data/tips';

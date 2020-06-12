@@ -19,6 +19,7 @@ export const Scoreboard = ({ goldBadges, silverBadges, score }: Score) => {
                 source={icons.medalGold}
                 style={styles.minibadges}
                 key={index}
+                resizeMode="contain"
               />
             ))}
         </View>
@@ -29,6 +30,7 @@ export const Scoreboard = ({ goldBadges, silverBadges, score }: Score) => {
                 source={icons.medalSilver}
                 style={styles.minibadges}
                 key={index}
+                resizeMode="contain"
               />
             ))}
         </View>

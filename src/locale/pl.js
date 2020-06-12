@@ -68,4 +68,31 @@ exports.translations = {
       'Odpowiedziałeś poprawnie na wszystkie pytania. Zdobywasz dodatkowe punkty i złotą odznakę.',
     points: 'punktów',
   },
+  tips: {
+    locationBased: {
+      title: 'Quizy na podstawie Twojej lokalizacji',
+      description:
+        'Podróżujesz przez kraj? Kontynent? Świat? Rozpocznij grę, a quizy i ciekawostki o miejscu, przez który przejedżasz będą Ci towarzyszyć przez całą drogę.',
+    },
+    badges: {
+      title: 'Zdobywaj odznaki',
+      description:
+        'Im więcej wiesz o miejscach, przez które przejedżasz tym większa szansa na zdobycie kolekcji odznak na koniec podróży. Lepiej dobrze przemyśl każdą odpowiedź.',
+    },
+    teamSpirit: {
+      title: 'Zostań współautorem',
+      description:
+        'Bądź jak lokalny przedownik zadający intrygujące pytania. Na stronie ustawień aplikacji przejdź do formualrza dodwania pytań. Sprawdź co możesz przy tym otrzymać.',
+    },
+    battery: {
+      title: 'Oszczędność baterii',
+      description:
+        'Pytania zależą od Twojego położenia. Lokalizacja telefonu jest sprawdzana tylko przy przejściu do pytań, więc bateria nie jest drenowana.',
+    },
+    safetyFirst: {
+      title: 'Bezpieczeństwo przede wszystkim',
+      description:
+        'Gra jest przeznaczona dla podróżujących, jednak dzierżącym telefon może być tylko posażer. Pamiętaj, żeby nie rozpraszać kierowcy.',
+    },
+  },
 };

@@ -1,28 +1,50 @@
 import React, { PureComponent } from 'react';
-import { View, Text, Dimensions, StyleSheet } from 'react-native';
+import { View, Text, Dimensions, StyleSheet, Image } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
-import { TipCard } from './TipCard';
 import { typography } from 'styles';
 import { ProgressDots } from './ProgressDots';
-import { tips as defaultTip } from 'assets';
+import { images } from 'assets';
 import { i18n } from 'locale';
-
-const lang = i18n.language;
 
 const SCREEN_WIDTH = Dimensions.get('screen').width;
 
 interface State {
   activeCardIndex: number;
 }
+
+interface Item {
+  title: string;
+  image: string;
+  description: string;
+}
+
+const tips = [
+  'locationBased',
+  'badges',
+  'teamSpirit',
+  'battery',
+  'safetyFirst',
+];
+
+const TipCard = ({ item }: { item: string }) => (
+  <View style={styles.itemContainer}>
+    <View style={styles.imageContainer}>
+      <Image source={images[item]} style={styles.image} resizeMode="contain" />
+    </View>
+    <View style={styles.textContainer}>
+      <Text style={styles.title}>{i18n.t(`tips:${item}:title`)}</Text>
+      <Text style={styles.tipDescription}>
+        {i18n.t(`tips:${item}:description`)}
+      </Text>
+    </View>
+  </View>
+);
+
 export class TipCarousel extends PureComponent<any, State> {
   state = {
     activeCardIndex: 0,
   };
-
-  renderCard = (item: any) => (
-    <TipCard key={item.item.id} tipImage={item.item.image} />
-  );
 
   onSnapToItem = (slideIndex: number) => {
     this.setState({
@@ -31,27 +53,19 @@ export class TipCarousel extends PureComponent<any, State> {
   };
 
   render() {
-    const { activeCardIndex } = this.state;
-    const tips = defaultTip[lang];
     return (
       <View style={styles.container}>
+        <ProgressDots data={tips} active={this.state.activeCardIndex} />
         <Carousel
-          data={defaultTip[lang]}
-          renderItem={this.renderCard}
+          data={tips}
+          renderItem={(item: any) => (
+            <TipCard key={item.item.id} item={item.item} />
+          )}
           sliderWidth={SCREEN_WIDTH}
-          itemWidth={SCREEN_WIDTH * 0.8}
+          itemWidth={SCREEN_WIDTH}
           onSnapToItem={this.onSnapToItem}
           removeClippedSubviews={false}
         />
-        <ProgressDots data={tips} active={this.state.activeCardIndex} />
-        <View style={styles.textContainer}>
-          <Text style={[typography.tipTitle, styles.title]}>
-            {tips[activeCardIndex].title}
-          </Text>
-          <Text style={typography.tipDescription}>
-            {tips[activeCardIndex].description}
-          </Text>
-        </View>
       </View>
     );
   }
@@ -61,20 +75,28 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     paddingVertical: 21,
-    height: '100%',
+    flex: 1,
   },
-  image: {
-    height: '100%',
-    width: '100%',
-    borderRadius: 22,
-    position: 'absolute',
+  itemContainer: {
+    flex: 1,
+    justifyContent: 'space-evenly',
   },
-  title: { paddingBottom: 5, textAlign: 'center' },
   textContainer: {
-    height: 100,
-    paddingHorizontal: 30,
-    marginBottom: 20,
-    alignItems: 'center',
+    flex: 1,
     justifyContent: 'space-between',
+  },
+  imageContainer: {
+    flex: 1.5,
+  },
+  image: { width: '100%', height: '100%' },
+  title: {
+    paddingBottom: 5,
+    textAlign: 'center',
+    ...typography.tipTitle,
+    paddingHorizontal: 30,
+  },
+  tipDescription: {
+    ...typography.tipDescription,
+    paddingHorizontal: 30,
   },
 });

@@ -58,7 +58,7 @@ export const typography = StyleSheet.create({
     textAlign: 'center',
   },
   tipDescription: {
-    fontFamily: 'Muli-SemiBold',
+    fontFamily: 'Muli',
     fontSize: 14,
     lineHeight: 20,
     textAlign: 'center',

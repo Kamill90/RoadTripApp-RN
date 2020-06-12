@@ -62,4 +62,34 @@ exports.translations = {
       'You have answered correctly for all the questions. You have earned the gold badge',
     pints: 'points',
   },
+  tips: {
+    locationBased: {
+      title: 'Location based quizes',
+      image: 'locationBased',
+      description:
+        'Do you travel through the country? World? Start the game and learn about regions you are currently in while solving quizes.',
+    },
+    badges: {
+      title: 'Earn badges',
+      image: 'badges',
+      description:
+        'The more you know, the more bagdes you can earn. Think twice and get the gold collection.',
+    },
+    teamSpirit: {
+      title: 'Contribute',
+      image: 'teamSpirit',
+      description:
+        "Be like a local guide. Visit the app's website, add an insipiring question with tip and check what you can get for it.",
+    },
+    battery: {
+      title: 'Battery saver',
+      description:
+        "Content depends on where you are. However, your location is checked only when you press CONTINUE GAME. That's why your battery is not drained.",
+    },
+    safetyFirst: {
+      title: 'Safety first',
+      description:
+        "The game is made for all traveling companions. Remember that only passengers may hold the phone. Please don't distract the driver.",
+    },
+  },
 };
