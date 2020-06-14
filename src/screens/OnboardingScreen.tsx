@@ -14,5 +14,9 @@ export class OnboardingScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: { backgroundColor: 'white', paddingBottom: 100 },
+  container: {
+    backgroundColor: 'white',
+    paddingBottom: 100,
+    flex: 1,
+  },
 });

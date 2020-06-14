@@ -11,17 +11,10 @@ import { AddressComponent } from 'api';
 export default class LocationManager {
   async getCurrentLocation() {
     if (Platform.OS === 'android') {
-      console.log(
-        'PermissionsAndroid.check(Permission.ACCESS_COARSE_LOCATION',
-        PermissionsAndroid.check(
-          PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
-        ),
+      const locationPermisstion = await PermissionsAndroid.check(
+        PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
       );
-      if (
-        PermissionsAndroid.check(
-          PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
-        )
-      ) {
+      if (!locationPermisstion) {
         await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
         );

@@ -39,6 +39,7 @@ interface Props
 
 interface State {
   refreshing: boolean;
+  derived: boolean;
   questions: any[];
   answeredInSession: number;
   sessionScore: number;
@@ -47,7 +48,7 @@ interface State {
 
 class QuizScreen extends React.Component<Props, State> {
   static getDerivedStateFromProps(props: Props, state: State) {
-    if (!state.refreshing) {
+    if (state.derived) {
       return null;
     }
 
@@ -105,7 +106,7 @@ class QuizScreen extends React.Component<Props, State> {
     const filteredQuestionsWithResult = [...filteredQuestions, result];
 
     return {
-      refreshing: false,
+      derived: true,
       questions: filteredQuestionsWithResult,
       challenge: firstChallenge,
     };
@@ -116,7 +117,8 @@ class QuizScreen extends React.Component<Props, State> {
   >();
 
   state = {
-    refreshing: true,
+    refreshing: false,
+    derived: false,
     questions: [],
     answeredInSession: 0,
     sessionScore: 0,
@@ -226,14 +228,18 @@ class QuizScreen extends React.Component<Props, State> {
     }
   };
 
-  refresh = async () => {
+  refresh = () => {
+    this.setState({
+      refreshing: true,
+      derived: false,
+    });
     const updateLocation = this.props.navigation.getParam('updateLocation');
-    await updateLocation();
+    updateLocation();
     this.setState(
       {
-        refreshing: true,
         answeredInSession: 0,
         sessionScore: 0,
+        refreshing: false,
       },
       () => {
         this.carouselRef.current!.snapToItem(0, false);

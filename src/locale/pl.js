@@ -72,27 +72,27 @@ exports.translations = {
     locationBased: {
       title: 'Quizy na podstawie Twojej lokalizacji',
       description:
-        'Podróżujesz przez kraj? Kontynent? Świat? Rozpocznij grę, a quizy i ciekawostki o miejscu, przez który przejedżasz będą Ci towarzyszyć przez całą drogę.',
+        'Podróżujesz przez kraj? Kontynent? Świat? Rozpocznij grę, a quizy i ciekawostki o miejscu, przez który przejeżdżasz, będą Ci towarzyszyć przez całą drogę.',
     },
     badges: {
       title: 'Zdobywaj odznaki',
       description:
-        'Im więcej wiesz o miejscach, przez które przejedżasz tym większa szansa na zdobycie kolekcji odznak na koniec podróży. Lepiej dobrze przemyśl każdą odpowiedź.',
+        'Im więcej wiesz o miejscach, przez które przejeżdżasz, tym większa szansa na zdobycie kolekcji odznak na koniec podróży. Lepiej dobrze przemyśl każdą odpowiedź.',
     },
     teamSpirit: {
-      title: 'Zostań współautorem',
+      title: 'Zostań współautorem',
       description:
-        'Bądź jak lokalny przedownik zadający intrygujące pytania. Na stronie ustawień aplikacji przejdź do formualrza dodwania pytań. Sprawdź co możesz przy tym otrzymać.',
+        'Bądź jak lokalny przewodnik zadający intrygujące pytania. Na stronie ustawień aplikacji przejdź do formularza dodawania pytań. Sprawdź jak możesz na tym skorzystać.',
     },
     battery: {
-      title: 'Oszczędność baterii',
+      title: 'Oszczędność baterii',
       description:
-        'Pytania zależą od Twojego położenia. Lokalizacja telefonu jest sprawdzana tylko przy przejściu do pytań, więc bateria nie jest drenowana.',
+        'Pytania zależą od Twojego położenia. Lokalizacja telefonu jest jednak sprawdzana tylko przy przejściu do pytań, więc bateria nie jest drenowana.',
     },
     safetyFirst: {
-      title: 'Bezpieczeństwo przede wszystkim',
+      title: 'Bezpieczeństwo przede wszystkim',
       description:
-        'Gra jest przeznaczona dla podróżujących, jednak dzierżącym telefon może być tylko posażer. Pamiętaj, żeby nie rozpraszać kierowcy.',
+        'Gra jest przeznaczona dla podróżujących, jednak dzierżącym telefon może być tylko pasażer. Pamiętaj, żeby nie rozpraszać kierowcy.',
     },
   },
 };
