@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 
-import { AnswerButton } from 'components';
+import { AnswerButton } from './AnswerButton';
 import { typography } from 'styles';
 import { i18n } from 'locale';
 

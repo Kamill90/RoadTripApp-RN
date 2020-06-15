@@ -4,7 +4,7 @@ import Geolocation, {
 } from 'react-native-geolocation-service';
 import { Alert, Platform, PermissionsAndroid } from 'react-native';
 import Config from 'react-native-config';
-import { logToCrashlytics } from 'services';
+import { logToCrashlytics } from './FirebaseService';
 
 import { AddressComponent } from 'api';
 
@@ -51,7 +51,6 @@ export default class LocationManager {
   }
 
   async getGeocodingResults(latitude: number, longitude: number) {
-    // eslint-disable-next-line prettier/prettier
     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${
       Config.GOOGLE_MAP_KEY
     }&language=en`;
