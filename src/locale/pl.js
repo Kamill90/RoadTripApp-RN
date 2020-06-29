@@ -18,7 +18,7 @@ exports.translations = {
     notifications: 'Powiadomienia',
     reminder: 'Przypominacz',
     reminderDescription:
-      'Powiadomienie przypominające o włączonej rozgrywce co jakiś czas niezależnie od tego czy się przemieszczasz czy nie.',
+      'Powiadomienie przypominające o włączonej rozgrywce niezależnie od tego czy się przemieszczasz czy nie.',
     newLocation: 'Nowa lokalizacja (zalecane)',
     newLocationDescription:
       'Powiadomienie o nowej lokalizacji i nowych quizach.',

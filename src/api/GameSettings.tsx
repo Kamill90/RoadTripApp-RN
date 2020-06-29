@@ -8,7 +8,7 @@ export class GameSettings {
   private _isLocationChanged = false;
   private _score = 0;
   private _badges = [''];
-  private _isReminderActive = true;
+  private _isReminderActive = false;
   private _isLocationNotificationActive = true;
   private _locationScores = {};
 

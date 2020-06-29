@@ -10,7 +10,6 @@ import {
 import { inject, observer } from 'mobx-react';
 import { NavigationInjectedProps } from 'react-navigation';
 
-// import { NotificationService } from 'services';
 import { Template, StyledCollapsible, StyledSwitch } from 'components';
 import { typography } from 'styles';
 import { i18n } from 'locale';

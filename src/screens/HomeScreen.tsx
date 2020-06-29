@@ -185,11 +185,6 @@ class HomeScreen extends PureComponent<Props, State> {
       loading: false,
     });
 
-    NotificationService.scheduledNotification(
-      i18n.t('notification:staticTitle'),
-      i18n.t('notification:staticMessage'),
-    );
-
     gameSettings.setIsGameActive(true);
     navigation.navigate('Quiz', {
       updateLocation: this.updateLocation,
