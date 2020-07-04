@@ -28,6 +28,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 const WIDTH = Dimensions.get('screen').width;
 
+const FORCED_LANGUAGE = 'pl'; //forced polish language - change when content is translated
+
 interface Props
   extends NavigationInjectedProps<{ updateLocation: () => boolean }> {
   rootStore: {
@@ -55,7 +57,7 @@ class QuizScreen extends React.Component<Props, State> {
     const { location, gameSettings, gameData } = props.rootStore;
     const baseQuestions = gameData.quizzes.filter(
       (question: QuestionData | undefined) =>
-        question!.approved && question!.language === i18n.language,
+        question!.approved && question!.language === FORCED_LANGUAGE,
     );
 
     const adminDistrictBasedQuestions = baseQuestions.filter(
@@ -90,9 +92,9 @@ class QuizScreen extends React.Component<Props, State> {
     );
     filteredQuestions.splice(20);
 
-    const challenges = gameData.challenges
-      .filter(challenge => challenge.language === i18n.language)
-      .sort(() => Math.random() - 0.5);
+    const challenges = gameData.challenges.filter(
+      challenge => challenge.language === FORCED_LANGUAGE,
+    );
 
     const firstChallenge = challenges.length && challenges[0].content;
 
