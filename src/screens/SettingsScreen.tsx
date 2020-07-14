@@ -1,20 +1,12 @@
-import React, { Component } from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  Image,
-  Linking,
-} from 'react-native';
-import { inject, observer } from 'mobx-react';
-import { NavigationInjectedProps } from 'react-navigation';
-
-import { Template, StyledCollapsible, StyledSwitch } from 'components';
-import { typography } from 'styles';
-import { i18n } from 'locale';
-import { icons } from 'assets';
 import { GameSettingsStore } from 'api';
+import { icons } from 'assets';
+import { Template, StyledCollapsible, StyledSwitch } from 'components';
+import { i18n } from 'locale';
+import { inject, observer } from 'mobx-react';
+import React, { Component } from 'react';
+import { View, StyleSheet, Text, TouchableOpacity, Image, Linking } from 'react-native';
+import { NavigationInjectedProps } from 'react-navigation';
+import { typography } from 'styles';
 
 interface Props extends NavigationInjectedProps {
   rootStore: {
@@ -43,21 +35,13 @@ class SettingsScreen extends Component<Props> {
     </View>
   );
 
-  renderRow = ({
-    title,
-    description,
-    onPress,
-  }: {
-    title: string;
-    description?: string;
-    onPress: () => void;
-  }) => (
+  renderRow = ({ title, description, onPress }: { title: string; description?: string; onPress: () => void }) => (
     <TouchableOpacity style={styles.row} onPress={onPress}>
       <View style={styles.textContainer}>
         <Text style={typography.question}>{title}</Text>
         <Text style={styles.rowDescription}>{description}</Text>
       </View>
-      <Image source={icons.chevronDown} style={[styles.chevronRight]} />
+      <Image source={icons.chevronDown} style={styles.chevronRight} />
     </TouchableOpacity>
   );
 
@@ -82,9 +66,7 @@ class SettingsScreen extends Component<Props> {
               description: i18n.t('settings:newLocationDescription'),
               value: gameSettings.isLocationNotificationActive,
               onPress: () => {
-                gameSettings.setLocationNotification(
-                  !gameSettings.isLocationNotificationActive,
-                );
+                gameSettings.setLocationNotification(!gameSettings.isLocationNotificationActive);
               },
             })}
           </StyledCollapsible>

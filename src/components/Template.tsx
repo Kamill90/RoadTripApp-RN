@@ -7,16 +7,9 @@ interface Props extends TextProps {
   withPadding?: boolean;
 }
 
-export const Template: React.FunctionComponent<Props> = ({
-  withPadding,
-  children,
-}) => {
-  return (
-    <View style={[styles.contentContainer, withPadding && styles.padding]}>
-      {children}
-    </View>
-  );
-};
+export const Template: React.FunctionComponent<Props> = ({ withPadding, children }: Props) => (
+  <View style={[styles.contentContainer, withPadding && styles.padding]}>{children}</View>
+);
 
 const styles = StyleSheet.create({
   contentContainer: {

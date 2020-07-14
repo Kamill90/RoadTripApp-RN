@@ -1,14 +1,9 @@
+/* eslint-disable react-native/no-unused-styles */
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { palette } from 'styles';
 
-export const ProgressDots = ({
-  data,
-  active,
-}: {
-  data: any[];
-  active: number;
-}) => (
+export const ProgressDots = ({ data, active }: { data: any[]; active: number }) => (
   <View style={styles.container}>
     {data.map((_element, index) => {
       const isDotActive = index === active ? 'activeDot' : 'dot';

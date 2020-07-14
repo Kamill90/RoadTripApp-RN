@@ -1,5 +1,5 @@
-import { View, StyleSheet, Text } from 'react-native';
 import React from 'react';
+import { View, StyleSheet, Text } from 'react-native';
 import { palette, typography } from 'styles';
 
 interface Props {

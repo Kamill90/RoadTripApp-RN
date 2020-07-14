@@ -1,23 +1,16 @@
-import Geolocation, {
-  GeoPosition,
-  GeoError,
-} from 'react-native-geolocation-service';
+import { AddressComponent } from 'api';
 import { Alert, Platform, PermissionsAndroid } from 'react-native';
 import Config from 'react-native-config';
-import { logToCrashlytics } from './FirebaseService';
+import Geolocation, { GeoPosition, GeoError } from 'react-native-geolocation-service';
 
-import { AddressComponent } from 'api';
+import { logToCrashlytics } from './FirebaseService';
 
 export default class LocationManager {
   async getCurrentLocation() {
     if (Platform.OS === 'android') {
-      const locationPermisstion = await PermissionsAndroid.check(
-        PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
-      );
+      const locationPermisstion = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
       if (!locationPermisstion) {
-        await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
-        );
+        await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
       }
     }
     return new Promise((resolve, reject) => {
@@ -26,19 +19,14 @@ export default class LocationManager {
           const { latitude, longitude } = position.coords;
           try {
             if (latitude && longitude) {
-              const address = await this.getGeocodingResults(
-                latitude,
-                longitude,
-              );
+              const address = await this.getGeocodingResults(latitude, longitude);
               if (address) {
                 resolve(address);
               }
             }
           } catch (error) {
             logToCrashlytics('internet connection problem');
-            reject(
-              'Could not connect to the internet. Please check your network connection',
-            );
+            reject('Could not connect to the internet. Please check your network connection');
           }
         },
         (error: GeoError) => {
@@ -51,9 +39,7 @@ export default class LocationManager {
   }
 
   async getGeocodingResults(latitude: number, longitude: number) {
-    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${
-      Config.GOOGLE_MAP_KEY
-    }&language=en`;
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${Config.GOOGLE_MAP_KEY}&language=en`;
     try {
       const response = await fetch(url);
       const data = await response.json();
@@ -70,21 +56,14 @@ export default class LocationManager {
         });
 
       const address = {
-        countryRegion:
-          (filterFunction('country').length &&
-            filterFunction('country')[0].long_name.toLowerCase()) ||
-          '',
+        countryRegion: (filterFunction('country').length && filterFunction('country')[0].long_name.toLowerCase()) || '',
         adminDistrict:
           (filterFunction('administrative_area_level_1').length &&
-            filterFunction(
-              'administrative_area_level_1',
-            )[0].long_name.toLowerCase()) ||
+            filterFunction('administrative_area_level_1')[0].long_name.toLowerCase()) ||
           '',
         adminDistrict2:
           (filterFunction('administrative_area_level_2').length &&
-            filterFunction(
-              'administrative_area_level_2',
-            )[0].long_name.toLowerCase()) ||
+            filterFunction('administrative_area_level_2')[0].long_name.toLowerCase()) ||
           '',
       };
       return address;

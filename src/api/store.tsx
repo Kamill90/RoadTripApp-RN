@@ -2,12 +2,14 @@ import { AsyncTrunk } from 'mobx-sync';
 import { AsyncStorage } from 'react-native';
 
 import { GameData } from './GameData';
-import { Location } from './Location';
 import { GameSettings } from './GameSettings';
+import { Location } from './Location';
 
 class RootStore {
   gameData: GameData;
+
   location: Location;
+
   gameSettings: GameSettings;
 
   constructor() {

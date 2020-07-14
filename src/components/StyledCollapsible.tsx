@@ -1,9 +1,8 @@
+import { icons } from 'assets';
 import React, { Component } from 'react';
 import { StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
 import Collapsible from 'react-native-collapsible';
-
 import { typography } from 'styles';
-import { icons } from 'assets';
 
 interface Props {
   title: string;
@@ -29,23 +28,14 @@ export class StyledCollapsible extends Component<Props, State> {
     const { title, children } = this.props;
     return (
       <>
-        <TouchableOpacity
-          activeOpacity={0.7}
-          onPress={this.changeCollapsed}
-          style={styles.itemTitleContainer}
-        >
+        <TouchableOpacity activeOpacity={0.7} onPress={this.changeCollapsed} style={styles.itemTitleContainer}>
           <Text style={styles.itemTitle}>{title}</Text>
           <Image
             source={icons.chevronDown}
-            style={[
-              styles.icon,
-              !isNotificationCollapsed && { transform: [{ rotate: '180deg' }] },
-            ]}
+            style={[styles.icon, !isNotificationCollapsed && { transform: [{ rotate: '180deg' }] }]}
           />
         </TouchableOpacity>
-        <Collapsible collapsed={isNotificationCollapsed}>
-          {children}
-        </Collapsible>
+        <Collapsible collapsed={isNotificationCollapsed}>{children}</Collapsible>
       </>
     );
   }

@@ -37,11 +37,7 @@ export type LocationStore = LocationData & {
 };
 
 export type GameSettingsStore = GameSettings & {
-  setAnsweredQuestions: (
-    question: string,
-    reasonValue: string,
-    score: number,
-  ) => void;
+  setAnsweredQuestions: (question: string, reasonValue: string, score: number) => void;
   setIsGameActive: (value: boolean) => void;
   setIsLocationChanged: (change: boolean) => void;
   setScore: (newScore: number) => void;

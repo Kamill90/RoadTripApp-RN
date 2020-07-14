@@ -8,26 +8,16 @@ interface Props {
   onPress: () => void;
 }
 
-export const AnswerButton: React.FunctionComponent<Props> = ({
-  prefix,
-  title,
-  onPress,
-}) => {
-  return (
-    <TouchableOpacity
-      style={styles.container}
-      activeOpacity={0.6}
-      onPress={onPress}
-    >
-      <View style={styles.prefix}>
-        <Text style={typography.tipTitle}>{prefix}</Text>
-      </View>
-      <View style={styles.answerTextContainer}>
-        <Text style={typography.answerButtonTitle}>{title}</Text>
-      </View>
-    </TouchableOpacity>
-  );
-};
+export const AnswerButton: React.FunctionComponent<Props> = ({ prefix, title, onPress }: Props) => (
+  <TouchableOpacity style={styles.container} activeOpacity={0.6} onPress={onPress}>
+    <View style={styles.prefix}>
+      <Text style={typography.tipTitle}>{prefix}</Text>
+    </View>
+    <View style={styles.answerTextContainer}>
+      <Text style={typography.answerButtonTitle}>{title}</Text>
+    </View>
+  </TouchableOpacity>
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -42,10 +32,6 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   answerTextContainer: { flex: 1 },
-  answerText: {
-    ...typography.answerButtonTitle,
-    paddingVertical: 5,
-  },
   prefix: {
     width: 45,
     height: 45,

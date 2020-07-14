@@ -1,10 +1,8 @@
-import React from 'react';
-import { createStackNavigator } from 'react-navigation-stack';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-
-import { i18n } from 'locale';
-
 import { customHeader } from 'components';
+import { i18n } from 'locale';
+import React from 'react';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { createStackNavigator } from 'react-navigation-stack';
 import { OnboardingScreen } from 'screens';
 import { typography } from 'styles';
 

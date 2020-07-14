@@ -1,6 +1,5 @@
 import React from 'react';
 import { Switch } from 'react-native';
-
 import { palette } from 'styles';
 
 interface Props {

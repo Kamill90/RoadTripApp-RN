@@ -1,12 +1,6 @@
+/* eslint-disable react-native/no-unused-styles */
 import React from 'react';
-import {
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ActivityIndicator,
-  TextStyle,
-} from 'react-native';
-
+import { Text, StyleSheet, TouchableOpacity, ActivityIndicator, TextStyle } from 'react-native';
 import { palette } from 'styles';
 
 interface Props {
@@ -18,13 +12,8 @@ interface Props {
   titleStyle?: TextStyle;
 }
 
-export const Button: React.FunctionComponent<Props> = ({ ...props }) => (
-  <TouchableOpacity
-    style={styles[props.type]}
-    onPress={props.onPress}
-    disabled={props.loading}
-    activeOpacity={0.5}
-  >
+export const Button: React.FunctionComponent<Props> = ({ ...props }: Props) => (
+  <TouchableOpacity style={styles[props.type]} onPress={props.onPress} disabled={props.loading} activeOpacity={0.5}>
     {props.loading ? (
       <ActivityIndicator size="small" color={palette.mainBlack} />
     ) : (

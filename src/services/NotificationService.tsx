@@ -1,4 +1,5 @@
 import PushNotification from 'react-native-push-notification';
+
 export default class NotificationService {
   tmpConfig = {
     /* Android Only Properties */
@@ -31,6 +32,7 @@ export default class NotificationService {
   configure() {
     PushNotification.configure({
       // (required) Called when a remote or local notification is opened or received
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
       onNotification: () => {},
       permissions: {
         alert: true,

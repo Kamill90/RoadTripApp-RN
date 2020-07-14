@@ -1,11 +1,9 @@
 exports.translations = {
   notification: {
     changeTitle: 'New location, new quizzes!',
-    changeMessage:
-      'Welcome to {{ newLocation }}. Open the app to solve quizzes about new location.',
+    changeMessage: 'Welcome to {{ newLocation }}. Open the app to solve quizzes about new location.',
     staticTitle: 'Hey, wake up!',
-    staticMessage:
-      'Find out if how much you know about region you are currently in',
+    staticMessage: 'Find out if how much you know about region you are currently in',
   },
   home: {
     title: 'RoadFun',
@@ -21,8 +19,7 @@ exports.translations = {
     reminderDescription:
       'Powiadomienie przypominające o włączonej rozgrywce co jakiś czas niezależnie od tego czy się przemieszczasz czy nie.',
     newLocation: 'New location notification (recommended)',
-    newLocationDescription:
-      'Powiadomienie o nowej lokalizacji i nowych quizach.',
+    newLocationDescription: 'Powiadomienie o nowej lokalizacji i nowych quizach.',
     createQuestions: 'Add quiz',
     createQuestionsDescription:
       'Przejdź do formularza dodawania pytań. Stwórz pytanie o Twoim regionie, dodaj ciekawostkę i link do swojej storny internetowej, dzięki czemu zwiększysz swoje zasięgi',
@@ -56,10 +53,8 @@ exports.translations = {
   badge: {
     close: 'CLOSE',
     congratulation: 'Congratulation!',
-    silverDescription:
-      'You have answered correctly for more then 70% questions. You have earned the silver badge.',
-    goldDescription:
-      'You have answered correctly for all the questions. You have earned the gold badge',
+    silverDescription: 'You have answered correctly for more then 70% questions. You have earned the silver badge.',
+    goldDescription: 'You have answered correctly for all the questions. You have earned the gold badge',
     pints: 'points',
   },
   tips: {
@@ -72,8 +67,7 @@ exports.translations = {
     badges: {
       title: 'Earn badges',
       image: 'badges',
-      description:
-        'The more you know, the more bagdes you can earn. Think twice and get the gold collection.',
+      description: 'The more you know, the more bagdes you can earn. Think twice and get the gold collection.',
     },
     teamSpirit: {
       title: 'Contribute',

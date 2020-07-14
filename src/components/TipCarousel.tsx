@@ -1,11 +1,11 @@
+import { images } from 'assets';
+import { i18n } from 'locale';
 import React, { PureComponent } from 'react';
 import { View, Text, Dimensions, StyleSheet, Image } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
-
 import { typography } from 'styles';
+
 import { ProgressDots } from './ProgressDots';
-import { images } from 'assets';
-import { i18n } from 'locale';
 
 const SCREEN_WIDTH = Dimensions.get('screen').width;
 
@@ -19,13 +19,7 @@ interface Item {
   description: string;
 }
 
-const tips = [
-  'locationBased',
-  'badges',
-  'teamSpirit',
-  'battery',
-  'safetyFirst',
-];
+const tips = ['locationBased', 'badges', 'teamSpirit', 'battery', 'safetyFirst'];
 
 const TipCard = ({ item }: { item: string }) => (
   <View style={styles.itemContainer}>
@@ -34,9 +28,7 @@ const TipCard = ({ item }: { item: string }) => (
     </View>
     <View style={styles.textContainer}>
       <Text style={styles.title}>{i18n.t(`tips:${item}:title`)}</Text>
-      <Text style={styles.tipDescription}>
-        {i18n.t(`tips:${item}:description`)}
-      </Text>
+      <Text style={styles.tipDescription}>{i18n.t(`tips:${item}:description`)}</Text>
     </View>
   </View>
 );
@@ -58,9 +50,7 @@ export class TipCarousel extends PureComponent<any, State> {
         <ProgressDots data={tips} active={this.state.activeCardIndex} />
         <Carousel
           data={tips}
-          renderItem={(item: any) => (
-            <TipCard key={item.item.id} item={item.item} />
-          )}
+          renderItem={(item: any) => <TipCard key={item.item.id} item={item.item} />}
           sliderWidth={SCREEN_WIDTH}
           itemWidth={SCREEN_WIDTH}
           onSnapToItem={this.onSnapToItem}

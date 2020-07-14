@@ -2,15 +2,13 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { palette } from 'styles';
 
-export const FakeScoreboards = () => {
-  return (
-    <>
-      <View style={[styles.container, styles.first]} />
-      <View style={[styles.container, styles.second]} />
-      <View style={[styles.container, styles.third]} />
-    </>
-  );
-};
+export const FakeScoreboards = () => (
+  <>
+    <View style={[styles.container, styles.first]} />
+    <View style={[styles.container, styles.second]} />
+    <View style={[styles.container, styles.third]} />
+  </>
+);
 
 const styles = StyleSheet.create({
   container: {

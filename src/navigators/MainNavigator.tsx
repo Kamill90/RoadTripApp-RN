@@ -1,10 +1,10 @@
-import React from 'react';
-import { createStackNavigator } from 'react-navigation-stack';
-import { TouchableOpacity, Image, StyleSheet } from 'react-native';
-
-import { i18n } from 'locale';
 import { icons } from 'assets';
 import { customHeader } from 'components';
+import { i18n } from 'locale';
+import React from 'react';
+import { TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { createStackNavigator } from 'react-navigation-stack';
+
 import HomeScreen from '../screens/HomeScreen';
 import QuizScreen from '../screens/QuizScreen';
 import SettingsScreen from '../screens/SettingsScreen';

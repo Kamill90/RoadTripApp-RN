@@ -1,13 +1,13 @@
-import React, { PureComponent } from 'react';
-import { StatusBar } from 'react-native';
-import { createAppContainer } from 'react-navigation';
-import { I18nextProvider } from 'react-i18next';
-import { Provider } from 'mobx-react';
-import SplashScreen from 'react-native-splash-screen';
-
-import { RootStackNavigator } from './navigators/RootStackNavigator';
 import { i18n } from 'locale';
+import { Provider } from 'mobx-react';
+import React, { PureComponent } from 'react';
+import { I18nextProvider } from 'react-i18next';
+import { StatusBar } from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
+import { createAppContainer } from 'react-navigation';
+
 import { rootStoreTrunk, rootStore } from './api';
+import { RootStackNavigator } from './navigators/RootStackNavigator';
 
 const AppContainer = createAppContainer(RootStackNavigator);
 
@@ -16,6 +16,7 @@ class App extends PureComponent {
     SplashScreen.hide();
     await rootStoreTrunk.init();
   }
+
   render() {
     return (
       <I18nextProvider i18n={i18n}>

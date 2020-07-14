@@ -1,19 +1,17 @@
 import { Easing, Animated } from 'react-native';
-import {
-  createStackNavigator,
-  NavigationSceneRendererProps,
-} from 'react-navigation-stack';
+import { createStackNavigator } from 'react-navigation-stack';
+import { TipCard, BadgeCard } from 'screens';
 
 import { MainNavigator } from './MainNavigator';
 import { OnboardingNavigator } from './OnboardingNavigator';
-
-import { TipCard, BadgeCard } from 'screens';
 
 export const RootStackNavigator = createStackNavigator(
   {
     Main: MainNavigator,
     Onboarding: OnboardingNavigator,
+    // @ts-ignore
     BadgeCard,
+    // @ts-ignore
     TipCard,
   },
   {
@@ -30,7 +28,7 @@ export const RootStackNavigator = createStackNavigator(
         timing: Animated.timing,
         useNativeDriver: true,
       },
-      screenInterpolator: (sceneProps: NavigationSceneRendererProps) => {
+      screenInterpolator: (sceneProps: any) => {
         const { position, scene } = sceneProps;
         const { index } = scene;
 

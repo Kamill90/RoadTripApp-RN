@@ -1,17 +1,4 @@
-import React, { PureComponent } from 'react';
-import {
-  StyleSheet,
-  View,
-  Alert,
-  AsyncStorage,
-  AppState,
-  FlatList,
-} from 'react-native';
-import { inject, observer } from 'mobx-react';
-import { NavigationInjectedProps } from 'react-navigation';
-import BackgroundFetch from 'react-native-background-fetch';
 import firestore from '@react-native-firebase/firestore';
-
 import {
   LocationData,
   LocationStore,
@@ -22,15 +9,13 @@ import {
   Challenge,
   QuestionData,
 } from 'api';
-import {
-  Button,
-  Template,
-  TipCarousel,
-  Scoreboard,
-  LocalScoreboard,
-  FakeScoreboards,
-} from 'components';
+import { Button, Template, TipCarousel, Scoreboard, LocalScoreboard, FakeScoreboards } from 'components';
 import { i18n } from 'locale';
+import { inject, observer } from 'mobx-react';
+import React, { PureComponent } from 'react';
+import { StyleSheet, View, Alert, AsyncStorage, AppState, FlatList } from 'react-native';
+import BackgroundFetch from 'react-native-background-fetch';
+import { NavigationInjectedProps } from 'react-navigation';
 import { LocationManager, NotificationService, logEvent } from 'services';
 
 interface Props extends NavigationInjectedProps {
@@ -64,8 +49,8 @@ class HomeScreen extends PureComponent<Props, State> {
         requiresStorageNotLow: false, // Default
       },
       this.backgroundProcess,
-      error => {
-        // tslint:disable-next-line
+      (error) => {
+        // eslint-disable-next-line no-console
         console.log('[js] RNBackgroundFetch failed to start', error);
       },
     );
@@ -111,9 +96,7 @@ class HomeScreen extends PureComponent<Props, State> {
       } as LocationData;
       logEvent('newLocation', newLocationData);
       this.props.rootStore.location.setLocationData(newLocationData);
-      if (
-        JSON.stringify(currentLocationData) !== JSON.stringify(newLocationData)
-      ) {
+      if (JSON.stringify(currentLocationData) !== JSON.stringify(newLocationData)) {
         gameSettings.setIsLocationChanged(true);
       }
 
@@ -153,28 +136,21 @@ class HomeScreen extends PureComponent<Props, State> {
       });
     }
     // exeptions to handle
-    const quizSnapshot = await firestore()
-      .collection('quizzes')
-      .get();
+    const quizSnapshot = await firestore().collection('quizzes').get();
 
-    const challengesSnapshot = await firestore()
-      .collection('challenges')
-      .get();
+    const challengesSnapshot = await firestore().collection('challenges').get();
 
-    quizSnapshot.docs.map(quiz => {
+    quizSnapshot.docs.map((quiz) => {
       const quizData = quiz.data();
       if (quizData) {
         quizData.id = quiz.id;
-        quizData.answers = [
-          quizData.correct_answer,
-          ...quizData.incorrect_answers,
-        ].sort(() => Math.random() - 0.5);
+        quizData.answers = [quizData.correct_answer, ...quizData.incorrect_answers].sort(() => Math.random() - 0.5);
 
         gameData.setQuizzes(quizData as QuestionData);
       }
     });
 
-    challengesSnapshot.docs.map(challenge => {
+    challengesSnapshot.docs.map((challenge) => {
       const challengeData = challenge.data() as Challenge;
       if (challengeData) {
         gameData.setChallenges(challengeData);
@@ -215,31 +191,14 @@ class HomeScreen extends PureComponent<Props, State> {
     } = this.props.rootStore;
 
     if (!isGameActive) {
-      return (
-        <Button
-          title={i18n.t('home:start')}
-          onPress={this.startGame}
-          type="regular"
-          loading={loading}
-        />
-      );
-    } else {
-      return (
-        <>
-          <Button
-            title={i18n.t('home:goTo')}
-            onPress={this.continueGame}
-            type="regular"
-            loading={loading}
-          />
-          <Button
-            title={i18n.t('home:stop')}
-            onPress={this.stopGame}
-            type="textButton"
-          />
-        </>
-      );
+      return <Button title={i18n.t('home:start')} onPress={this.startGame} type="regular" loading={loading} />;
     }
+    return (
+      <>
+        <Button title={i18n.t('home:goTo')} onPress={this.continueGame} type="regular" loading={loading} />
+        <Button title={i18n.t('home:stop')} onPress={this.stopGame} type="textButton" />
+      </>
+    );
   };
 
   renderLocalScoreboards = () => {
@@ -247,15 +206,12 @@ class HomeScreen extends PureComponent<Props, State> {
       gameSettings: { locationScores },
     } = this.props.rootStore;
 
-    const data = Object.keys(locationScores).map(locationScore => ({
+    const data = Object.keys(locationScores).map((locationScore) => ({
       ...locationScores[locationScore],
       locationName: locationScore,
     }));
     return data.length ? (
-      <FlatList
-        data={data}
-        renderItem={item => <LocalScoreboard item={{ ...item }} />}
-      />
+      <FlatList data={data} renderItem={(item) => <LocalScoreboard item={{ ...item }} />} />
     ) : (
       <FakeScoreboards />
     );
@@ -266,31 +222,22 @@ class HomeScreen extends PureComponent<Props, State> {
       gameSettings: { isGameActive, score, badges },
     } = this.props.rootStore;
 
-    const goldBadges = badges.filter((badge: string) => badge === BADGES.GOLD)
-      .length;
-    const silverBadges = badges.filter(
-      (badge: string) => badge === BADGES.SILVER,
-    ).length;
+    const goldBadges = badges.filter((badge: string) => badge === BADGES.GOLD).length;
+    const silverBadges = badges.filter((badge: string) => badge === BADGES.SILVER).length;
     return (
       <Template>
         <View style={styles.mainContainer}>
           <View style={styles.carouselContainer}>
             {isGameActive ? (
               <>
-                <Scoreboard
-                  goldBadges={goldBadges}
-                  silverBadges={silverBadges}
-                  score={score}
-                />
+                <Scoreboard goldBadges={goldBadges} silverBadges={silverBadges} score={score} />
                 {this.renderLocalScoreboards()}
               </>
             ) : (
               <TipCarousel />
             )}
           </View>
-          <View style={styles.buttonsContainer}>
-            {this.renderBottomButtons()}
-          </View>
+          <View style={styles.buttonsContainer}>{this.renderBottomButtons()}</View>
         </View>
       </Template>
     );
@@ -309,11 +256,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     paddingHorizontal: 15,
-  },
-  minibadges: { width: 50, height: 50 },
-  badgeContainer: {
-    flexDirection: 'row',
-    width: '100%',
   },
 });
 

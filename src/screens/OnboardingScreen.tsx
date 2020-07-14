@@ -1,7 +1,8 @@
+import { TipCarousel } from 'components';
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 
-import { TipCarousel } from 'components';
+import { palette } from 'app/styles';
 
 export class OnboardingScreen extends Component {
   render() {
@@ -15,7 +16,7 @@ export class OnboardingScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
+    backgroundColor: palette.white,
     paddingBottom: 100,
     flex: 1,
   },

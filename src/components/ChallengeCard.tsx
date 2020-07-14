@@ -1,7 +1,6 @@
+import { i18n } from 'locale';
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { i18n } from 'locale';
-
 import { palette, typography } from 'styles';
 
 interface Props {
@@ -39,7 +38,7 @@ const styles = StyleSheet.create({
     ...typography.description,
     fontWeight: '600',
     textAlign: 'center',
-    borderColor: 'black',
+    borderColor: palette.mainBlack,
     padding: 10,
     borderRadius: 10,
     marginVertical: 10,

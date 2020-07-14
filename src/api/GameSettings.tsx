@@ -1,13 +1,14 @@
+import { i18n } from 'locale';
 import { decorate, observable, action, computed } from 'mobx';
 import BackgroundFetch from 'react-native-background-fetch';
 import { NotificationService } from 'services';
-import { i18n } from 'locale';
+
 export class GameSettings {
-  private _answeredQuestions = [''];
+  private _answeredQuestions: string[] = [];
   private _isGameActive = false;
   private _isLocationChanged = false;
   private _score = 0;
-  private _badges = [''];
+  private _badges: string[] = [];
   private _isReminderActive = false;
   private _isLocationNotificationActive = true;
   private _locationScores = {};
@@ -59,6 +60,7 @@ export class GameSettings {
   setScore(value: number) {
     this._score += value;
   }
+
   get badges(): string[] {
     return this._badges;
   }
@@ -97,7 +99,7 @@ export class GameSettings {
   }
 
   reset() {
-    this._answeredQuestions = [''];
+    this._answeredQuestions = [];
     this._isGameActive = false;
     this._isLocationChanged = false;
     this._score = 0;
@@ -109,6 +111,7 @@ export class GameSettings {
 }
 
 decorate(GameSettings, {
+  // @ts-ignore
   _answeredQuestions: observable,
   _locationScores: observable,
   _isGameActive: observable,

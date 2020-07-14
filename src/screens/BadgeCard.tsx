@@ -1,11 +1,10 @@
+import { icons } from 'assets';
+import { ModalTemplate, Button } from 'components';
+import { i18n } from 'locale';
 import React, { PureComponent } from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
-
-import { ModalTemplate, Button } from 'components';
-import { icons } from 'assets';
 import { palette, typography } from 'styles';
-import { i18n } from 'locale';
 
 interface State {
   badge: string;
@@ -13,10 +12,7 @@ interface State {
 }
 
 export class BadgeCard extends PureComponent<NavigationInjectedProps, State> {
-  static getDerivedStateFromProps(
-    props: NavigationInjectedProps,
-    state: State,
-  ) {
+  static getDerivedStateFromProps(props: NavigationInjectedProps, state: State) {
     if (state.badge.length) {
       return null;
     }
@@ -41,20 +37,10 @@ export class BadgeCard extends PureComponent<NavigationInjectedProps, State> {
     return (
       <ModalTemplate>
         <View style={styles.contentContainer}>
-          <Text style={typography.badgeTitle}>
-            {i18n.t('badge:congratulation')}
-          </Text>
-          <Text style={typography.badgeDescription}>
-            {i18n.t(`badge:${badge}Description`)}
-          </Text>
-          <Text style={typography.bigScore}>{`+ ${extraPoints} ${i18n.t(
-            'badge:points',
-          )}`}</Text>
-          <Image
-            source={icons[`medal${badge}`]}
-            style={styles.badgeIcon}
-            resizeMode="contain"
-          />
+          <Text style={typography.badgeTitle}>{i18n.t('badge:congratulation')}</Text>
+          <Text style={typography.badgeDescription}>{i18n.t(`badge:${badge}Description`)}</Text>
+          <Text style={typography.bigScore}>{`+ ${extraPoints} ${i18n.t('badge:points')}`}</Text>
+          <Image source={icons[`medal${badge}`]} style={styles.badgeIcon} resizeMode="contain" />
           <Button
             type="textButton"
             backgroundColor={palette.transparent}

@@ -1,8 +1,7 @@
 exports.translations = {
   notification: {
     changeTitle: 'Nowa lokalizacja, nowe quizy!',
-    changeMessage:
-      '{{ newLocation }}. Otwórz aplikację i dowiedz się więcej o tym regionie.',
+    changeMessage: '{{ newLocation }}. Otwórz aplikację i dowiedz się więcej o tym regionie.',
     staticTitle: 'Nie śpij, zwiedzaj!',
     staticMessage: 'Sprawdź czy wiesz coś o regionie, w którym się znajdujesz',
   },
@@ -20,8 +19,7 @@ exports.translations = {
     reminderDescription:
       'Powiadomienie przypominające o włączonej rozgrywce niezależnie od tego czy się przemieszczasz czy nie.',
     newLocation: 'Nowa lokalizacja (zalecane)',
-    newLocationDescription:
-      'Powiadomienie o nowej lokalizacji i nowych quizach.',
+    newLocationDescription: 'Powiadomienie o nowej lokalizacji i nowych quizach.',
     createQuestions: 'Dodaj pytanie',
     createQuestionsDescription:
       'Przejdź do formularza dodawania pytań. Stwórz pytanie o Twoim regionie, dodaj ciekawostkę i link do swojej storny internetowej, dzięki czemu zwiększysz swoje zasięgi',
@@ -64,8 +62,7 @@ exports.translations = {
     congratulation: 'Gratulacje!',
     SilverDescription:
       'Odpowiedziałeś poprawnie na więcej niż 70% pytań. Zdobywasz dodatkowe punkty i srebrną odznakę.',
-    GoldDescription:
-      'Odpowiedziałeś poprawnie na wszystkie pytania. Zdobywasz dodatkowe punkty i złotą odznakę.',
+    GoldDescription: 'Odpowiedziałeś poprawnie na wszystkie pytania. Zdobywasz dodatkowe punkty i złotą odznakę.',
     points: 'punktów',
   },
   tips: {

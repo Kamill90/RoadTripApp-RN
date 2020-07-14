@@ -1,37 +1,20 @@
-import React from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  Dimensions,
-  ScrollViewProps,
-  RefreshControl,
-} from 'react-native';
-import { inject, observer } from 'mobx-react';
-import { NavigationInjectedProps } from 'react-navigation';
-import Carousel, { CarouselStatic } from 'react-native-snap-carousel';
-
-import {
-  Result,
-  QUESTION_TYPE,
-  QuestionData,
-  BADGES,
-  LocationStore,
-  GameSettingsStore,
-  GameDataStore,
-} from 'api';
-import { logEvent } from 'services';
-import { i18n } from 'locale';
+import { Result, QUESTION_TYPE, QuestionData, BADGES, LocationStore, GameSettingsStore, GameDataStore } from 'api';
 import { QuizCard, ResultCard, Template, ChallengeCard } from 'components';
-import { typography, palette } from 'styles';
+import { i18n } from 'locale';
+import { inject, observer } from 'mobx-react';
+import React from 'react';
+import { View, StyleSheet, Text, Dimensions, ScrollViewProps, RefreshControl } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import Carousel, { CarouselStatic } from 'react-native-snap-carousel';
+import { NavigationInjectedProps } from 'react-navigation';
+import { logEvent } from 'services';
+import { typography, palette } from 'styles';
 
 const WIDTH = Dimensions.get('screen').width;
 
-const FORCED_LANGUAGE = 'pl'; //forced polish language - change when content is translated
+const FORCED_LANGUAGE = 'pl'; // forced polish language - change when content is translated
 
-interface Props
-  extends NavigationInjectedProps<{ updateLocation: () => boolean }> {
+interface Props extends NavigationInjectedProps<{ updateLocation: () => boolean }> {
   rootStore: {
     location: LocationStore;
     gameSettings: GameSettingsStore;
@@ -56,26 +39,22 @@ class QuizScreen extends React.Component<Props, State> {
 
     const { location, gameSettings, gameData } = props.rootStore;
     const baseQuestions = gameData.quizzes.filter(
-      (question: QuestionData | undefined) =>
-        question!.approved && question!.language === FORCED_LANGUAGE,
+      (question: QuestionData | undefined) => question!.approved && question!.language === FORCED_LANGUAGE,
     );
 
     const adminDistrictBasedQuestions = baseQuestions.filter(
       (question: QuestionData | undefined) =>
-        question!.reason === 'adminDistrict' &&
-        question!.reasonValue.toLowerCase() === location.adminDistrict,
+        question!.reason === 'adminDistrict' && question!.reasonValue.toLowerCase() === location.adminDistrict,
     );
 
     const adminDistrict2BasedQuestions = baseQuestions.filter(
       (question: QuestionData | undefined) =>
-        question!.reason === 'adminDistrict2' &&
-        question!.reasonValue.toLowerCase() === location.adminDistrict2,
+        question!.reason === 'adminDistrict2' && question!.reasonValue.toLowerCase() === location.adminDistrict2,
     );
 
     const countryBasedQuestions = baseQuestions.filter(
       (question: QuestionData | undefined) =>
-        question!.reason === 'countryRegion' &&
-        question!.reasonValue.toLowerCase() === location.countryRegion,
+        question!.reason === 'countryRegion' && question!.reasonValue.toLowerCase() === location.countryRegion,
     );
 
     const locationBasedQuestions = [
@@ -83,18 +62,14 @@ class QuizScreen extends React.Component<Props, State> {
       ...adminDistrict2BasedQuestions,
       ...countryBasedQuestions,
     ];
-    const filteredQuestions = locationBasedQuestions.filter(
-      (question: QuestionData | undefined) => {
-        if (!gameSettings.answeredQuestions.includes(question!.id)) {
-          return question;
-        }
-      },
-    );
+    const filteredQuestions = locationBasedQuestions.filter((question: QuestionData | undefined) => {
+      if (!gameSettings.answeredQuestions.includes(question!.id)) {
+        return question;
+      }
+    });
     filteredQuestions.splice(20);
 
-    const challenges = gameData.challenges.filter(
-      challenge => challenge.language === FORCED_LANGUAGE,
-    );
+    const challenges = gameData.challenges.filter((challenge) => challenge.language === FORCED_LANGUAGE);
 
     const firstChallenge = challenges.length && challenges[0].content;
 
@@ -114,9 +89,7 @@ class QuizScreen extends React.Component<Props, State> {
     };
   }
 
-  carouselRef = React.createRef<
-    Carousel<any> & CarouselStatic<any> & ScrollViewProps
-  >();
+  carouselRef = React.createRef<Carousel<any> & CarouselStatic<any> & ScrollViewProps>();
 
   state = {
     refreshing: false,
@@ -165,9 +138,7 @@ class QuizScreen extends React.Component<Props, State> {
   showBadge = async () => {
     const { questions, answeredInSession, sessionScore } = this.state;
     const progress =
-      questions.length - 1 === 0 || answeredInSession === 0
-        ? 0
-        : answeredInSession / (questions.length - 1);
+      questions.length - 1 === 0 || answeredInSession === 0 ? 0 : answeredInSession / (questions.length - 1);
     if (progress === 1) {
       const sessionScoreRate = sessionScore / answeredInSession;
       let badge = '';
@@ -212,21 +183,25 @@ class QuizScreen extends React.Component<Props, State> {
       answer,
     });
     if (correctAnswer === answer) {
-      this.props.rootStore.gameSettings.setAnsweredQuestions(
-        id,
-        reasonValue,
-        1,
-      );
+      this.props.rootStore.gameSettings.setAnsweredQuestions(id, reasonValue, 1);
       this.setState({ sessionScore: this.state.sessionScore + 1 });
       this.props.rootStore.gameSettings.setScore(1);
-      this.showTip({ isCorrect: true, correctAnswer, tip, author, link });
+      this.showTip({
+        isCorrect: true,
+        correctAnswer,
+        tip,
+        author,
+        link,
+      });
     } else {
-      this.props.rootStore.gameSettings.setAnsweredQuestions(
-        id,
-        reasonValue,
-        0,
-      );
-      this.showTip({ isCorrect: false, correctAnswer, tip, author, link });
+      this.props.rootStore.gameSettings.setAnsweredQuestions(id, reasonValue, 0);
+      this.showTip({
+        isCorrect: false,
+        correctAnswer,
+        tip,
+        author,
+        link,
+      });
     }
   };
 
@@ -255,19 +230,12 @@ class QuizScreen extends React.Component<Props, State> {
       return (
         <ScrollView
           key={item.id}
-          showsVerticalScrollIndicator={true}
+          showsVerticalScrollIndicator
           refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={this.refresh}
-              tintColor={palette.mainBlack}
-            />
+            <RefreshControl refreshing={refreshing} onRefresh={this.refresh} tintColor={palette.mainBlack} />
           }
         >
-          <ResultCard
-            question={item.question}
-            description={item.description || ''}
-          />
+          <ResultCard question={item.question} description={item.description || ''} />
           {!!challenge && <ChallengeCard content={challenge} />}
         </ScrollView>
       );
@@ -335,9 +303,6 @@ class QuizScreen extends React.Component<Props, State> {
 }
 
 const styles = StyleSheet.create({
-  summary: {
-    marginHorizontal: 15,
-  },
   mainContainer: {
     flex: 1,
   },

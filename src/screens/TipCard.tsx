@@ -1,20 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { PureComponent } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Linking,
-  ScrollView,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
-import { NavigationInjectedProps } from 'react-navigation';
-
-import { Button, ModalTemplate } from 'components';
 import { icons } from 'assets';
-import { palette, typography } from 'styles';
+import { Button, ModalTemplate } from 'components';
 import { i18n } from 'locale';
+import React, { PureComponent } from 'react';
+import { StyleSheet, View, Text, Linking, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { NavigationInjectedProps } from 'react-navigation';
+import { palette, typography } from 'styles';
 
 interface State {
   isCorrect: boolean;
@@ -24,10 +15,7 @@ interface State {
 }
 
 export class TipCard extends PureComponent<NavigationInjectedProps, State> {
-  static getDerivedStateFromProps(
-    props: NavigationInjectedProps,
-    state: State,
-  ) {
+  static getDerivedStateFromProps(props: NavigationInjectedProps, state: State) {
     if (state.description) {
       return null;
     }
@@ -58,10 +46,7 @@ export class TipCard extends PureComponent<NavigationInjectedProps, State> {
       <View style={styles.row}>
         <Text style={styles.authorText}>{i18n.t('quiz:author')}</Text>
         {link ? (
-          <TouchableOpacity
-            onPress={() => Linking.openURL(link)}
-            style={styles.linkRow}
-          >
+          <TouchableOpacity onPress={() => Linking.openURL(link)} style={styles.linkRow}>
             <>
               <Text style={styles.linkText}>{this.state.author}</Text>
               <Image style={styles.icon} source={icons.externalLink} />
@@ -75,13 +60,7 @@ export class TipCard extends PureComponent<NavigationInjectedProps, State> {
   };
 
   render() {
-    const {
-      isCorrect,
-      description,
-      correctAnswer,
-      onPress,
-      author,
-    } = this.state;
+    const { isCorrect, description, correctAnswer, onPress, author } = this.state;
     const { navigation } = this.props;
     return (
       <ModalTemplate>
@@ -90,9 +69,7 @@ export class TipCard extends PureComponent<NavigationInjectedProps, State> {
             style={[
               styles.titleContainer,
               {
-                backgroundColor: isCorrect
-                  ? palette.primary
-                  : palette.wrongAnswerColor,
+                backgroundColor: isCorrect ? palette.primary : palette.wrongAnswerColor,
               },
             ]}
           >
@@ -105,11 +82,7 @@ export class TipCard extends PureComponent<NavigationInjectedProps, State> {
             )}
           </View>
 
-          <ScrollView
-            bounces={false}
-            showsVerticalScrollIndicator={false}
-            style={styles.descriptionContainer}
-          >
+          <ScrollView bounces={false} showsVerticalScrollIndicator={false} style={styles.descriptionContainer}>
             {!isCorrect && (
               <Text style={[typography.popupInfo, styles.correctAnswet]}>
                 {i18n.t('quiz:correctIs') + correctAnswer}
@@ -135,16 +108,8 @@ export class TipCard extends PureComponent<NavigationInjectedProps, State> {
           <View style={styles.buttonContainer}>
             <Button
               title={i18n.t('quiz:continue')}
-              type={
-                isCorrect
-                  ? description
-                    ? 'regular'
-                    : 'textButton'
-                  : 'secondary'
-              }
-              titleStyle={
-                (isCorrect && !description && styles.buttonTitle) || undefined
-              }
+              type={isCorrect ? (description ? 'regular' : 'textButton') : 'secondary'}
+              titleStyle={(isCorrect && !description && styles.buttonTitle) || undefined}
               onPress={() => {
                 navigation.goBack();
                 onPress();

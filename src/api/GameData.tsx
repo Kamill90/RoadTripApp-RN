@@ -1,13 +1,15 @@
 import { decorate, observable, computed, action } from 'mobx';
+
 import { QuestionData } from './models';
 
 export class GameData {
-  _quizzes = [];
+  _quizzes: QuestionData[] = [];
 
-  get quizzes(): string[] {
+  get quizzes(): QuestionData[] {
     return this._quizzes;
   }
-  _challenges = [];
+
+  _challenges: string[] = [];
 
   get challenges(): string[] {
     return this._challenges;

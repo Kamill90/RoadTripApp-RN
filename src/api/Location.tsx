@@ -1,17 +1,22 @@
 import { decorate, observable, computed, action } from 'mobx';
+
 import { LocationData } from './models';
 
 export class Location {
   _countryRegion = '';
+
   _adminDistrict = '';
+
   _adminDistrict2 = '';
 
   get countryRegion(): string {
     return this._countryRegion;
   }
+
   get adminDistrict(): string {
     return this._adminDistrict;
   }
+
   get adminDistrict2(): string {
     return this._adminDistrict2;
   }

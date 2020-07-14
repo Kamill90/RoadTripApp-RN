@@ -12,6 +12,7 @@ export class ModalTemplate extends PureComponent<Props, State> {
   state = {
     backgroundAnimation: new Animated.Value(0),
   };
+
   componentDidMount() {
     Animated.timing(this.state.backgroundAnimation, {
       toValue: 1,
@@ -19,6 +20,7 @@ export class ModalTemplate extends PureComponent<Props, State> {
       useNativeDriver: false,
     }).start();
   }
+
   render() {
     const backgroundColorAnimated = this.state.backgroundAnimation.interpolate({
       inputRange: [0, 1],
