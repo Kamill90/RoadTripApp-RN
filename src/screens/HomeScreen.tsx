@@ -14,7 +14,6 @@ import { i18n } from 'locale';
 import { inject, observer } from 'mobx-react';
 import React, { PureComponent } from 'react';
 import { StyleSheet, View, Alert, AsyncStorage, AppState, FlatList } from 'react-native';
-import BackgroundFetch from 'react-native-background-fetch';
 import { NavigationInjectedProps } from 'react-navigation';
 import { LocationManager, NotificationService, logEvent } from 'services';
 
@@ -35,79 +34,48 @@ class HomeScreen extends PureComponent<Props, State> {
     loading: false,
   };
 
-  componentDidMount() {
-    BackgroundFetch.configure(
-      {
-        minimumFetchInterval: 15, // <-- minutes (15 is minimum allowed)
-        // Android options
-        stopOnTerminate: false,
-        startOnBoot: true,
-        requiredNetworkType: BackgroundFetch.NETWORK_TYPE_NONE, // Default
-        requiresCharging: false, // Default
-        requiresDeviceIdle: false, // Default
-        requiresBatteryNotLow: false, // Default
-        requiresStorageNotLow: false, // Default
-      },
-      this.backgroundProcess,
-      (error) => {
-        // eslint-disable-next-line no-console
-        console.log('[js] RNBackgroundFetch failed to start', error);
-      },
-    );
-  }
-
-  backgroundProcess = async () => {
-    const {
-      gameSettings,
-      location: { adminDistrict, countryRegion },
-    } = this.props.rootStore;
-    if (!gameSettings.isGameActive) {
-      return BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
+  updateLocation = async (): Promise<{ status: FetchLocation }> => {
+    try {
+      const address = (await LocationManager.getCurrentLocation()) as LocationData;
+      this.storeNewAddress(address);
+      return {
+        status: 'success',
+      };
+    } catch (error) {
+      Alert.alert('Error', error.message);
+      return {
+        status: 'failure',
+      };
     }
-
-    await this.updateLocation();
-    if (AppState.currentState.match(/inactive|background/)) {
-      if (gameSettings.isLocationChanged) {
-        NotificationService.localNotification(
-          i18n.t('notification:changeTitle'),
-          i18n.t('notification:changeMessage', {
-            newLocation: adminDistrict || countryRegion,
-          }),
-        );
-      }
-    }
-    BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
   };
 
-  updateLocation = async (): Promise<{ status: FetchLocation }> => {
+  storeNewAddress = (address: LocationData) => {
     const { location, gameSettings } = this.props.rootStore;
-
     const currentLocationData = {
       countryRegion: location.countryRegion,
       adminDistrict: location.adminDistrict,
       adminDistrict2: location.adminDistrict2,
     };
-    try {
-      const address = (await LocationManager.getCurrentLocation()) as LocationData;
-      const newLocationData = {
-        countryRegion: address.countryRegion,
-        adminDistrict: address.adminDistrict,
-        adminDistrict2: address.adminDistrict2,
-      } as LocationData;
-      logEvent('newLocation', newLocationData);
-      this.props.rootStore.location.setLocationData(newLocationData);
-      if (JSON.stringify(currentLocationData) !== JSON.stringify(newLocationData)) {
-        gameSettings.setIsLocationChanged(true);
-      }
+    const newLocationData = {
+      countryRegion: address.countryRegion,
+      adminDistrict: address.adminDistrict,
+      adminDistrict2: address.adminDistrict2,
+    };
+    logEvent('newLocation', newLocationData);
+    this.props.rootStore.location.setLocationData(newLocationData);
 
-      return {
-        status: 'success',
-      };
-    } catch (error) {
-      Alert.alert('Error', error);
-      return {
-        status: 'failure',
-      };
+    if (
+      AppState.currentState.match(/inactive|background/) &&
+      currentLocationData.countryRegion &&
+      JSON.stringify(currentLocationData) !== JSON.stringify(newLocationData)
+    ) {
+      gameSettings.setIsLocationChanged(true);
+      NotificationService.localNotification(
+        i18n.t('notification:changeTitle'),
+        i18n.t('notification:changeMessage', {
+          newLocation: newLocationData.adminDistrict || newLocationData.countryRegion,
+        }),
+      );
     }
   };
 
@@ -117,6 +85,7 @@ class HomeScreen extends PureComponent<Props, State> {
     gameSettings.reset();
     gameData.reset();
     NotificationService.cancelNotifications();
+    LocationManager.stopWatching();
     await AsyncStorage.clear();
   };
 
@@ -206,12 +175,17 @@ class HomeScreen extends PureComponent<Props, State> {
       gameSettings: { locationScores },
     } = this.props.rootStore;
 
-    const data = Object.keys(locationScores).map((locationScore) => ({
+    const data = Object.keys(locationScores).map((locationScore, index) => ({
       ...locationScores[locationScore],
       locationName: locationScore,
+      index,
     }));
     return data.length ? (
-      <FlatList data={data} renderItem={(item) => <LocalScoreboard item={{ ...item }} />} />
+      <FlatList
+        data={data}
+        renderItem={(item) => <LocalScoreboard item={{ ...item }} key={item.index} />}
+        keyExtractor={(item) => item.id}
+      />
     ) : (
       <FakeScoreboards />
     );

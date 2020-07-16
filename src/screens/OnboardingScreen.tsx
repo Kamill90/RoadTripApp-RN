@@ -1,8 +1,7 @@
 import { TipCarousel } from 'components';
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
-
-import { palette } from 'app/styles';
+import { palette } from 'styles';
 
 export class OnboardingScreen extends Component {
   render() {

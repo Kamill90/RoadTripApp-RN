@@ -1,4 +1,4 @@
-import { AddressComponent } from 'api';
+import { AddressComponent, LocationData } from 'api';
 import { Alert, Platform, PermissionsAndroid } from 'react-native';
 import Config from 'react-native-config';
 import Geolocation, { GeoPosition, GeoError } from 'react-native-geolocation-service';
@@ -6,13 +6,19 @@ import Geolocation, { GeoPosition, GeoError } from 'react-native-geolocation-ser
 import { logToCrashlytics } from './FirebaseService';
 
 export default class LocationManager {
-  async getCurrentLocation() {
+  watchId: number | null = null;
+
+  async permissionRequest() {
     if (Platform.OS === 'android') {
       const locationPermisstion = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
       if (!locationPermisstion) {
         await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
       }
     }
+  }
+
+  async getCurrentLocation() {
+    this.permissionRequest();
     return new Promise((resolve, reject) => {
       Geolocation.getCurrentPosition(
         async (position: GeoPosition) => {
@@ -36,6 +42,36 @@ export default class LocationManager {
         { timeout: 15000, enableHighAccuracy: false, maximumAge: 1500 },
       );
     });
+  }
+
+  watchPosition(onSuccess: (address: LocationData) => void) {
+    this.permissionRequest();
+    const watchId = Geolocation.watchPosition(
+      async (position: GeoPosition) => {
+        const { latitude, longitude } = position.coords;
+        try {
+          if (latitude && longitude) {
+            const address = await this.getGeocodingResults(latitude, longitude);
+            if (address) {
+              onSuccess(address);
+            }
+          }
+        } catch (error) {
+          logToCrashlytics('internet connection problem');
+          Alert.alert('Could not connect to the internet. Please check your network connection');
+        }
+      },
+      (error: GeoError) => {
+        logToCrashlytics(`GeoError: ${error.message}`);
+        Alert.alert(error.message);
+      },
+      { distanceFilter: 50000, interval: 30 * 60 * 1000, forceRequestLocation: true, useSignificantChanges: true },
+    );
+    this.watchId = watchId;
+  }
+
+  stopWatching() {
+    Geolocation.clearWatch(this.watchId!);
   }
 
   async getGeocodingResults(latitude: number, longitude: number) {
