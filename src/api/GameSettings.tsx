@@ -1,6 +1,5 @@
 import { i18n } from 'locale';
 import { decorate, observable, action, computed } from 'mobx';
-import BackgroundFetch from 'react-native-background-fetch';
 import { NotificationService } from 'services';
 
 export class GameSettings {
@@ -45,11 +44,6 @@ export class GameSettings {
   }
 
   setIsGameActive(value: boolean) {
-    if (value) {
-      BackgroundFetch.start();
-    } else {
-      BackgroundFetch.stop();
-    }
     this._isGameActive = value;
   }
 
