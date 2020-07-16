@@ -84,11 +84,6 @@ export class GameSettings {
   }
 
   setLocationNotification(value: boolean) {
-    if (value) {
-      BackgroundFetch.start();
-    } else {
-      BackgroundFetch.stop();
-    }
     this._isLocationNotificationActive = value;
   }
 
