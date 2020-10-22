@@ -1,4 +1,5 @@
-platform :ios, '9.0'
+platform :ios, '10.0'
+# warn_for_unused_master_specs_repo => false
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
 target 'RoadTripApp' do
@@ -26,7 +27,7 @@ target 'RoadTripApp' do
   pod 'React-jsi', :path => '../node_modules/react-native/ReactCommon/jsi'
   pod 'React-jsiexecutor', :path => '../node_modules/react-native/ReactCommon/jsiexecutor'
   pod 'React-jsinspector', :path => '../node_modules/react-native/ReactCommon/jsinspector'
-  pod 'ReactCommon/callinvoker', :path => "../node_modules/react-native/ReactCommon"
+  pod 'React-callinvoker', :path => "../node_modules/react-native/ReactCommon/callinvoker"
   pod 'ReactCommon/turbomodule/core', :path => "../node_modules/react-native/ReactCommon"
   pod 'Yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
   pod 'RNFBAnalytics', :path => '../node_modules/@react-native-firebase/analytics'
@@ -39,24 +40,6 @@ target 'RoadTripApp' do
 
   pod 'react-native-geolocation', path: '../node_modules/@react-native-community/geolocation'
   pod 'RNCPushNotificationIOS', :path => '../node_modules/@react-native-community/push-notification-ios'
-
-
-
-
-  target 'RoadTripAppTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
   use_native_modules!
 end
 
-target 'RoadTripApp-tvOS' do
-  # Pods for RoadTripApp-tvOS
-
-  target 'RoadTripApp-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-end

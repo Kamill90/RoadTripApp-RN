@@ -1,5 +1,5 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AsyncTrunk } from 'mobx-sync';
-import { AsyncStorage } from 'react-native';
 
 import { GameData } from './GameData';
 import { GameSettings } from './GameSettings';
