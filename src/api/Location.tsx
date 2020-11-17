@@ -2,12 +2,17 @@ import { decorate, observable, computed, action } from 'mobx';
 
 import { LocationData } from './models';
 
+export const initLocation = {
+  countryRegion: '',
+  adminDistrict: '',
+  adminDistrict2: '',
+};
 export class Location {
-  _countryRegion = '';
+  _countryRegion = initLocation.countryRegion;
 
-  _adminDistrict = '';
+  _adminDistrict = initLocation.adminDistrict;
 
-  _adminDistrict2 = '';
+  _adminDistrict2 = initLocation.adminDistrict2;
 
   get countryRegion(): string {
     return this._countryRegion;
@@ -28,9 +33,9 @@ export class Location {
   }
 
   reset() {
-    this._countryRegion = '';
-    this._adminDistrict = '';
-    this._adminDistrict2 = '';
+    this._countryRegion = initLocation.countryRegion;
+    this._adminDistrict = initLocation.adminDistrict;
+    this._adminDistrict2 = initLocation.adminDistrict2;
   }
 }
 

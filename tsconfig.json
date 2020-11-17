@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
+    "target": "ES2019",
+    "module": "commonjs",
     "jsx": "react-native",
     "noEmit": true,
     "allowJs": true,
@@ -12,7 +12,7 @@
     "esModuleInterop": true,
     "isolatedModules": true,
     "lib": [
-      "esnext"
+      "ES2019"
     ],
     "resolveJsonModule": true,
     "noImplicitAny": true,

@@ -17,7 +17,10 @@ i18n
   .use(languageDetector as any)
   .use(initReactI18next)
   .init({
+    lng: 'en',
     fallbackLng: 'en',
+    ns: ['translations'],
+    defaultNS: 'translations',
     resources: {
       en: en.translations,
       pl: pl.translations,

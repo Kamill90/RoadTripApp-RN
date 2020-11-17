@@ -2,15 +2,25 @@ import { i18n } from 'locale';
 import { decorate, observable, action, computed } from 'mobx';
 import { NotificationService } from 'services';
 
+export const initGameSettings = {
+  answeredQuestions: [],
+  isGameActive: false,
+  isLocationChanged: false,
+  score: 0,
+  badges: [],
+  isReminderActive: false,
+  isLocationNotificationActive: true,
+  locationScores: {},
+};
 export class GameSettings {
-  private _answeredQuestions: string[] = [];
-  private _isGameActive = false;
-  private _isLocationChanged = false;
-  private _score = 0;
-  private _badges: string[] = [];
-  private _isReminderActive = false;
-  private _isLocationNotificationActive = true;
-  private _locationScores = {};
+  private _answeredQuestions: string[] = initGameSettings.answeredQuestions;
+  private _isGameActive = initGameSettings.isGameActive;
+  private _isLocationChanged = initGameSettings.isLocationChanged;
+  private _score = initGameSettings.score;
+  private _badges: string[] = initGameSettings.badges;
+  private _isReminderActive = initGameSettings.isReminderActive;
+  private _isLocationNotificationActive = initGameSettings.isLocationNotificationActive;
+  private _locationScores = initGameSettings.locationScores;
 
   get answeredQuestions(): string[] {
     return this._answeredQuestions;
@@ -88,14 +98,14 @@ export class GameSettings {
   }
 
   reset() {
-    this._answeredQuestions = [];
-    this._isGameActive = false;
-    this._isLocationChanged = false;
-    this._score = 0;
-    this._badges = [];
-    this._isReminderActive = true;
-    this._isLocationNotificationActive = true;
-    this._locationScores = {};
+    this._answeredQuestions = initGameSettings.answeredQuestions;
+    this._isGameActive = initGameSettings.isGameActive;
+    this._isLocationChanged = initGameSettings.isLocationChanged;
+    this._score = initGameSettings.score;
+    this._badges = initGameSettings.badges;
+    this._isReminderActive = initGameSettings.isReminderActive;
+    this._isLocationNotificationActive = initGameSettings.isLocationNotificationActive;
+    this._locationScores = initGameSettings.locationScores;
   }
 }
 
