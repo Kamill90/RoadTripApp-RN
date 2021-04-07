@@ -42,7 +42,7 @@ class HomeScreen extends PureComponent<Props, State> {
         status: 'success',
       };
     } catch (error) {
-      Alert.alert('Error', error.message);
+      Alert.alert('Error', error);
       return {
         status: 'failure',
       };
@@ -104,7 +104,7 @@ class HomeScreen extends PureComponent<Props, State> {
         loading: false,
       });
     }
-    // exeptions to handle
+    // exceptions to handle
     const quizSnapshot = await firestore().collection('quizzes').get();
 
     const challengesSnapshot = await firestore().collection('challenges').get();
@@ -183,7 +183,7 @@ class HomeScreen extends PureComponent<Props, State> {
     return data.length ? (
       <FlatList
         data={data}
-        renderItem={(item) => <LocalScoreboard item={{ ...item }} key={item.index} />}
+        renderItem={(item) => <LocalScoreboard item={{ ...item }} key={item.index.toString()} />}
         keyExtractor={(item) => item.id}
       />
     ) : (

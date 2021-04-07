@@ -24,6 +24,7 @@ exports.translations = {
     createQuestionsDescription:
       'Przejdź do formularza dodawania pytań. Stwórz pytanie o Twoim regionie, dodaj ciekawostkę i link do swojej storny internetowej, dzięki czemu zwiększysz swoje zasięgi',
     showOnboarding: 'Show information about the app',
+    facebook: 'Join the community on facebook',
   },
   onboarding: {
     aboutApp: 'O aplikacji',

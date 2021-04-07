@@ -10,15 +10,15 @@ export default class LocationManager {
 
   async permissionRequest() {
     if (Platform.OS === 'android') {
-      const locationPermisstion = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
-      if (!locationPermisstion) {
+      const locationPermission = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
+      if (!locationPermission) {
         await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
       }
     }
   }
 
   async getCurrentLocation() {
-    this.permissionRequest();
+    await this.permissionRequest();
     return new Promise((resolve, reject) => {
       Geolocation.getCurrentPosition(
         async (position: GeoPosition) => {

@@ -45,6 +45,13 @@ class SettingsScreen extends Component<Props> {
     </TouchableOpacity>
   );
 
+  onReminderPress = () => {
+    const {
+      rootStore: { gameSettings },
+    } = this.props;
+    gameSettings.setReminder(!gameSettings.isReminderActive);
+  };
+
   render() {
     const {
       rootStore: { gameSettings },
@@ -57,9 +64,7 @@ class SettingsScreen extends Component<Props> {
               title: i18n.t('settings:reminder'),
               description: i18n.t('settings:reminderDescription'),
               value: gameSettings.isReminderActive,
-              onPress: () => {
-                gameSettings.setReminder(!gameSettings.isReminderActive);
-              },
+              onPress: this.onReminderPress,
             })}
             {this.renderCollapsableRow({
               title: i18n.t('settings:newLocation'),
@@ -86,6 +91,12 @@ class SettingsScreen extends Component<Props> {
               this.props.navigation.navigate('Onboarding');
             },
           })}
+        {this.renderRow({
+          title: i18n.t('settings:facebook'),
+          onPress: () => {
+            Linking.openURL('https://www.facebook.com/RoadFunApp/');
+          },
+        })}
       </Template>
     );
   }
