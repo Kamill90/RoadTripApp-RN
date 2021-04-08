@@ -12,6 +12,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		1B66DCE493644A98A8619334 /* Muli-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2290097721AE49F7A8FADC58 /* Muli-Light.ttf */; };
+		A2AAF672261EDF9200113EF8 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AAF671261EDF9200113EF8 /* Header.swift */; };
 		A2D200AF23B80EEA000C06EC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A2D200AE23B80EEA000C06EC /* GoogleService-Info.plist */; };
 		A548E1B30469788C73EFB469 /* libPods-RoadTripApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EC700767057E88FBD02DF59 /* libPods-RoadTripApp.a */; };
 		B058472E491E48D9B7C37354 /* Pacifico.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D439AFE18F5457DA8814D96 /* Pacifico.ttf */; };
@@ -43,6 +44,8 @@
 		913B8963DDAD58DF98D0716E /* Pods-RoadTripAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RoadTripAppTests.release.xcconfig"; path = "Target Support Files/Pods-RoadTripAppTests/Pods-RoadTripAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		A22E61392398ED380080405D /* RNBackgroundFetch+AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "RNBackgroundFetch+AppDelegate.m"; path = "../node_modules/react-native-background-fetch/ios/RNBackgroundFetch/RNBackgroundFetch+AppDelegate.m"; sourceTree = "<group>"; };
 		A26755C123BE1EAF00B434F5 /* RoadTripApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = RoadTripApp.entitlements; path = RoadTripApp/RoadTripApp.entitlements; sourceTree = "<group>"; };
+		A2AAF670261EDF9100113EF8 /* RoadTripApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RoadTripApp-Bridging-Header.h"; sourceTree = "<group>"; };
+		A2AAF671261EDF9200113EF8 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Header.swift"; sourceTree = "<group>"; };
 		A2D200AE23B80EEA000C06EC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AF0B3AF4CA68B6699B362288 /* Pods-RoadTripApp-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RoadTripApp-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-RoadTripApp-tvOS/Pods-RoadTripApp-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		BBA9D0A43C7CA6DA3A2E04FF /* libPods-RoadTripAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RoadTripAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -137,6 +140,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				A2AAF671261EDF9200113EF8 /* Header.swift */,
 				13B07FAE1A68108700A75B9A /* RoadTripApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* RoadTripAppTests */,
@@ -144,6 +148,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				1FE240C9F1F00C9470AA0A6D /* Pods */,
 				F98546DE5BA24D8592211487 /* Resources */,
+				A2AAF670261EDF9100113EF8 /* RoadTripApp-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -206,6 +211,7 @@
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = W25R7HDRSX;
+						LastSwiftMigration = 1230;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -356,6 +362,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2AAF672261EDF9200113EF8 /* Header.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
@@ -381,6 +388,7 @@
 			baseConfigurationReference = 3FFFDB084C1D4FAA67382652 /* Pods-RoadTripApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = RoadTripApp/RoadTripApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -447,6 +455,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.RN.roadTripApp;
 				PRODUCT_NAME = RoadTripApp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "RoadTripApp-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -456,6 +467,7 @@
 			baseConfigurationReference = 682041E1ECB2F43A918A7F95 /* Pods-RoadTripApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = RoadTripApp/RoadTripApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -521,6 +533,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.RN.roadTripApp;
 				PRODUCT_NAME = RoadTripApp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "RoadTripApp-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

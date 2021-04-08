@@ -14,6 +14,8 @@ export default class LocationManager {
       if (!locationPermission) {
         await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
       }
+    } else {
+      await Geolocation.requestAuthorization('always');
     }
   }
 
