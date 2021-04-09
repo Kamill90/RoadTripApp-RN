@@ -31,7 +31,7 @@ target 'RoadTripApp' do
   pod 'ReactCommon/turbomodule/core', :path => "../node_modules/react-native/ReactCommon"
   pod 'Yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
   pod 'RNFBAnalytics', :path => '../node_modules/@react-native-firebase/analytics'
-  pod 'RNFBCrashlytics', :path => '../node_modules/@react-native-firebase/crashlytics'
+  pod 'RNFBCrashlytics', :path => '../node_modules/@react-native-firebase/crashlytics/FirebaseCrashlytics/run"'
   pod 'GoogleIDFASupport', '~> 3.14.0'
 
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
