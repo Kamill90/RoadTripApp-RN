@@ -13,7 +13,7 @@ import { Button, Template, TipCarousel, Scoreboard, LocalScoreboard, FakeScorebo
 import { i18n } from 'locale';
 import { inject, observer } from 'mobx-react';
 import React, { PureComponent } from 'react';
-import { StyleSheet, View, Alert, AsyncStorage, AppState, FlatList } from 'react-native';
+import { StyleSheet, View, Alert, AppState, FlatList } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
 import { LocationManager, NotificationService, logEvent } from 'services';
 
@@ -86,7 +86,6 @@ class HomeScreen extends PureComponent<Props, State> {
     gameData.reset();
     NotificationService.cancelNotifications();
     LocationManager.stopWatching();
-    await AsyncStorage.clear();
   };
 
   startGame = async () => {
