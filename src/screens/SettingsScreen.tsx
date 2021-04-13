@@ -4,7 +4,7 @@ import { Template, StyledCollapsible, StyledSwitch } from 'components';
 import { i18n } from 'locale';
 import { inject, observer } from 'mobx-react';
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Image, Linking } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Image, Linking, ScrollView } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
 import { typography } from 'styles';
 
@@ -58,45 +58,47 @@ class SettingsScreen extends Component<Props> {
     } = this.props;
     return (
       <Template withPadding>
-        {gameSettings.isGameActive && (
-          <StyledCollapsible title={i18n.t('settings:notifications')}>
-            {this.renderCollapsableRow({
-              title: i18n.t('settings:reminder'),
-              description: i18n.t('settings:reminderDescription'),
-              value: gameSettings.isReminderActive,
-              onPress: this.onReminderPress,
-            })}
-            {this.renderCollapsableRow({
-              title: i18n.t('settings:newLocation'),
-              description: i18n.t('settings:newLocationDescription'),
-              value: gameSettings.isLocationNotificationActive,
+        <ScrollView>
+          {gameSettings.isGameActive && (
+            <StyledCollapsible title={i18n.t('settings:notifications')}>
+              {this.renderCollapsableRow({
+                title: i18n.t('settings:reminder'),
+                description: i18n.t('settings:reminderDescription'),
+                value: gameSettings.isReminderActive,
+                onPress: this.onReminderPress,
+              })}
+              {this.renderCollapsableRow({
+                title: i18n.t('settings:newLocation'),
+                description: i18n.t('settings:newLocationDescription'),
+                value: gameSettings.isLocationNotificationActive,
+                onPress: () => {
+                  gameSettings.setLocationNotification(!gameSettings.isLocationNotificationActive);
+                },
+              })}
+            </StyledCollapsible>
+          )}
+          {this.renderRow({
+            title: i18n.t('settings:createQuestions'),
+            description: i18n.t('settings:createQuestionsDescription'),
+            onPress: () =>
+              Linking.openURL(
+                'https://docs.google.com/forms/d/e/1FAIpQLSdcrMz_cnWtEdo_Mu7HgBd2lJLnLFEPPXYvzQq3Pqz2D7qF1g/viewform',
+              ),
+          })}
+          {gameSettings.isGameActive &&
+            this.renderRow({
+              title: i18n.t('settings:showOnboarding'),
               onPress: () => {
-                gameSettings.setLocationNotification(!gameSettings.isLocationNotificationActive);
+                this.props.navigation.navigate('Onboarding');
               },
             })}
-          </StyledCollapsible>
-        )}
-        {this.renderRow({
-          title: i18n.t('settings:createQuestions'),
-          description: i18n.t('settings:createQuestionsDescription'),
-          onPress: () =>
-            Linking.openURL(
-              'https://docs.google.com/forms/d/e/1FAIpQLSdcrMz_cnWtEdo_Mu7HgBd2lJLnLFEPPXYvzQq3Pqz2D7qF1g/viewform',
-            ),
-        })}
-        {gameSettings.isGameActive &&
-          this.renderRow({
-            title: i18n.t('settings:showOnboarding'),
+          {this.renderRow({
+            title: i18n.t('settings:facebook'),
             onPress: () => {
-              this.props.navigation.navigate('Onboarding');
+              Linking.openURL('https://www.facebook.com/RoadFunApp/');
             },
           })}
-        {this.renderRow({
-          title: i18n.t('settings:facebook'),
-          onPress: () => {
-            Linking.openURL('https://www.facebook.com/RoadFunApp/');
-          },
-        })}
+        </ScrollView>
       </Template>
     );
   }

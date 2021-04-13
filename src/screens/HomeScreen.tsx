@@ -1,14 +1,4 @@
-import firestore from '@react-native-firebase/firestore';
-import {
-  LocationData,
-  LocationStore,
-  GameSettingsStore,
-  GameDataStore,
-  FetchLocation,
-  BADGES,
-  Challenge,
-  QuestionData,
-} from 'api';
+import { LocationData, LocationStore, GameSettingsStore, GameDataStore, FetchLocation, BADGES } from 'api';
 import { Button, Template, TipCarousel, Scoreboard, LocalScoreboard, FakeScoreboards } from 'components';
 import { i18n } from 'locale';
 import { inject, observer } from 'mobx-react';
@@ -103,36 +93,22 @@ class HomeScreen extends PureComponent<Props, State> {
         loading: false,
       });
     }
-    // exceptions to handle
-    const quizSnapshot = await firestore().collection('quizzes').get();
 
-    const challengesSnapshot = await firestore().collection('challenges').get();
+    try {
+      await gameData.updateQuizzes();
+      await gameData.updateChallenges();
 
-    quizSnapshot.docs.map((quiz) => {
-      const quizData = quiz.data();
-      if (quizData) {
-        quizData.id = quiz.id;
-        quizData.answers = [quizData.correct_answer, ...quizData.incorrect_answers].sort(() => Math.random() - 0.5);
-
-        gameData.setQuizzes(quizData as QuestionData);
-      }
-    });
-
-    challengesSnapshot.docs.map((challenge) => {
-      const challengeData = challenge.data() as Challenge;
-      if (challengeData) {
-        gameData.setChallenges(challengeData);
-      }
-    });
-
-    this.setState({
-      loading: false,
-    });
-
-    gameSettings.setIsGameActive(true);
-    navigation.navigate('Quiz', {
-      updateLocation: this.updateLocation,
-    });
+      gameSettings.setIsGameActive(true);
+      navigation.navigate('Quiz', {
+        updateLocation: this.updateLocation,
+      });
+    } catch (error) {
+      Alert.alert(error);
+    } finally {
+      this.setState({
+        loading: false,
+      });
+    }
   };
 
   continueGame = async () => {

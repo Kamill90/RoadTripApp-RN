@@ -10,6 +10,8 @@ export interface GameData {
 
 export type GameDataStore = GameData & {
   setQuizzes: (quiz: QuestionData) => void;
+  updateQuizzes: () => Promise<void>;
+  updateChallenges: () => Promise<void>;
   setChallenges: (challenge: Challenge) => void;
   reset: () => void;
 };

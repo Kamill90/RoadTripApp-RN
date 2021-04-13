@@ -4,6 +4,11 @@ export const QUESTION_TYPE = {
 };
 
 export const BADGES = {
-  SILVER: 'Silver',
-  GOLD: 'Gold',
+  SILVER: 'silver',
+  GOLD: 'gold',
+};
+
+export const API_ENDPOINTS = {
+  quizzes: 'quizzes',
+  challenges: 'challenges',
 };

@@ -229,7 +229,7 @@ class QuizScreen extends React.Component<Props, State> {
     if (item.type === QUESTION_TYPE.RESULT) {
       return (
         <ScrollView
-          key={item.id}
+          key={item.id.toString()}
           showsVerticalScrollIndicator
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={this.refresh} tintColor={palette.mainBlack} />
@@ -242,7 +242,7 @@ class QuizScreen extends React.Component<Props, State> {
     }
     return (
       <QuizCard
-        key={item.id}
+        key={item.id.toString()}
         question={item.question}
         reason={item.reasonValue}
         answers={item.answers}

@@ -75,7 +75,7 @@ android/java_pid42074.hprof
 
 #secrets
 secrets/
-ASSETS/
+/ASSETS
 
 #others
 coverage/

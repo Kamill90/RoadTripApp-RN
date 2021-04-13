@@ -13,13 +13,13 @@ export const Scoreboard = ({ goldBadges, silverBadges, score }: Score) => (
       <View style={styles.badgeContainer}>
         {!!goldBadges &&
           [...Array(goldBadges)].map((item, index) => (
-            <Image source={icons.medalGold} style={styles.minibadges} key={index} resizeMode="contain" />
+            <Image source={icons.medalgold} style={styles.miniBadges} key={index} resizeMode="contain" />
           ))}
       </View>
       <View style={styles.badgeContainer}>
         {!!silverBadges &&
           [...Array(silverBadges)].map((item, index) => (
-            <Image source={icons.medalSilver} style={styles.minibadges} key={index} resizeMode="contain" />
+            <Image source={icons.medalsilver} style={styles.miniBadges} key={index} resizeMode="contain" />
           ))}
       </View>
     </View>
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   },
   title: { ...typography.badgeTitle, margin: 10, alignSelf: 'center' },
   score: { ...typography.bigScore, alignSelf: 'center' },
-  minibadges: { width: 30, height: 30 },
+  miniBadges: { width: 30, height: 30 },
   badgeContainer: {
     alignSelf: 'stretch',
     overflow: 'hidden',

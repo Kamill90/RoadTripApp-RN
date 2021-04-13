@@ -63,8 +63,12 @@ exports.translations = {
     congratulation: 'Gratulacje!',
     SilverDescription:
       'Odpowiedziałeś poprawnie na więcej niż 70% pytań. Zdobywasz dodatkowe punkty i srebrną odznakę.',
-    GoldDescription: 'Odpowiedziałeś poprawnie na wszystkie pytania. Zdobywasz dodatkowe punkty i złotą odznakę.',
+    goldDescription: 'Odpowiedziałeś poprawnie na wszystkie pytania. Zdobywasz dodatkowe punkty i złotą odznakę.',
     points: 'punktów',
+  },
+  errors: {
+    fetchingQuizzes: 'Coś poszło nie tak przy pobieraniu quizzów. Spróbuj ponownie później',
+    fetchingChallenges: 'Coś poszło nie tak przy pobieraniu wyzwań. Spróbuj ponownie później',
   },
   tips: {
     locationBased: {

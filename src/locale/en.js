@@ -16,19 +16,18 @@ exports.translations = {
     title: 'Settings',
     notifications: 'Notifications',
     reminder: 'Reminder',
-    reminderDescription:
-      'Powiadomienie przypominające o włączonej rozgrywce co jakiś czas niezależnie od tego czy się przemieszczasz czy nie.',
+    reminderDescription: 'A scheduled reminder of new location change regardless you move or not',
     newLocation: 'New location notification (recommended)',
-    newLocationDescription: 'Powiadomienie o nowej lokalizacji i nowych quizach.',
+    newLocationDescription: 'Let me know about location change',
     createQuestions: 'Add quiz',
     createQuestionsDescription:
-      'Przejdź do formularza dodawania pytań. Stwórz pytanie o Twoim regionie, dodaj ciekawostkę i link do swojej storny internetowej, dzięki czemu zwiększysz swoje zasięgi',
+      'Go to the form. Add a quiz about the region you know best. Add a tip and link to your site and get more fans',
     showOnboarding: 'Show information about the app',
     facebook: 'Join the community on facebook',
   },
   onboarding: {
-    aboutApp: 'O aplikacji',
-    close: 'zamknij',
+    aboutApp: 'About the app',
+    close: 'close',
   },
   announcement: {
     newQuiz: 'New quizes available!',
@@ -49,32 +48,36 @@ exports.translations = {
   challenge: {
     title: 'Challenge',
     subtitle:
-      'While you are travelling and waiting for quizes from next location, think about the following challenge. Let everyone speak up - get know each other better',
+      'While you are travelling and waiting for quizzes from next location, think about the following challenge. Let everyone speak up - get know each other better',
   },
   badge: {
     close: 'CLOSE',
     congratulation: 'Congratulation!',
     silverDescription: 'You have answered correctly for more then 70% questions. You have earned the silver badge.',
     goldDescription: 'You have answered correctly for all the questions. You have earned the gold badge',
-    pints: 'points',
+    points: 'points',
+  },
+  errors: {
+    fetchingQuizzes: 'Something went wrong while getting quizzes. Please, try again later',
+    fetchingChallenges: 'Something went wrong while getting challenges. Please, try again later',
   },
   tips: {
     locationBased: {
-      title: 'Location based quizes',
+      title: 'Location based quizzes',
       image: 'locationBased',
       description:
-        'Do you travel through the country? World? Start the game and learn about regions you are currently in while solving quizes.',
+        'Do you travel through the country? World? Start the game and learn about regions you are currently in while solving quizzes.',
     },
     badges: {
       title: 'Earn badges',
       image: 'badges',
-      description: 'The more you know, the more bagdes you can earn. Think twice and get the gold collection.',
+      description: 'The more you know, the more badges you can earn. Think twice and get the gold collection.',
     },
     teamSpirit: {
       title: 'Contribute',
       image: 'teamSpirit',
       description:
-        "Be like a local guide. Visit the app's website, add an insipiring question with tip and check what you can get for it.",
+        "Be like a local guide. Visit the app's website, add an inspiring question with tip and check what you can get for it.",
     },
     battery: {
       title: 'Battery saver',

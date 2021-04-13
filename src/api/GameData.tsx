@@ -1,6 +1,8 @@
+import { API_ENDPOINTS, QuestionData } from 'api';
+import { i18n } from 'locale';
 import { decorate, observable, computed, action } from 'mobx';
-
-import { QuestionData } from './models';
+import Config from 'react-native-config';
+import { logToCrashlytics } from 'services';
 
 export const initGameData = {
   quizzes: [],
@@ -22,8 +24,30 @@ export class GameData {
     this._quizzes = this.quizzes.concat(quiz);
   }
 
+  async updateQuizzes() {
+    try {
+      const response = await fetch(`${Config.FIREBASE_API}/${API_ENDPOINTS.quizzes}`);
+      const data = await response.json();
+      this._quizzes = data;
+    } catch (error) {
+      logToCrashlytics(error.message);
+      throw i18n.t('errors:fetchingQuizzes');
+    }
+  }
+
   setChallenges(challenge: any) {
     this._challenges = this.challenges.concat(challenge);
+  }
+
+  async updateChallenges() {
+    try {
+      const response = await fetch(`${Config.FIREBASE_API}/${API_ENDPOINTS.challenges}`);
+      const data = await response.json();
+      this._challenges = data;
+    } catch (error) {
+      logToCrashlytics(error.message);
+      throw i18n.t('errors:fetchingChallenges');
+    }
   }
 
   reset() {

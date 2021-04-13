@@ -1,6 +1,6 @@
 export const icons = {
-  medalGold: require('./icons/medalGold.png'),
-  medalSilver: require('./icons/medalSilver.png'),
+  medalgold: require('./icons/medalGold.png'),
+  medalsilver: require('./icons/medalSilver.png'),
   defaultThumbnail: require('./icons/default_thumbnail.png'),
   externalLink: require('./icons/externalLink.png'),
   settings: require('./icons/settings.png'),
