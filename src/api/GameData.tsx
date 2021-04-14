@@ -26,7 +26,9 @@ export class GameData {
 
   async updateQuizzes() {
     try {
-      const response = await fetch(`${Config.FIREBASE_API}/${API_ENDPOINTS.quizzes}`);
+      const response = await fetch(
+        `${Config.FIREBASE_API}/${API_ENDPOINTS.quizzes}?token=${Config.FIREBASE_API_TOKEN}`,
+      );
       const data = await response.json();
       this._quizzes = data;
     } catch (error) {
@@ -41,7 +43,9 @@ export class GameData {
 
   async updateChallenges() {
     try {
-      const response = await fetch(`${Config.FIREBASE_API}/${API_ENDPOINTS.challenges}`);
+      const response = await fetch(
+        `${Config.FIREBASE_API}/${API_ENDPOINTS.challenges}?token=${Config.FIREBASE_API_TOKEN}`,
+      );
       const data = await response.json();
       this._challenges = data;
     } catch (error) {

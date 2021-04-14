@@ -39,7 +39,7 @@ class QuizScreen extends React.Component<Props, State> {
 
     const { location, gameSettings, gameData } = props.rootStore;
     const baseQuestions = gameData.quizzes.filter(
-      (question: QuestionData | undefined) => question!.approved && question!.language === FORCED_LANGUAGE,
+      (question: QuestionData | undefined) => question!.language === FORCED_LANGUAGE,
     );
 
     const adminDistrictBasedQuestions = baseQuestions.filter(
@@ -229,7 +229,7 @@ class QuizScreen extends React.Component<Props, State> {
     if (item.type === QUESTION_TYPE.RESULT) {
       return (
         <ScrollView
-          key={item.id.toString()}
+          key={`Result-${item.id}`}
           showsVerticalScrollIndicator
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={this.refresh} tintColor={palette.mainBlack} />
