@@ -1,7 +1,13 @@
+import { cleanup } from '@testing-library/react-native';
 import { QuestionData } from 'api';
 
 import { GameData, initGameData } from '../GameData';
 
+jest.mock('react-native-config', () => ({
+  GOOGLE_MAP_KEY: 'abc',
+  FIREBASE_API: 'https://dummy.com',
+  FIREBASE_API_TOKEN: 'def',
+}));
 describe('GameData store', () => {
   const GameDataStore = new GameData();
   test('should create store with default values on init ', () => {

@@ -7,9 +7,7 @@ import { Location } from './Location';
 
 class RootStore {
   gameData: GameData;
-
   location: Location;
-
   gameSettings: GameSettings;
 
   constructor() {
