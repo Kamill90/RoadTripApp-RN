@@ -1,6 +1,9 @@
-import PushNotification from 'react-native-push-notification';
+import PushNotificationIOS from '@react-native-community/push-notification-ios';
+// @ts-ignore
+import PushNotification, { Importance } from 'react-native-push-notification';
 
 export default class NotificationService {
+  channelId: string;
   tmpConfig = {
     /* Android Only Properties */
     autoCancel: true, // (optional) default: true
@@ -26,25 +29,66 @@ export default class NotificationService {
   };
 
   constructor() {
+    this.channelId = 'channel-id';
     this.configure();
   }
 
   configure() {
+    // @ts-ignore
+    PushNotification.createChannel(
+      {
+        channelId: this.channelId, // (required)
+        channelName: 'My channel', // (required)
+        channelDescription: 'A channel to categorise your notifications', // (optional) default: undefined.
+        playSound: false, // (optional) default: true
+        soundName: 'default', // (optional) See `soundName` parameter of `localNotification` function
+        importance: Importance.HIGH, // (optional) default: Importance.HIGH. Int value of the Android notification importance
+        vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
+      },
+      (created: any) => console.log(`createChannel returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
+    );
     PushNotification.configure({
-      // (required) Called when a remote or local notification is opened or received
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      onNotification: () => {},
+      // (optional) Called when Token is generated (iOS and Android)
+      onRegister(token) {
+        console.log('TOKEN:', token);
+      },
+      onRegistrationError(err) {
+        console.error(err.message, err);
+      },
+      // (required) Called when a remote is received or opened, or local notification is opened
+      onNotification(notification) {
+        console.log('NOTIFICATION:', notification);
+
+        // required on iOS only
+        notification.finish(PushNotificationIOS.FetchResult.NoData);
+      },
+
+      // IOS ONLY (optional): default: all - Permissions to register.
       permissions: {
         alert: true,
         badge: false,
         sound: true,
       },
+
+      // Should the initial notification be popped automatically
+      // default: true
+      popInitialNotification: true,
+
+      /**
+       * (optional) default: true
+       * - Specified if permissions (ios) and token (android and ios) will requested or not,
+       * - if not, you must call PushNotificationsHandler.requestPermissions() later
+       * - if you are not using remote notification or do not have Firebase installed, use this:
+       *     requestPermissions: Platform.OS === 'ios'
+       */
+      requestPermissions: true,
     });
   }
 
   localNotification(title: string, message: string) {
     // PushNotification.clearAllNotifications();
     PushNotification.localNotification({
+      channelId: this.channelId,
       ...this.tmpConfig,
       title,
       message,
@@ -59,6 +103,7 @@ export default class NotificationService {
   scheduledNotification(title: string, message: string) {
     PushNotification.localNotificationSchedule({
       ...this.tmpConfig,
+      channelId: this.channelId,
       title,
       message,
       date: new Date(Date.now() + 60 * 60 * 1000),

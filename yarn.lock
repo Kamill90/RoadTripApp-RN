@@ -2074,36 +2074,37 @@
     sudo-prompt "^9.0.0"
     wcwidth "^1.0.1"
 
-"@react-native-community/push-notification-ios@^1.0.1":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@react-native-community/push-notification-ios/-/push-notification-ios-1.0.3.tgz#cd2c7f29aeeb431942eda0bd729738fd2b444ae9"
+"@react-native-community/push-notification-ios@^1.8.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@react-native-community/push-notification-ios/-/push-notification-ios-1.8.0.tgz#7d43cb37b9e644ff3069aafa91befe71688a2dc4"
+  integrity sha512-vxvkeampafjmtDoQBN8Q4azP21l6cMX93+OQZemyIWZmG++OjCVDQVitobf/kWLm5zyGwdylejbpMGo75qo7rA==
   dependencies:
     invariant "^2.2.4"
 
-"@react-native-firebase/analytics@^11.2.0":
-  version "11.2.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/analytics/-/analytics-11.2.0.tgz#f94dd039539a41507e222d5deb4777934c0b0305"
-  integrity sha512-/vCywT0i+E2xPLq5LADcYF07f1yn52zRBIbiR3W54837Izx/7ns3Sg6AXIz1CEUf1nrUmZqTLK6QAGrZZDwPLg==
+"@react-native-firebase/analytics@^11.3.2":
+  version "11.3.2"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/analytics/-/analytics-11.3.2.tgz#61dd498af7916f7134d3d680194111bd5520297d"
+  integrity sha512-bK1zveTRigqtkOVm/8HCNyZ+qYTlNfQaShXbubHk8MSSXzNGu9xZ+zyld+bBWDyJxAx6FNBzkrUkC3wUx0VJqw==
 
-"@react-native-firebase/app@^11.2.0":
-  version "11.2.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-11.2.0.tgz#5716bb264cf0a500fb40181bd338eb3067d36c94"
-  integrity sha512-TLrttjy6h5rhmRqnKFe67GNbYeB1VZphH5Gm+pYJzfIbMsh/m6q2Au1D4jmLnfjpqXAaTtAhetnODyT1TH/LzQ==
+"@react-native-firebase/app@^11.3.2":
+  version "11.3.2"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-11.3.2.tgz#43971445306cde2d09ce3022e0efae5549b47095"
+  integrity sha512-6W+Wrnj9X3zCicwWs/fMRMPhdSCNDASeypltmqAGr0jupdB5eV3dd0BoQa10xT6yw8U5QBvZSS0jXHrPWcIIdA==
   dependencies:
     opencollective-postinstall "^2.0.1"
     superstruct "^0.6.2"
 
-"@react-native-firebase/crashlytics@^11.2.0":
-  version "11.2.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/crashlytics/-/crashlytics-11.2.0.tgz#88292ecb7c22082d2d368518757126ee3936e01c"
-  integrity sha512-f1IfteucQbstXQ/TsVwDvlD8r2Gep98vNLopuiBEVZYgF0edTgQ5fV8rOG3alRtJWkslfOh5XzWfyAOVS7C0IA==
+"@react-native-firebase/crashlytics@^11.3.2":
+  version "11.3.2"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/crashlytics/-/crashlytics-11.3.2.tgz#76b21311b7fb7ee2573cf8207cab521e65c2884d"
+  integrity sha512-UNwryX+IbQOlVLEAMEccxFlbI75beCxt9Xd0lj7hCWKC0ugw0uyH9XLLBKuSR5oUzOghoOCJc3L3cbmbxxFzaQ==
   dependencies:
     stacktrace-js "^2.0.0"
 
-"@react-native-firebase/firestore@^11.2.0":
-  version "11.2.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/firestore/-/firestore-11.2.0.tgz#ebfe5b3824b216038656761518604ac66ee77ed4"
-  integrity sha512-UdSp/qn/jqe9a48ThscdgOg6rGFQLvoSqr+NKZz/TDImkCz0udobyYEMhLePyyzjsOcEtkmFkxw9640EKdzmwg==
+"@react-native-firebase/firestore@^11.3.2":
+  version "11.3.2"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/firestore/-/firestore-11.3.2.tgz#35ab35b9606bd39d53f3494e60685b4166b13295"
+  integrity sha512-ThwjyQOWrrER2QNQ8hb0GvayQXDffBwsv7oMcjeA4dI1QbwmsH9x9Tg5aXQL4olMIP+il2BjHyPZSFBK5/F4Hw==
 
 "@react-navigation/core@^3.7.9":
   version "3.7.9"
@@ -7358,11 +7359,10 @@ react-native-localize@^2.0.2:
   resolved "https://registry.yarnpkg.com/react-native-localize/-/react-native-localize-2.0.2.tgz#b0df6a88cf9947489deaa828c4c29246681fde16"
   integrity sha512-4Ii7lqiD9iL0LxTWifAiEsDcDPpvos/29fEVkHxgEDD7J5f+NROMkFSFomKgz1Cab1TmN5mau3o8yFmYrPFcnw==
 
-react-native-push-notification@^3.1.9:
-  version "3.1.9"
-  resolved "https://registry.yarnpkg.com/react-native-push-notification/-/react-native-push-notification-3.1.9.tgz#760ee06e743fef74fc9fcb672dac40794fdc4c47"
-  dependencies:
-    "@react-native-community/push-notification-ios" "^1.0.1"
+react-native-push-notification@^7.3.1:
+  version "7.3.1"
+  resolved "https://registry.yarnpkg.com/react-native-push-notification/-/react-native-push-notification-7.3.1.tgz#1495feacd25169b998446dcf7b448a197ae5dca0"
+  integrity sha512-5kSKPvDU23uZRmzgKTsGhbwGNvB2tidu1VnInBHP53ZD0VEPSBl5fbpuTfHH98ED+Gp1SCcT2/e6bJWkIspKvg==
 
 react-native-reanimated@^1.4.0:
   version "1.4.0"

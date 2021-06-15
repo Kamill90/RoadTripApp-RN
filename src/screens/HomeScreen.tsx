@@ -186,6 +186,15 @@ class HomeScreen extends PureComponent<Props, State> {
               <TipCarousel />
             )}
           </View>
+          {/* test */}
+          <Button
+            title={'notify'}
+            onPress={() => {
+              console.log('test');
+              NotificationService.localNotification('test', 'test2');
+            }}
+            type="textButton"
+          />
           <View style={styles.buttonsContainer}>{this.renderBottomButtons()}</View>
         </View>
       </Template>
