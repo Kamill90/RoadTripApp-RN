@@ -1,5 +1,4 @@
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
-// @ts-ignore
 import PushNotification, { Importance } from 'react-native-push-notification';
 
 export default class NotificationService {
@@ -29,12 +28,12 @@ export default class NotificationService {
   };
 
   constructor() {
+    console.log('notification constructor');
     this.channelId = 'channel-id';
     this.configure();
   }
 
   configure() {
-    // @ts-ignore
     PushNotification.createChannel(
       {
         channelId: this.channelId, // (required)
@@ -45,20 +44,11 @@ export default class NotificationService {
         importance: Importance.HIGH, // (optional) default: Importance.HIGH. Int value of the Android notification importance
         vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
       },
-      (created: any) => console.log(`createChannel returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
+      (created: boolean) => created, // (optional) callback returns whether the channel was created, false means it already existed.
     );
     PushNotification.configure({
-      // (optional) Called when Token is generated (iOS and Android)
-      onRegister(token) {
-        console.log('TOKEN:', token);
-      },
-      onRegistrationError(err) {
-        console.error(err.message, err);
-      },
       // (required) Called when a remote is received or opened, or local notification is opened
       onNotification(notification) {
-        console.log('NOTIFICATION:', notification);
-
         // required on iOS only
         notification.finish(PushNotificationIOS.FetchResult.NoData);
       },
@@ -107,7 +97,7 @@ export default class NotificationService {
       title,
       message,
       date: new Date(Date.now() + 60 * 60 * 1000),
-      repeatType: 'hour', // every 2 hours only in daytime
+      repeatType: 'hour', // every 2 hours only in daytime would be great
     });
   }
 }

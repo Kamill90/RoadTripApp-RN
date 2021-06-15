@@ -2299,9 +2299,10 @@
   dependencies:
     react-i18next "*"
 
-"@types/react-native-push-notification@^3.0.6":
-  version "3.0.6"
-  resolved "https://registry.yarnpkg.com/@types/react-native-push-notification/-/react-native-push-notification-3.0.6.tgz#07fe6b0b45dc1128949d2925d8e9ae4ed35c4790"
+"@types/react-native-push-notification@^7.3.0":
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/@types/react-native-push-notification/-/react-native-push-notification-7.3.0.tgz#5c998134347c1e8a2ddb28524349acf12cfbb243"
+  integrity sha512-11p6U/6atLJQcuBiwO+QR5NzAWyxowj9yiQ5hcRwfH9lwD06jKyG2nr/b4MUT7HALMF3JUZUn/qZ1gR6DgfnFQ==
 
 "@types/react-native-snap-carousel@^3.7.4":
   version "3.7.4"
