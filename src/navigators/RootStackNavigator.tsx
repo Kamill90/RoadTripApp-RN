@@ -1,6 +1,6 @@
 import { Easing, Animated } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
-import { TipCard, BadgeCard } from 'screens';
+import { TipCard, BadgeCard, Modal } from 'screens';
 
 import { MainNavigator } from './MainNavigator';
 import { OnboardingNavigator } from './OnboardingNavigator';
@@ -13,6 +13,7 @@ export const RootStackNavigator = createStackNavigator(
     BadgeCard,
     // @ts-ignore
     TipCard,
+    Modal,
   },
   {
     headerMode: 'none',

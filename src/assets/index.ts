@@ -5,6 +5,7 @@ export const icons = {
   externalLink: require('./icons/externalLink.png'),
   settings: require('./icons/settings.png'),
   chevronDown: require('./icons/chevronDown.png'),
+  account: require('./icons/account.png'),
 };
 
 export const images = {

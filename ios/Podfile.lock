@@ -241,9 +241,6 @@ PODS:
   - Firebase/Firestore (7.10.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 7.10.0)
-  - Firebase/Messaging (7.10.0):
-    - Firebase/CoreOnly
-    - FirebaseMessaging (~> 7.10.0)
   - FirebaseAnalytics (7.10.0):
     - FirebaseCore (~> 7.0)
     - FirebaseInstallations (~> 7.0)
@@ -285,18 +282,6 @@ PODS:
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/UserDefaults (~> 7.0)
     - PromisesObjC (~> 1.2)
-  - FirebaseInstanceID (7.10.0):
-    - FirebaseCore (~> 7.0)
-    - FirebaseInstallations (~> 7.0)
-    - GoogleUtilities/Environment (~> 7.0)
-    - GoogleUtilities/UserDefaults (~> 7.0)
-  - FirebaseMessaging (7.10.0):
-    - FirebaseCore (~> 7.0)
-    - FirebaseInstanceID (~> 7.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
-    - GoogleUtilities/Environment (~> 7.0)
-    - GoogleUtilities/Reachability (~> 7.0)
-    - GoogleUtilities/UserDefaults (~> 7.0)
   - Folly (2020.01.13.00):
     - boost-for-react-native
     - DoubleConversion
@@ -538,6 +523,8 @@ PODS:
     - React
   - react-native-geolocation-service (5.2.0):
     - React
+  - react-native-safe-area-context (3.2.0):
+    - React-Core
   - React-RCTActionSheet (0.63.3):
     - React-Core/RCTActionSheetHeaders (= 0.63.3)
   - React-RCTAnimation (0.63.3):
@@ -652,6 +639,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-config (from `../node_modules/react-native-config`)
   - react-native-geolocation-service (from `../node_modules/react-native-geolocation-service`)
+  - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
   - React-RCTBlob (from `../node_modules/react-native/Libraries/Blob`)
@@ -668,7 +656,6 @@ DEPENDENCIES:
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBCrashlytics (from `../node_modules/@react-native-firebase/crashlytics`)"
   - "RNFBFirestore (from `../node_modules/@react-native-firebase/firestore`)"
-  - "RNFBMessaging (from `../node_modules/@react-native-firebase/messaging`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNLocalize (from `../node_modules/react-native-localize`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
@@ -687,8 +674,6 @@ SPEC REPOS:
     - FirebaseCrashlytics
     - FirebaseFirestore
     - FirebaseInstallations
-    - FirebaseInstanceID
-    - FirebaseMessaging
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleIDFASupport
@@ -734,6 +719,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-config"
   react-native-geolocation-service:
     :path: "../node_modules/react-native-geolocation-service"
+  react-native-safe-area-context:
+    :path: "../node_modules/react-native-safe-area-context"
   React-RCTActionSheet:
     :path: "../node_modules/react-native/Libraries/ActionSheetIOS"
   React-RCTAnimation:
@@ -766,8 +753,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/crashlytics"
   RNFBFirestore:
     :path: "../node_modules/@react-native-firebase/firestore"
-  RNFBMessaging:
-    :path: "../node_modules/@react-native-firebase/messaging"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNLocalize:
@@ -793,8 +778,6 @@ SPEC CHECKSUMS:
   FirebaseCrashlytics: e7669d368a22d202f1d0c7546ffdfdff496e1a8c
   FirebaseFirestore: 0ce9dafe53565dbbd678986d6f0c05086334183b
   FirebaseInstallations: bf2ec8dbf36ff4c91af6b9a003d15855757680c1
-  FirebaseInstanceID: 5ad92c898e1328b66e8dd58811964d6fe4d334c3
-  FirebaseMessaging: 76b3058cef7f339cf10db196e03bbbb2165fb5d7
   Folly: b73c3869541e86821df3c387eb0af5f65addfab4
   glog: 40a13f7840415b9a77023fbcae0f1e6f43192af3
   GoogleAppMeasurement: 1c863b1161fc3c8cf614a7460d1be6a7c262aab3
@@ -818,6 +801,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 8e68ffbfe23880d3ee9bafa8be2777f60b25cbe2
   react-native-config: f2c2ae45625a068c35681a16b9bfb1ca58b0adc7
   react-native-geolocation-service: 7c9436da6dfdecd9526c62eac62ea2bc3f0cc8ea
+  react-native-safe-area-context: f0906bf8bc9835ac9a9d3f97e8bde2a997d8da79
   React-RCTActionSheet: 53ea72699698b0b47a6421cb1c8b4ab215a774aa
   React-RCTAnimation: 1befece0b5183c22ae01b966f5583f42e69a83c2
   React-RCTBlob: 0b284339cbe4b15705a05e2313a51c6d8b51fa40

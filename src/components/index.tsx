@@ -12,3 +12,4 @@ export { StyledSwitch } from './StyledSwitch';
 export { customHeader } from './CustomHeader';
 export { LocalScoreboard } from './LocalScoreboard';
 export { FakeScoreboards } from './FakeScoreboards';
+export { Input } from './Input';

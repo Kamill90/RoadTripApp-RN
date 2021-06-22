@@ -22,7 +22,7 @@ export const OnboardingNavigator = createStackNavigator(
         },
         headerLeft: () => (
           <TouchableOpacity
-            style={styles.iconCointainer}
+            style={styles.iconContainer}
             onPress={() => {
               navigation.dismiss();
             }}
@@ -37,6 +37,6 @@ export const OnboardingNavigator = createStackNavigator(
 );
 
 const styles = StyleSheet.create({
-  iconCointainer: { padding: 20, justifyContent: 'center' },
+  iconContainer: { padding: 20, justifyContent: 'center' },
   closeButton: { ...typography.tipDescription, textTransform: 'uppercase' },
 });

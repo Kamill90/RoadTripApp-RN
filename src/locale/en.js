@@ -29,6 +29,10 @@ exports.translations = {
     aboutApp: 'About the app',
     close: 'close',
   },
+  account: {
+    signInTitle: 'Sign in',
+    signUpTitle: 'Sign up',
+  },
   announcement: {
     newQuiz: 'New quizes available!',
   },
