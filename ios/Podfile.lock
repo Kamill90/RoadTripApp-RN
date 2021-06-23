@@ -230,6 +230,9 @@ PODS:
     - ReactCommon/turbomodule/core (= 0.63.3)
   - Firebase/Analytics (7.10.0):
     - Firebase/Core
+  - Firebase/Auth (7.10.0):
+    - Firebase/CoreOnly
+    - FirebaseAuth (~> 7.10.0)
   - Firebase/Core (7.10.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (~> 7.10.0)
@@ -250,6 +253,11 @@ PODS:
     - GoogleUtilities/Network (~> 7.0)
     - "GoogleUtilities/NSData+zlib (~> 7.0)"
     - nanopb (~> 2.30908.0)
+  - FirebaseAuth (7.10.0):
+    - FirebaseCore (~> 7.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
+    - GoogleUtilities/Environment (~> 7.0)
+    - GTMSessionFetcher/Core (~> 1.4)
   - FirebaseCore (7.10.0):
     - FirebaseCoreDiagnostics (~> 7.4)
     - GoogleUtilities/Environment (~> 7.0)
@@ -346,6 +354,7 @@ PODS:
     - BoringSSL-GRPC (= 0.0.7)
     - gRPC-Core/Interface (= 1.28.2)
   - gRPC-Core/Interface (1.28.2)
+  - GTMSessionFetcher/Core (1.5.0)
   - leveldb-library (1.22.1)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
@@ -596,6 +605,10 @@ PODS:
   - RNFBApp (11.3.2):
     - Firebase/CoreOnly (= 7.10.0)
     - React-Core
+  - RNFBAuth (12.1.0):
+    - Firebase/Auth (= 7.10.0)
+    - React-Core
+    - RNFBApp
   - RNFBCrashlytics (11.3.2):
     - Firebase/Crashlytics (= 7.10.0)
     - React-Core
@@ -654,6 +667,7 @@ DEPENDENCIES:
   - "RNCPushNotificationIOS (from `../node_modules/@react-native-community/push-notification-ios`)"
   - "RNFBAnalytics (from `../node_modules/@react-native-firebase/analytics`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
+  - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
   - "RNFBCrashlytics (from `../node_modules/@react-native-firebase/crashlytics`)"
   - "RNFBFirestore (from `../node_modules/@react-native-firebase/firestore`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
@@ -669,6 +683,7 @@ SPEC REPOS:
     - BoringSSL-GRPC
     - Firebase
     - FirebaseAnalytics
+    - FirebaseAuth
     - FirebaseCore
     - FirebaseCoreDiagnostics
     - FirebaseCrashlytics
@@ -680,6 +695,7 @@ SPEC REPOS:
     - GoogleUtilities
     - "gRPC-C++"
     - gRPC-Core
+    - GTMSessionFetcher
     - leveldb-library
     - nanopb
     - PromisesObjC
@@ -749,6 +765,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/analytics"
   RNFBApp:
     :path: "../node_modules/@react-native-firebase/app"
+  RNFBAuth:
+    :path: "../node_modules/@react-native-firebase/auth"
   RNFBCrashlytics:
     :path: "../node_modules/@react-native-firebase/crashlytics"
   RNFBFirestore:
@@ -773,6 +791,7 @@ SPEC CHECKSUMS:
   FBReactNativeSpec: 7da9338acfb98d4ef9e5536805a0704572d33c2f
   Firebase: fffddd0bab8677d07376538365faa93ff3889b39
   FirebaseAnalytics: 4641d7ae4220174f6ca5626163ffc5de2e90391e
+  FirebaseAuth: 675f2c4eb4426e7c58a78a89965a6530e7863535
   FirebaseCore: ec566d917b2195fc2610aeb148dae99f57a788f9
   FirebaseCoreDiagnostics: 5662a3823ffcc0acbaa9a21ba5ed302fac634705
   FirebaseCrashlytics: e7669d368a22d202f1d0c7546ffdfdff496e1a8c
@@ -786,6 +805,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: e1d9ed4e544fc32a93e00e721400cbc3f377200d
   "gRPC-C++": 13d8ccef97d5c3c441b7e3c529ef28ebee86fad2
   gRPC-Core: 4afa11bfbedf7cdecd04de535a9e046893404ed5
+  GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
@@ -816,6 +836,7 @@ SPEC CHECKSUMS:
   RNCPushNotificationIOS: 61a7c72bd1ebad3568025957d001e0f0e7b32191
   RNFBAnalytics: 190aac2a60181625826f9a132e30a7d297755afa
   RNFBApp: f3f728097b3f8f51a4afcec01424534a3a6106af
+  RNFBAuth: a048d517550841878156cb0291461d5f61e69e60
   RNFBCrashlytics: 2d5209bd281fd327a6b16d677d76567895d86599
   RNFBFirestore: 580c120d8e4c0ba3bac244d8a7977ea9664e0118
   RNFBMessaging: 129b6a2757d01ddb3c0bd7d8145e35bbc4e2b4ce
