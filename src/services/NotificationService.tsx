@@ -50,9 +50,12 @@ export default class NotificationService {
       // (required) Called when a remote is received or opened, or local notification is opened
       onNotification(notification) {
         // required on iOS only
+        console.log('onNotification', notification);
         notification.finish(PushNotificationIOS.FetchResult.NoData);
       },
-
+      onRegister(token) {
+        console.log('TOKEN:', token);
+      },
       // IOS ONLY (optional): default: all - Permissions to register.
       permissions: {
         alert: true,
@@ -96,8 +99,9 @@ export default class NotificationService {
       channelId: this.channelId,
       title,
       message,
-      date: new Date(Date.now() + 60 * 60 * 1000),
-      repeatType: 'hour', // every 2 hours only in daytime would be great
+      date: new Date(Date.now() + 5 * 1000),
+      // date: new Date(Date.now() + 60 * 60 * 1000),
+      // repeatType: 'hour', // every 2 hours only in daytime would be great
     });
   }
 }

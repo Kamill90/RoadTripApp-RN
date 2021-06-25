@@ -241,9 +241,6 @@ PODS:
   - Firebase/Firestore (7.10.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 7.10.0)
-  - Firebase/Messaging (7.10.0):
-    - Firebase/CoreOnly
-    - FirebaseMessaging (~> 7.10.0)
   - FirebaseAnalytics (7.10.0):
     - FirebaseCore (~> 7.0)
     - FirebaseInstallations (~> 7.0)
@@ -285,18 +282,6 @@ PODS:
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/UserDefaults (~> 7.0)
     - PromisesObjC (~> 1.2)
-  - FirebaseInstanceID (7.10.0):
-    - FirebaseCore (~> 7.0)
-    - FirebaseInstallations (~> 7.0)
-    - GoogleUtilities/Environment (~> 7.0)
-    - GoogleUtilities/UserDefaults (~> 7.0)
-  - FirebaseMessaging (7.10.0):
-    - FirebaseCore (~> 7.0)
-    - FirebaseInstanceID (~> 7.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
-    - GoogleUtilities/Environment (~> 7.0)
-    - GoogleUtilities/Reachability (~> 7.0)
-    - GoogleUtilities/UserDefaults (~> 7.0)
   - Folly (2020.01.13.00):
     - boost-for-react-native
     - DoubleConversion
@@ -617,10 +602,6 @@ PODS:
     - Firebase/Firestore (= 7.10.0)
     - React-Core
     - RNFBApp
-  - RNFBMessaging (11.3.2):
-    - Firebase/Messaging (= 7.10.0)
-    - React-Core
-    - RNFBApp
   - RNGestureHandler (1.5.0):
     - React
   - RNLocalize (2.0.2):
@@ -668,7 +649,6 @@ DEPENDENCIES:
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBCrashlytics (from `../node_modules/@react-native-firebase/crashlytics`)"
   - "RNFBFirestore (from `../node_modules/@react-native-firebase/firestore`)"
-  - "RNFBMessaging (from `../node_modules/@react-native-firebase/messaging`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNLocalize (from `../node_modules/react-native-localize`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
@@ -687,8 +667,6 @@ SPEC REPOS:
     - FirebaseCrashlytics
     - FirebaseFirestore
     - FirebaseInstallations
-    - FirebaseInstanceID
-    - FirebaseMessaging
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleIDFASupport
@@ -766,8 +744,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/crashlytics"
   RNFBFirestore:
     :path: "../node_modules/@react-native-firebase/firestore"
-  RNFBMessaging:
-    :path: "../node_modules/@react-native-firebase/messaging"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNLocalize:
@@ -793,8 +769,6 @@ SPEC CHECKSUMS:
   FirebaseCrashlytics: e7669d368a22d202f1d0c7546ffdfdff496e1a8c
   FirebaseFirestore: 0ce9dafe53565dbbd678986d6f0c05086334183b
   FirebaseInstallations: bf2ec8dbf36ff4c91af6b9a003d15855757680c1
-  FirebaseInstanceID: 5ad92c898e1328b66e8dd58811964d6fe4d334c3
-  FirebaseMessaging: 76b3058cef7f339cf10db196e03bbbb2165fb5d7
   Folly: b73c3869541e86821df3c387eb0af5f65addfab4
   glog: 40a13f7840415b9a77023fbcae0f1e6f43192af3
   GoogleAppMeasurement: 1c863b1161fc3c8cf614a7460d1be6a7c262aab3
@@ -834,7 +808,6 @@ SPEC CHECKSUMS:
   RNFBApp: f3f728097b3f8f51a4afcec01424534a3a6106af
   RNFBCrashlytics: 2d5209bd281fd327a6b16d677d76567895d86599
   RNFBFirestore: 580c120d8e4c0ba3bac244d8a7977ea9664e0118
-  RNFBMessaging: 3a5255d2be323a135f215669fe48d615f5721177
   RNGestureHandler: a4ddde1ffc6e590c8127b8b7eabfdade45475c74
   RNLocalize: 43f6c30d8e19ad92282ae434d310fb463b31f419
   RNReanimated: b2ab0b693dddd2339bd2f300e770f6302d2e960c
