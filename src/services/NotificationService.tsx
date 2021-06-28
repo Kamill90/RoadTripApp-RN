@@ -28,7 +28,6 @@ export default class NotificationService {
   };
 
   constructor() {
-    console.log('notification constructor');
     this.channelId = 'channel-id';
     this.configure();
   }
@@ -99,9 +98,8 @@ export default class NotificationService {
       channelId: this.channelId,
       title,
       message,
-      date: new Date(Date.now() + 5 * 1000),
-      // date: new Date(Date.now() + 60 * 60 * 1000),
-      // repeatType: 'hour', // every 2 hours only in daytime would be great
+      date: new Date(Date.now() + 60 * 60 * 1000),
+      repeatType: 'hour', // every 2 hours only in daytime would be great
     });
   }
 }
