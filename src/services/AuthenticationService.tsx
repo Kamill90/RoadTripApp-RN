@@ -10,10 +10,16 @@ export default class Authentication {
       installApp: true,
     },
     handleCodeInApp: true,
-    url: 'http://onelink.to/a4r4s2',
+    url: 'https://roadfun.page.link/loginPage',
+    dynamicLinkDomain: 'roadfun.page.link',
   };
   sendVerificationCode(email: string) {
-    auth().sendSignInLinkToEmail(email, this.actionCodeSettings);
+    console.log('test', email, auth());
+    try {
+      auth().sendSignInLinkToEmail(email, this.actionCodeSettings);
+    } catch (error) {
+      console.log('auth erorororor', error);
+    }
   }
   signOut() {
     auth().signOut();

@@ -44,7 +44,7 @@ export class SignInScreen extends Component<NavigationInjectedProps, State> {
   onEmailInputChange = (email: string) => this.setState({ email });
 
   onSendCodePress = () => {
-    AuthenticationService.sendVerificationCode('kamil2912@gmail.com');
+    AuthenticationService.sendVerificationCode(this.state.email);
     this.props.navigation.navigate('Verify');
   };
 
