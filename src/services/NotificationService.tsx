@@ -1,4 +1,6 @@
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
+import crashlytics from '@react-native-firebase/crashlytics';
+import messaging from '@react-native-firebase/messaging';
 import PushNotification, { Importance } from 'react-native-push-notification';
 
 export default class NotificationService {
@@ -30,6 +32,27 @@ export default class NotificationService {
   constructor() {
     this.channelId = 'channel-id';
     this.configure();
+    this.requestUserPermission();
+  }
+
+  async requestUserPermission() {
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+    if (enabled) {
+      this.getFcmToken();
+    }
+  }
+
+  async getFcmToken() {
+    const fcmToken = await messaging().getToken();
+    if (fcmToken) {
+      // console.log('Your Firebase Token is:', fcmToken);
+    } else {
+      crashlytics().recordError(new Error('No token received'));
+    }
   }
 
   configure() {
@@ -49,7 +72,6 @@ export default class NotificationService {
       // (required) Called when a remote is received or opened, or local notification is opened
       onNotification(notification) {
         // required on iOS only
-        console.log('onNotification', notification);
         notification.finish(PushNotificationIOS.FetchResult.NoData);
       },
       onRegister(token) {
